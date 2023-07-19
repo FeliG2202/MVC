@@ -10,7 +10,12 @@ class TemplateControlador {
 	////CARGAR LAS PAGINAS AL TEMPLATE////
 	public function cargarPaginaAlTemplate(): string {
 		$templateModelo = new TemplateModelo();
-		return $templateModelo->validarEnlacesModelo(isset($_GET['action']) ? $_GET['action'] : 'inicio');
+	
+		// Check if $_GET['action'] is set, otherwise default to 'inicio'
+		$action = isset($_GET['action']) ? $_GET['action'] : 'inicio';
+	
+		// Call the validarEnlacesModelo() method of TemplateModelo and return the generated link
+		return $templateModelo->validarEnlacesModelo($action);
 	}
 
 }
