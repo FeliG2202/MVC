@@ -1,84 +1,86 @@
-<?php 
+<?php
+require_once("Conexion.php");
 
-class RolMenuModelo extends Conexion {
-	
-	function __construct() {
+class RolMenuModelo extends Conexion
+{
+
+	private $tabla;
+
+	function __construct()
+	{
 		$this->tabla = 'rolesmenu';
 	}
 
 
-	public function registrarRolMenuModelo($idMenu,$idRol){
+	public function registrarRolMenuModelo($idMenu, $idRol)
+	{
 		$values = '';
 		$cont = 1;
 		$sql = "INSERT INTO `rolesmenu`(idMenu, idRol) VALUES ";
-		for ($i = 0; $i < count($idMenu); $i++) { 
-			$values .= "(?,?),"; 
+		for ($i = 0; $i < count($idMenu); $i++) {
+			$values .= "(?,?),";
 		}
 		$values = substr($values, 0, -1);
 		$sql .= $values;
 		try {
 			$stmt = $this->conectar()->prepare($sql);
-			for ($i=0; $i < count($idMenu); $i++) { 
+			for ($i = 0; $i < count($idMenu); $i++) {
 				$stmt->bindParam($cont, $idMenu[$i], PDO::PARAM_INT);
 				$cont++;
 				$stmt->bindParam($cont, $idRol, PDO::PARAM_INT);
 				$cont++;
 			}
-			if($stmt->execute()){
+			if ($stmt->execute()) {
 				return true;
-			}
-			else{
+			} else {
 				return false;
 			}
-			$stmt->close();
 		} catch (PDOException $e) {
 			print_r($e->getMessage());
 		}
 	}
 
 
-	public function consultarRolMenuModelo(){
+	public function consultarRolMenuModelo()
+	{
 		$sql = "SELECT * FROM $this->tabla ";
 		try {
 			$stmt = $this->conectar()->prepare($sql);
 			if ($stmt->execute()) {
 				return $stmt->fetchAll();
-			}
-			else{
+			} else {
 				return [];
 			}
-			$stmt->close();
 		} catch (PDOException $e) {
 			print_r($e->getMessage());
 		}
 	}
 
-	public function consultarRolMenuIdModelo($idRol){
+	public function consultarRolMenuIdModelo($idRol)
+	{
 		$sql = "SELECT *  FROM $this->tabla WHERE idRol = ?";
 		try {
 			$stmt = $this->conectar()->prepare($sql);
 			$stmt->bindParam(1, $idRol, PDO::PARAM_INT);
 			if ($stmt->execute()) {
 				return $stmt->fetchAll();
-			}
-			else{
+			} else {
 				return [];
 			}
-			$stmt->close();
 		} catch (PDOException $e) {
-			print_r($e->getMessage());	
+			print_r($e->getMessage());
 		}
 	}
 
 
-	public function cambiarEstadoRolMenuIdRolModelo($estado, $idRol){
+	public function cambiarEstadoRolMenuIdRolModelo($estado, $idRol)
+	{
 		$sql = "UPDATE $this->tabla SET rolMenuEstado=? WHERE idRol=?";
 		try {
 			$stmt = $this->conectar()->prepare($sql);
 			$stmt->bindParam(1, $estado, PDO::PARAM_STR);
 			$stmt->bindParam(2, $idRol, PDO::PARAM_INT);
 			$stmt->execute();
-			//$stmt->close();
 		} catch (PDOException $e) {
 			print_r($e->getMessage());
 		}

@@ -1,7 +1,10 @@
 <?php 
+require_once("Conexion.php");
 
 class RolUsuarioModelo extends Conexion {
-	private $vista = "view_usuariosroles"; 
+	
+	private $vista; 
+	private $tabla;
 
 	function __construct(){
 		$this->tabla = 'usuariosroles';
@@ -34,7 +37,6 @@ class RolUsuarioModelo extends Conexion {
 			else{
 				return false;
 			}
-			$stmt->close();
 
 		} catch (PDOException $e) {
 			print_r($e->getMessage());
@@ -52,7 +54,6 @@ class RolUsuarioModelo extends Conexion {
 			else{
 				return [];
 			}
-			$stmt->close();
 		} catch (PDOException $e) {
 			print($e->getMessage());
 		}
@@ -72,7 +73,6 @@ class RolUsuarioModelo extends Conexion {
 			else{
 				return [];
 			}
-			$stmt->close();
 
 		} catch (PDOException $e) {
 			print_r($e->getMessage());
@@ -91,7 +91,6 @@ class RolUsuarioModelo extends Conexion {
 			else{
 				return [];
 			}
-			$stmt->close();
 		} catch (PDOException $e) {
 			print_r($e->getMessage());
 		}
@@ -121,7 +120,6 @@ class RolUsuarioModelo extends Conexion {
 			else{
 				return false;
 			}
-			$stmt->close();
 		} catch (PDOException $e) {
 			print_r($e->getMessage());
 		}

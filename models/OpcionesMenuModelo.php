@@ -1,22 +1,25 @@
 <?php 
+require_once("Conexion.php");
 
 class OpcionesMenuModelo extends Conexion {
 	
+	private $tabla;
+
 	function __construct() {
 		$this->tabla = 'opcionesmenu';
 	}
 
-	public function registrarOpcionMenuModelo($datoOpcionMenu){
-		$sql = "INSERT INTO $this->tabla (opcionMenuNombre, opcionMenuEnlace, idMenu) VALUES (?,?,?)";
+	public function registrarOpcionMenuModelo($datosOpcionMenu){
+		$sql = "INSERT INTO $this->tabla (opcionMenuNombre, opcionesmenu_folder, opcionMenuEnlace, idMenu) VALUES (?,?,?,?)";
 		try {
 			$stmt = $this->conectar()->prepare($sql);
-			$stmt->bindParam(1, $datoOpcionMenu['opcionMenuNombre'], PDO::PARAM_STR);
-			$stmt->bindParam(2, $datoOpcionMenu['opcionMenuEnlace'], PDO::PARAM_STR);
-			$stmt->bindParam(3, $datoOpcionMenu['idMenu'], PDO::PARAM_INT);
+			$stmt->bindParam(1, $datosOpcionMenu['opcionMenuNombre'], PDO::PARAM_STR);
+			$stmt->bindParam(2, $datosOpcionMenu['opcionesmenu_folder'], PDO::PARAM_STR);
+			$stmt->bindParam(3, $datosOpcionMenu['opcionMenuEnlace'], PDO::PARAM_STR);
+			$stmt->bindParam(4, $datosOpcionMenu['idMenu'], PDO::PARAM_INT);
 			if($stmt->execute()){
 				return true;
-			}
-			else{
+			} else {
 				return false;
 			}
 		} catch (PDOException $e) {

@@ -1,14 +1,17 @@
-<?php 
+<?php
 
-class UsuarioControlador {
+class UsuarioControlador
+{
 
 	private $usuarioModelo;
 
-	public function __construct() {
+	public function __construct()
+	{
 		$this->usuarioModelo = new UsuarioModelo();
 	}
 
-	public function registrarUsuarioControlador(){
+	public function registrarUsuarioControlador()
+	{
 		if (isset($_POST['regUsuario'])) {
 			$datosUsuario = [
 				'usuario' => $_POST['usuario'],
@@ -17,12 +20,15 @@ class UsuarioControlador {
 				'estado' => 'Activo',
 			];
 
-			return !$this->usuarioModelo->registrarUsuarioModelo($datosUsuario) ? [false, "index.php?action=fa5"] : [true, "index.php?action=ok5"];
+			return !$this->usuarioModelo->registrarUsuarioModelo($datosUsuario)
+				? (object) ['request' => false, 'url' => "index.php?folder=frmUsuarios&view=frmRegUsuario"]
+				: (object) ['request' => true, 'url' => "index.php?folder=frmUsuarios&view=frmConUsuarios"];
 		}
 	}
 
-	public function validateSession() {
-		if(isset($_POST['regLogin'])) {
+	public function validateSession()
+	{
+		if (isset($_POST['regLogin'])) {
 			$data = [
 				'login' => $_POST['login'],
 				'password' => $_POST['password']
@@ -38,7 +44,8 @@ class UsuarioControlador {
 		}
 	}
 
-	private function loginSession(array $data) {
+	private function loginSession(array $data)
+	{
 		$files = $this->usuarioModelo->loginSessionModelo($data);
 
 		if ($files != false) {
@@ -51,7 +58,8 @@ class UsuarioControlador {
 		}
 	}
 
-	public function consultarUsuarioControlador(){
+	public function consultarUsuarioControlador()
+	{
 		if (isset($_POST['btnBuscarusuario'])) {
 			$datosUsuario =  $_POST['datoBusqueda'];
 		} else {
@@ -62,31 +70,39 @@ class UsuarioControlador {
 		return $usuarioModelo->consultarUsuarioModelo($datosUsuario);
 	}
 
-	public function consultarUsuarioIdControlador(){
+	public function consultarUsuarioIdControlador()
+	{
 		if (isset($_GET['id'])) {
 			$usuarioModelo = new UsuarioModelo();
 			return $usuarioModelo->consultarUsuarioIdModelo($_GET['id']);
 		}
 	}
 
-	public function actualizarUsuarioControlador(){
-		if(isset($_POST['updusuario'])){
-			$datosUsuario = array('login'=>$_POST['login'],
-				'password'=>$_POST['password'],
-				'estado'=>$_POST['estado'],
-				'id'=>$_GET['id']);
+	public function actualizarUsuarioControlador()
+	{
+		if (isset($_POST['updusuario'])) {
+			$datosUsuario = array(
+				'login' => $_POST['login'],
+				'password' => $_POST['password'],
+				'estado' => $_POST['estado'],
+				'id' => $_GET['id']
+			);
 			$usuarioModelo = new UsuarioModelo();
-			return !$usuarioModelo->actualizarUsuarioModelo($datosUsuario) ? [false, "index.php?action=fa4"] : [true, "index.php?action=ok4"];
+			return !$usuarioModelo->actualizarUsuarioModelo($datosUsuario)
+				? (object) ['request' => false, 'url' => "index.php?folder=frmUsuarios&view=frmRegUsuarios"]
+				: (object) ['request' => true, 'url' => "index.php?folder=frmUsuarios&view=frmConUsuarios"];
 		}
 	}
 
 
-	public function eliminarUsuarioControlador(){
+	public function eliminarUsuarioControlador()
+	{
 		if (isset($_GET['id'])) {
-			
-			$usuarioModelo = new UsuarioModelo();
-			return !$usuarioModelo->eliminarUsuarioModelo($_GET['id']) ? [false, "index.php?action=fa5"] : [true, "index.php?action=ok5"];
-		}
 
+			$usuarioModelo = new UsuarioModelo();
+			return !$usuarioModelo->eliminarUsuarioModelo($_GET['id'])
+				? (object) ['request' => false, 'url' => "index.php?folder=frmUsuarios&view=frmConUsuarios"]
+				: (object) ['request' => true, 'url' => "index.php?folder=frmUsuarios&view=frmConUsuarios"];
+		}
 	}
 }

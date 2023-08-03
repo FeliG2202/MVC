@@ -9,13 +9,28 @@ class TemplateControlador {
 
 	////CARGAR LAS PAGINAS AL TEMPLATE////
 	public function cargarPaginaAlTemplate(): string {
-		$templateModelo = new TemplateModelo();
-	
-		// Check if $_GET['action'] is set, otherwise default to 'inicio'
-		$action = isset($_GET['action']) ? $_GET['action'] : 'inicio';
-	
-		// Call the validarEnlacesModelo() method of TemplateModelo and return the generated link
-		return $templateModelo->validarEnlacesModelo($action);
+		return (new TemplateModelo())->validarEnlacesModelo(
+			isset($_GET['folder']) ? "{$_GET['folder']}/" : '',
+			isset($_GET['view']) ? "{$_GET['view']}.php" : 'inicio.php'
+		);
+	}
+
+	public static function redirect(string $url): void {
+		echo('<script type="text/javascript">window.location.href = "' . $url . '";</script>');
+	}
+
+	public static function error(string $response): void {
+		echo("<div class='alert alert-danger' role='alert'>{$response}</div>");
+	}
+
+	public static function success(string $response): void {
+		echo("<div class='alert alert-success' role='alert'>{$response}</div>");
+	}
+
+	public static function response(?object $request, string $success, string $error): void {
+		if ($request != null) {
+			!$request->request ? self::error($error) : self::success($success);
+		}
 	}
 
 }

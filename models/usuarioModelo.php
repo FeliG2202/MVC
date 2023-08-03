@@ -1,7 +1,10 @@
 <?php 
+require_once("Conexion.php");
 
 class UsuarioModelo extends Conexion{
-	private $tabla = 'usuarios';
+
+	public $tabla = 'usuarios';
+
 	function registrarUsuarioModelo($datosUsuario) {
 		$sql = "INSERT INTO $this->tabla(usuarioLogin, usuarioPassword, usuarioEstado, idPersonas) VALUES (?,?,?,?)";
 		try {
@@ -16,8 +19,6 @@ class UsuarioModelo extends Conexion{
 			}else{
 				return false;
 			}
-			$stmt->close();
-
 		} catch (PDOException $e) {
 			print_r($e->getMessage());
 		}
@@ -64,7 +65,22 @@ class UsuarioModelo extends Conexion{
 			} else {
 				return [];
 			}
-			$stmt->close();
+		} catch (PDOException $e) {
+			print_r($e->getMessage());
+		}
+	}
+
+	public function consultarUsuarioIdModelo($id) {
+		$sql = "SELECT * FROM $this->tabla WHERE idUsuario=?";
+		try {
+			$stmt = $this->conectar()->prepare($sql);	
+			$stmt->bindParam(1, $id, PDO::PARAM_INT);		
+			if ($stmt->execute()) {
+				return $stmt->fetchAll();
+			}
+			else{
+				return [];
+			}
 		} catch (PDOException $e) {
 			print_r($e->getMessage());
 		}
@@ -85,7 +101,6 @@ class UsuarioModelo extends Conexion{
 			else{
 				return false;
 			}
-			$stmt->close();
 		} catch (PDOException $e) {
 			print_r($e->getMessage());			
 		}
@@ -105,7 +120,6 @@ class UsuarioModelo extends Conexion{
 			else{
 				return false;
 			}
-			$stmt->close();
 		} catch (PDOException $e) {
 			print_r($e->getMessage());
 		}

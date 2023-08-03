@@ -1,16 +1,23 @@
 <?php 
 
 class PersonaControlador {
+
+	private $PersonaModelo;
+	function __construct(){
+		$this->PersonaModelo = new PersonaModelo();
+	}
 	
 	public function registrarPersonaControlador() {
 		if(isset($_POST['regPersona'])){
-			$datosPersona = array('nombre' => $_POST['nombre'], 
-				'apellido'=>$_POST['apellido'],
-				'documento' => $_POST['documento'],
-				'genero' => $_POST['genero']);
+			$datosPersona = array('nombreCompleto' => $_POST['nombreCompleto'], 
+				'identificacion'=>$_POST['identificacion'],
+				'email' => $_POST['email'],
+				'cell' => $_POST['cell']);
 
-			$personaModelo = new PersonaModelo();
-			return !$personaModelo->registrarPersonaModelo($datosPersona) ? [false, "index.php?action=fa1"] : [true, "index.php?action=ok1"];
+
+			return !$this->PersonaModelo->registrarPersonaModelo($datosPersona) 
+			? (object) ['request' => false, 'url' => "index.php?folder=frmPersona&view=frmRegPersona"] 
+			: (object) ['request' => true, 'url' => "index.php?folder=frmPersona&view=frmConPersona"];
 		}
 	}
 
@@ -25,15 +32,14 @@ class PersonaControlador {
 			$datoBusqueda = '';
 		}
 
-		$personaModelo = new PersonaModelo();
-		return $personaModelo->consultarPersonaModelo($datoBusqueda);
+		return $this->PersonaModelo->consultarPersonaModelo($datoBusqueda);
 	}
 
 
 	public function consultarPersonaIdControlador(){
 		if (isset($_GET['id'])) {
-			$personaModelo = new PersonaModelo();
-			return $personaModelo->consultarPersonaIdModelo($_GET['id']);
+
+			return $this->PersonaModelo->consultarPersonaIdModelo($_GET['id']);
 		}
 	}
 
@@ -47,28 +53,31 @@ class PersonaControlador {
 	///////////////////////////
 
 	public function listarPersonasControlador(){
-		$personaModelo = new PersonaModelo();
-		return $personaModelo->listarPersonasModelo();
+		return $this->PersonaModelo->listarPersonasModelo();
 	}
 
 
 	public function actualizarPersonaControlador(){
 		if (isset($_POST['updPersona'])) {
-			$datosPersona = array('nombre'=>$_POST['nombre'],
-				'apellido'=>$_POST['apellido'],
-				'documento'=>$_POST['documento'],
-				'genero'=>$_POST['genero'],
+			$datosPersona = array('nombreCompleto'=>$_POST['nombreCompleto'],
+				'identificacion'=>$_POST['identificacion'],
+				'email'=>$_POST['email'],
+				'cell'=>$_POST['cell'],
 				'id'=>$_GET['id']);
 
-			$personaModelo = new PersonaModelo();
-			return !$personaModelo->actualizarPersonaModelo($datosPersona) ? [false, "index.php?action=fa2"] : [true, "index.php?action=ok2"];
+
+			return !$this->PersonaModelo->actualizarPersonaModelo($datosPersona) 
+			? (object) ['request' => false, 'url' => "index.php?folder=frmPersona&view=frmEditPersona"] 
+			: (object) ['request' => true, 'url' => "index.php?folder=frmPersona&view=frmConPersona"];
 		}
 	}
 
 	public function eliminarPersonaControlador() {
 		if (isset($_GET['id'])) {
-			$personaModelo = new PersonaModelo();
-			return !$personaModelo->eliminarPersonaModelo($_GET['id']) ? [false, "index.php?action=fa3"] : [true, "index.php?action=ok3"];
+
+			return !$this->PersonaModelo->eliminarPersonaModelo($_GET['id']) 
+			? (object) ['request' => false, 'url' => "index.php?folder=frmPersona&view=frmConPersona"] 
+			: (object) ['request' => true, 'url' => "index.php?folder=frmPersona&view=frmConPersona"];
 		}
 	}
 }

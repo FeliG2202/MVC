@@ -1,49 +1,64 @@
-<?php 
+<?php
 
-class MenuControlador {
-	
-	function __construct() {
+class MenuControlador
+{
+
+	private $MenuModelo;
+
+	function __construct()
+	{
 		$this->MenuModelo = new MenuModelo();
 	}
 
-	public function registrarMenuControlador() {
-		if (isset($_POST['regMenu'])) {
-			return !$this->MenuModelo->registrarMenuModelo($_POST['nombreMenu']) ? [false, "index.php?action=fa12"] : [true, "index.php?action=ok12"];
+	public function registrarMenuControlador()
+	{
+		if (isset($_POST['btnRegMenu'])) {
+			return !$this->MenuModelo->registrarMenuModelo($_POST['nombreMenu'])
+				? (object) ['request' => false, 'url' => "index.php?folder=frmMenu&view=frmRegMenu"]
+				: (object) ['request' => true, 'url' => "index.php?folder=frmMenu&view=frmConMenu"];
 		}
 	}
 
-	public function consultarMenuControlador(){
+	public function consultarMenuControlador()
+	{
 		if (isset($_POST['btnBuscarMenu'])) {
 			if (isset($_POST['datoBusqueda'])) {
 				$rolBuscado = $_POST['datoBusqueda'];
 			}
-		} else{
+		} else {
 			$rolBuscado = '';
 		}
 
 		return $this->MenuModelo->consultarMenuModelo($rolBuscado);
 	}
 
-	public function consultarMenuIdControlador(){
+	public function consultarMenuIdControlador()
+	{
 		if (isset($_GET['id'])) {
 			return $this->MenuModelo->consultarMenuIdModelo($_GET['id']);
 		}
 	}
 
-	public function actualizarMenuControlador(){
-		if(isset($_POST['updMenu'])){
+	public function actualizarMenuControlador()
+	{
+		if (isset($_POST['updMenu'])) {
 			$datosMenu = [
-				'menuNombre' => $_POST['menuNombre'], 
+				'menuNombre' => $_POST['menuNombre'],
 				'menuEstado' => $_POST['menuEstado'],
 				'id' => $_GET['id']
 			];
-			return !$this->MenuModelo->actualizarMenuModelo($datosMenu) ? [false, "index.php?action=ok13&id" . $_GET['id']] : [true, "index.php?action=ok13&id" . $_GET['id']];
+			return !$this->MenuModelo->actualizarMenuModelo($datosMenu)
+				? (object) ['request' => false, 'url' => "index.php?folder=frmMenu&view=frmEditMenu"]
+				: (object) ['request' => true, 'url' => "index.php?folder=frmMenu&view=frmConMenu"];
 		}
 	}
 
-	public function eliminarMenuControlador(){
+	public function eliminarMenuControlador()
+	{
 		if (isset($_GET['id'])) {
-			return !$this->MenuModelo->eliminarMenuModelo($_GET['id']) ? [false, "index.php?action=ok14"] : [true, "index.php?action=ok14"];
+			return !$this->MenuModelo->eliminarMenuModelo($_GET['id'])
+				? (object) ['request' => false, 'url' => "index.php?folder=frmMenu&view=frmConMenu"]
+				: (object) ['request' => true, 'url' => "index.php?folder=frmMenu&view=frmConMenu"];
 		}
 	}
 }

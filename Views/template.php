@@ -1,49 +1,50 @@
-<!doctype html>
-  <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link rel="stylesheet" href="Views/assets/css/style.css">
-    <link rel="stylesheet" href="Views/assets/css/sidebar.css">
+    <!-- STYLES CSS -->
     <link rel="stylesheet" href="Views/assets/fontawesome/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="Views/assets/css/styles.css" rel="stylesheet" />
 
-    <title>Junical Medical S.A.S</title>
-  </head>
-  <body class="sb-nav-fixed">
-   <!-- se llama el menu de navegación -->
-   <?php include("modules/components/NavBar.php"); ?>
+    <title>JUNICAL MEDICAL S.A.S</title>
+    <link rel="icon" type="image/x-icon" href="Views/assets/img/LogoBot.png" />
+</head>
 
-   <!-- se llama el contenido de la pagina-->
-   <div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-      <?php include_once("modules/components/Sidebar.php"); ?>
+<body class="sb-nav-fixed">
+    <!-- se llama el menu de navegación -->
+    <?php include("modules/components/NavBar.php"); ?>
+
+    <!-- se llama el contenido de la pagina-->
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <?php include_once("modules/components/Sidebar.php"); ?>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <?php include(
+                        (new TemplateControlador())->cargarPaginaAlTemplate()
+                    ); ?>
+                </div>
+            </main>
+
+            <?php include_once("modules/components/Footer.php"); ?>
+
+        </div>
     </div>
 
-    <div id="layoutSidenav_content">
-      <main> 
-        <div class="container-fluid px-4">
-         <?php
-         $templateControlador = new TemplateControlador();
-         include($templateControlador->cargarPaginaAlTemplate());
-         ?>
-       </div>
-     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="Views/assets/js/datatables-simple-demo.js"></script>
+    <script src="Views/assets/js/scripts.js"></script>
 
-    <?php include_once("modules/components/Footer.php");?>
-    
-   </div>
- </div>
-
- <!-- Optional JavaScript; choose one of the two! -->
-
- <!-- Option 2: Separate Popper and Bootstrap JS -->
-
- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
- <script type="text/javascript" src="Views/assets/js/sidebar.js"></script>
 </body>
+
 </html>
