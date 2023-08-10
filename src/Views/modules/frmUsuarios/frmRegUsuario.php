@@ -1,4 +1,9 @@
 <?php
+
+use PHP\Controllers\PersonaControlador;
+use PHP\Controllers\TemplateControlador;
+use PHP\Controllers\UsuarioControlador;
+
 $usuarioControlador = new UsuarioControlador();
 $registrarUsuario = $usuarioControlador->registrarUsuarioControlador();
 $request = $usuarioControlador->registrarUsuarioControlador();

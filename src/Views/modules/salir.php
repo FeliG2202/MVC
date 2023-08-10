@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+use PHP\Controllers\TemplateControlador;
 
 if (isset($_SESSION['session'])) {
 	session_destroy();

@@ -1,6 +1,9 @@
 <?php
 
-$usuarioControlador = new usuarioControlador();
+use PHP\Controllers\TemplateControlador;
+use PHP\Controllers\UsuarioControlador;
+
+$usuarioControlador = new UsuarioControlador();
 $request = $usuarioControlador->actualizarUsuarioControlador();
 $datosUsuario = $usuarioControlador->consultarUsuarioIdControlador();
 $estadoActivo = '';

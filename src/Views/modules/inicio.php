@@ -13,7 +13,7 @@ if ($request != null) {
 }
 ?>
 
-
+<h1>Home</h1>
 <div class="col-lg-5 mx-auto mt-5 mb-5 p-4 rounded shadow-sm">
     <h2 class="text-center">Menu del almuerzo</h2>
     <hr>

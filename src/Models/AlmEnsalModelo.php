@@ -1,8 +1,12 @@
-<?php 
+<?php
 
-require_once("Conexion.php");
+namespace PHP\Models;
 
-class AlmEnsalModelo extends Conexion {
+use PDO;
+use PDOException;
+use PHP\Models\Connection;
+
+class AlmEnsalModelo extends Connection {
 	
 	private $tabla;
 

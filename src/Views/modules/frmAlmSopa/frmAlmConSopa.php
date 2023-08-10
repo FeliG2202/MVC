@@ -1,4 +1,8 @@
 <?php
+
+use PHP\Controllers\AlmSopaControlador;
+use PHP\Controllers\TemplateControlador;
+
 $almSopaControlador = new AlmSopaControlador();
 $request = $almSopaControlador->eliminarAlmSopaControlador();
 $datosAlmSopa = $almSopaControlador->consultarAlmSopaControlador();

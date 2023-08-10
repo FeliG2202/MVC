@@ -1,6 +1,7 @@
 <?php
 
 use PHP\Controllers\TemplateControlador;
+use PHP\Controllers\UsuarioControlador;
 
 $request = (new UsuarioControlador())->validateSession();
 
@@ -14,7 +15,7 @@ if ($request != null) {
 <!-- FORMULARIO PARA INGRESAR EL LOGIN -->
 <div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
   <div class="w-100 text-center mb-3">
-    <img src="Views/assets/img/LogoBot.png" class="img-fluid w-25 h-25">
+    <img src="<?php echo(host); ?>/src/Views/assets/img/LogoBot.png" class="img-fluid w-25 h-25">
   </div>
 
   <hr>

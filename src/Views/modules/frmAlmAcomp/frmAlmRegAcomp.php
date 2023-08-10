@@ -1,4 +1,8 @@
 <?php
+
+use PHP\Controllers\AlmAcompControlador;
+use PHP\Controllers\TemplateControlador;
+
 $almAcompControlador = new AlmAcompControlador();
 $request = $almAcompControlador->registrarAlmACompControlador();
 

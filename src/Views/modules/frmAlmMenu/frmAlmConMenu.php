@@ -1,4 +1,7 @@
 <?php
+
+use PHP\Controllers\AlmMenuControlador;
+
 $almMenuControlador = new AlmMenuControlador();
 //$request = $almMenuControlador->eliminarAlmMenuControlador();
 $datosAlmMenu = $almMenuControlador->consultarAlmMenuControlador();

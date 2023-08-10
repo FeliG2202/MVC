@@ -1,5 +1,8 @@
 <?php
 
+use PHP\Controllers\RolUsuarioControlador;
+use PHP\Controllers\TemplateControlador;
+
 $usuarioRolControlador = new RolUsuarioControlador();
 $datosUsuario = $usuarioRolControlador->usuarioControlador->consultarUsuarioControlador();
 if (isset($_GET['id'])) {

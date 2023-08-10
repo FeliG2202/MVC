@@ -1,5 +1,8 @@
 <?php
 
+use PHP\Controllers\AlmAcompControlador;
+use PHP\Controllers\TemplateControlador;
+
 if (!isset($_SESSION['session'])) {
 	TemplateControlador::redirect("index.php?view=login");
 }
@@ -13,8 +16,6 @@ if ($request != null) {
 		TemplateControlador::redirect($request->url);
 	}
 }
-
-
 ?>
 
 <!--//////////////////////////////////////////////////////-->
@@ -22,6 +23,13 @@ if ($request != null) {
 <h1 class="mt-4 text-center">Consultar Acompañamiento</h1>
 <div class="card mb-4 p-4">
 	<div class="card-body">
+		<?php if(isset($_GET['status'], $_GET['message'])) {
+			if ($_GET['status'] === "error") {
+				TemplateControlador::error($_GET['message']);
+			} else {
+				TemplateControlador::success($_GET['message']);
+			}
+		} ?>
 		<table id="datatablesSimple">
 			<thead>
 				<tr>

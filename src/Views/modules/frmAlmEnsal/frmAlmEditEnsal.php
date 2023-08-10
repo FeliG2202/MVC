@@ -1,5 +1,8 @@
 <?php
 
+use PHP\Controllers\AlmEnsalControlador;
+use PHP\Controllers\TemplateControlador;
+
 $almEnsalControlador = new AlmEnsalControlador();
 $request = $almEnsalControlador->actualizarAlmEnsalControlador();
 $datosEnsal = $almEnsalControlador->consultarAlmEnsalIdControlador();

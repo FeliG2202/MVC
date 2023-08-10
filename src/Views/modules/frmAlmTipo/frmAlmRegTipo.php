@@ -1,5 +1,8 @@
 <?php
 
+use PHP\Controllers\AlmTipoControlador;
+use PHP\Controllers\TemplateControlador;
+
 if (!isset($_SESSION['session'])) {
 	TemplateControlador::redirect("index.php?view=login");
 } 

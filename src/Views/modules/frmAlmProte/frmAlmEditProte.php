@@ -1,4 +1,8 @@
 <?php
+
+use PHP\Controllers\AlmProteControlador;
+use PHP\Controllers\TemplateControlador;
+
 $almProteControlador = new AlmProteControlador();
 $request = $almProteControlador->actualizarAlmProteControlador();
 $datosProte = $almProteControlador->consultarAlmProteIdControlador();

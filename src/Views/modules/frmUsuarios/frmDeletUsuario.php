@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+use PHP\Controllers\TemplateControlador;
+use PHP\Controllers\UsuarioControlador;
 
 $usuarioControlador = new UsuarioControlador();
 $request = $usuarioControlador->eliminarUsuarioControlador();

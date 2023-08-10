@@ -1,5 +1,9 @@
 <?php
 
+namespace PHP\Controllers;
+
+use PHP\Models\AlmTipoModelo;
+
 class AlmTipoControlador
 {
 

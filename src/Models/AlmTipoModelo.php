@@ -1,7 +1,12 @@
 <?php
-require_once("Conexion.php");
 
-class AlmTipoModelo extends Conexion
+namespace PHP\Models;
+
+use PDO;
+use PDOException;
+use PHP\Models\Connection;
+
+class AlmTipoModelo extends Connection
 {
 
 	private $tabla;

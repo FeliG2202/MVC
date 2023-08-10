@@ -1,4 +1,8 @@
 <?php
+
+use PHP\Controllers\AlmEnergeControlador;
+use PHP\Controllers\TemplateControlador;
+
 $almEnergeControlador = new AlmEnergeControlador();
 $request = $almEnergeControlador->eliminarAlmEnergeControlador();
 $datosAlmEnerge = $almEnergeControlador->consultarAlmEnergeControlador();

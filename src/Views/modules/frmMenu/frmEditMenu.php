@@ -1,5 +1,8 @@
 <?php
 
+use PHP\Controllers\MenuControlador;
+use PHP\Controllers\TemplateControlador;
+
 $menuControlador = new MenuControlador();
 $datosMenu = $menuControlador->consultarMenuIdControlador();
 $request = $menuControlador->actualizarMenuControlador();

@@ -1,4 +1,8 @@
-<?php 
+<?php
+
+use PHP\Controllers\AlmArrozControlador;
+use PHP\Controllers\TemplateControlador;
+
 $almArrozControlador = new AlmArrozControlador();
 $request = $almArrozControlador->registrarAlmArrozControlador();
 

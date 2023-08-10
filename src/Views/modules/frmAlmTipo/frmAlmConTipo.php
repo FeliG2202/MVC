@@ -1,4 +1,8 @@
 <?php
+
+use PHP\Controllers\AlmTipoControlador;
+use PHP\Controllers\TemplateControlador;
+
 $almTipoControlador = new AlmTipoControlador();
 $request = $almTipoControlador->eliminarAlmTipoControlador();
 $datosAlmTipo = $almTipoControlador->consultarAlmTipoControlador();

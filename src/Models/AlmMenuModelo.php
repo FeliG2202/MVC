@@ -1,7 +1,12 @@
-<?php 
-require_once("Conexion.php");
+<?php
 
-class AlmMenuModelo extends Conexion {
+namespace PHP\Models;
+
+use PDO;
+use PDOException;
+use PHP\Models\Connection;
+
+class AlmMenuModelo extends Connection {
 
 	private $tabla = 'nutrimenu';
 	private $vista = 'view_nutrimenu';

@@ -1,5 +1,9 @@
 <?php
 
+namespace PHP\Controllers;
+
+use PHP\Models\AlmBebidaModelo;
+
 class AlmBebidaControlador
 {
 
@@ -13,56 +17,78 @@ class AlmBebidaControlador
 	public function registrarAlmBebidaControlador()
 	{
 		if (isset($_POST['regAlmBebida'])) {
-			return !$this->AlmBebidaModelo->registrarAlmBebidaModelo($_POST['nombreBebida'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmBebida&view=frmAlmRegBebida"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmBebida&view=frmAlmConBebida"];
-		}
-	}
-
-	public function consultarAlmBebidaControlador()
-	{
-		if (isset($_POST['btnBuscarBebida'])) {
-			if (isset($_POST['datoBusqueda'])) {
-				$rolBuscado = $_POST['datoBusqueda'];
+			$response = $this->AlmBebidaModelo->registrarAlmBebidaModelo($_POST['nombreBebida']);
+			if (!$response){
+				(object) [
+					'request' => false,
+					'url' => "index.php?folder=frmAlmBebida&view=frmAlmRegBebida"];
+				}
+				return (object) [
+					'request' => true,
+					'url' => "index.php?folder=frmAlmBebida&view=frmAlmConBebida"
+				];
 			}
-		} else {
-			$rolBuscado = '';
 		}
 
-		return $this->AlmBebidaModelo->consultarAlmBebidaModelo($rolBuscado);
-	}
+		public function consultarAlmBebidaControlador()
+		{
+			if (isset($_POST['btnBuscarBebida'])) {
+				if (isset($_POST['datoBusqueda'])) {
+					$rolBuscado = $_POST['datoBusqueda'];
+				}
+			} else {
+				$rolBuscado = '';
+			}
 
-	public function consultarAlmBebidaIdControlador()
-	{
-		if (isset($_GET['id'])) {
-			return $this->AlmBebidaModelo->consultarAlmBebidaIdModelo($_GET['id']);
+			return $this->AlmBebidaModelo->consultarAlmBebidaModelo($rolBuscado);
+		}
+
+		public function consultarAlmBebidaIdControlador()
+		{
+			if (isset($_GET['id'])) {
+				return $this->AlmBebidaModelo->consultarAlmBebidaIdModelo($_GET['id']);
+			}
+		}
+
+		public function actualizarAlmBebidaControlador()
+		{
+			if (isset($_POST['updBebida'])) {
+				$response = $this->AlmBebidaModelo->actualizarAlmBebidaModelo([
+					'nombreBebida' => $_POST['nombreBebida'],
+					'id' => $_GET['id']
+				]);
+				if (!$response){
+					return (object) [
+						'request' => false,
+						'url' => "index.php?folder=frmAlmBebida&view=frmAlmEditBebida"
+					];
+				}
+				return (object) [
+					'request' => true,
+					'url' => "index.php?folder=frmAlmBebida&view=frmAlmConBebida"
+				];
+			}
+		}
+
+		public function eliminarAlmBebidaControlador()
+		{
+			if (isset($_GET['id'])) {
+				$reponse = $this->AlmBebidaModelo->eliminarAlmBebidaModelo($_GET['id']);
+				if (!$reponse) {
+					return (object) [
+						'request' => false,
+						'url' => "index.php?folder=frmAlmBebida&view=frmAlmConBebida"
+					];
+				}
+				return (object) [
+					'request' => true,
+					'url' => "index.php?folder=frmAlmBebida&view=frmAlmConBebida"
+				];
+			}
+		}
+
+		public function listarAlmBebidaMenuControlador()
+		{
+			return $this->AlmBebidaModelo->listarAlmBebidaMenuModelo();
 		}
 	}
-
-	public function actualizarAlmBebidaControlador()
-	{
-		if (isset($_POST['updBebida'])) {
-			$datosAlmBebida = [
-				'nombreBebida' => $_POST['nombreBebida'],
-				'id' => $_GET['id']
-			];
-			return !$this->AlmBebidaModelo->actualizarAlmBebidaModelo($datosAlmBebida)
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmBebida&view=frmAlmEditBebida"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmBebida&view=frmAlmConBebida"];
-		}
-	}
-
-	public function eliminarAlmBebidaControlador()
-	{
-		if (isset($_GET['id'])) {
-			return !$this->AlmBebidaModelo->eliminarAlmBebidaModelo($_GET['id'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmBebida&view=frmAlmConBebida"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmBebida&view=frmAlmConBebida"];
-		}
-	}
-
-	public function listarAlmBebidaMenuControlador()
-	{
-		return $this->AlmBebidaModelo->listarAlmBebidaMenuModelo();
-	}
-}

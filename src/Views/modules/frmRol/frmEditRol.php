@@ -1,5 +1,8 @@
 <?php
 
+use PHP\Controllers\RolControlador;
+use PHP\Controllers\TemplateControlador;
+
 $rolControlador = new RolControlador();
 $request = $rolControlador->actualizarRolControlador();
 $datosRol = $rolControlador->consultarRolIdControlador();

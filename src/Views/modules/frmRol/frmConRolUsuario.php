@@ -1,5 +1,8 @@
 <?php
-$usuarioRolControlador = new RolusuarioControlador();
+
+use PHP\Controllers\RolUsuarioControlador;
+
+$usuarioRolControlador = new RolUsuarioControlador();
 $datosUsuario = $usuarioRolControlador->usuarioControlador->consultarUsuarioControlador();
 ?>
 

@@ -1,7 +1,12 @@
 <?php
-require_once("Conexion.php");
 
-class RolModelo extends Conexion
+namespace PHP\Models;
+
+use PDO;
+use PDOException;
+use PHP\Models\Connection;
+
+class RolModelo extends Connection
 {
 
 	private $tabla;

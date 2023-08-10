@@ -1,4 +1,8 @@
 <?php
+
+use PHP\Controllers\OpcionesMenuControlador;
+use PHP\Controllers\TemplateControlador;
+
 $opcionMenuControlador = new OpcionesMenuControlador();
 $datosMenu = $opcionMenuControlador->menuControlador->consultarMenuControlador();
 $request = $opcionMenuControlador->registrarOpcionMenuControlador();

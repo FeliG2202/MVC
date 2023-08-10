@@ -1,4 +1,7 @@
 <?php
+
+use PHP\Controllers\MenuControlador;
+
 $menuControlador = new MenuControlador();
 $request = $menuControlador->eliminarMenuControlador();
 $datosMenu = $menuControlador->consultarMenuControlador();

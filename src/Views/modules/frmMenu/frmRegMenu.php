@@ -1,4 +1,8 @@
-<?php 
+<?php
+
+use PHP\Controllers\MenuControlador;
+use PHP\Controllers\TemplateControlador;
+
 $menuControlador = new MenuControlador();
 $request = $menuControlador->registrarMenuControlador();
 

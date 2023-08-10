@@ -1,22 +1,33 @@
 <?php
 
-class AlmArrozControlador
-{
+namespace PHP\Controllers;
 
-	private $AlmArrozModelo;
+use PHP\Models\AlmArrozModelo;
 
-	function __construct()
-	{
-		$this->AlmArrozModelo = new AlmArrozModelo();
+class AlmArrozControlador {
+
+	private $almArrozModelo;
+
+	function __construct() {
+		$this->almArrozModelo = new AlmArrozModelo();
 	}
 
-	public function registrarAlmArrozControlador()
-	{
+	public function registrarAlmArrozControlador() {
 		if (isset($_POST['regAlmArroz'])) {
-			return !$this->AlmArrozModelo->registrarAlmArrozModelo($_POST['nombreArroz'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmArroz&view=frmAlmRegArroz"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmArroz&view=frmAlmConArroz"];
+			$response = $this->almArrozModelo->registrarAlmArrozModelo($_POST['nombreArroz']);
+
+			if (!$response) {
+				(object) [
+					'request' => false,
+					'url' => "index.php?folder=frmAlmArroz&view=frmAlmRegArroz"
+				];
+			}
 		}
+
+		return (object) [
+			'request' => true,
+			'url' => "index.php?folder=frmAlmArroz&view=frmAlmConArroz"
+		];
 	}
 
 	public function consultarAlmArrozControlador()
@@ -29,40 +40,55 @@ class AlmArrozControlador
 			$rolBuscado = '';
 		}
 
-		return $this->AlmArrozModelo->consultarAlmArrozModelo($rolBuscado);
+		return $this->almArrozModelo->consultarAlmArrozModelo($rolBuscado);
 	}
 
 	public function consultarAlmArrozIdControlador()
 	{
 		if (isset($_GET['id'])) {
-			return $this->AlmArrozModelo->consultarAlmArrozIdModelo($_GET['id']);
+			return $this->almArrozModelo->consultarAlmArrozIdModelo($_GET['id']);
 		}
 	}
 
 	public function actualizarAlmArrozControlador()
 	{
 		if (isset($_POST['updArroz'])) {
-			$datosAlmArroz = [
+			$response = $this->almArrozModelo->actualizarAlmArrozModelo([
 				'nombreArroz' => $_POST['nombreArroz'],
 				'id' => $_GET['id']
+			]);
+
+			if (!$response) {
+				return (object) [
+					'request' => false,
+					'url' => "index.php?folder=frmAlmArroz&view=frmAlmEditArroz"
+				];
+			}
+			return (object) [
+				'request' => true,
+				'url' => "index.php?folder=frmAlmArroz&view=frmAlmConArroz"
 			];
-			return !$this->AlmArrozModelo->actualizarAlmArrozModelo($datosAlmArroz)
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmArroz&view=frmAlmEditArroz"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmArroz&view=frmAlmConArroz"];
 		}
 	}
 
 	public function eliminarAlmArrozControlador()
 	{
 		if (isset($_GET['id'])) {
-			return !$this->AlmArrozModelo->eliminarAlmArrozModelo($_GET['id'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmArroz&view=frmAlmConArroz"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmArroz&view=frmAlmConArroz"];
+			$response = $this->almArrozModelo->eliminarAlmArrozModelo($_GET['id']);
+			if (!$response) {
+				return (object) [
+					'request' => false,
+					'url' => "index.php?folder=frmAlmArroz&view=frmAlmConArroz"
+				];
+			}
+			return (object) [
+				'request' => true,
+				'url' => "index.php?folder=frmAlmArroz&view=frmAlmConArroz"
+			];
 		}
 	}
-
 	public function listarAlmArrozMenuControlador()
 	{
-		return $this->AlmArrozModelo->listarAlmArrozMenuModelo();
+		return $this->almArrozModelo->listarAlmArrozMenuModelo();
 	}
 }

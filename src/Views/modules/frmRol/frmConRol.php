@@ -1,4 +1,7 @@
 <?php
+
+use PHP\Controllers\RolControlador;
+
 $rolControlador = new RolControlador();
 $datosRoles = $rolControlador->consultarRolControlador();
 ?>

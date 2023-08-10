@@ -1,4 +1,8 @@
-<?php 
+<?php
+
+use PHP\Controllers\RolUsuarioControlador;
+use PHP\Controllers\TemplateControlador;
+
 if(!isset($_SESSION['id'])){
 	TemplateControlador::redirect("index.php?view=login");
 }

@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+use PHP\Controllers\PersonaControlador;
+use PHP\Controllers\TemplateControlador;
 
 $personaControlador = new PersonaControlador();
 $request = $personaControlador->eliminarPersonaControlador();

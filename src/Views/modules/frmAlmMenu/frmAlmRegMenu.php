@@ -1,4 +1,16 @@
-<?php 
+<?php
+
+use PHP\Controllers\AlmAcompControlador;
+use PHP\Controllers\AlmArrozControlador;
+use PHP\Controllers\AlmBebidaControlador;
+use PHP\Controllers\AlmDiaControlador;
+use PHP\Controllers\AlmEnergeControlador;
+use PHP\Controllers\AlmEnsalControlador;
+use PHP\Controllers\AlmMenuControlador;
+use PHP\Controllers\AlmProteControlador;
+use PHP\Controllers\AlmSopaControlador;
+use PHP\Controllers\AlmTipoControlador;
+use PHP\Controllers\TemplateControlador;
 
 $almMenuControlador = new AlmMenuControlador();
 $request = $almMenuControlador->registrarAlmMenuControlador();

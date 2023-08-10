@@ -1,4 +1,7 @@
 <?php
+
+use PHP\Controllers\UsuarioControlador;
+
 $usuarioControlador = new UsuarioControlador();
 $datosusuario = $usuarioControlador->consultarUsuarioControlador();
 $usuarioControlador->consultarUsuarioControlador();

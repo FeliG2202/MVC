@@ -1,5 +1,9 @@
 <?php
 
+namespace PHP\Controllers;
+
+use PHP\Models\AlmAcompModelo;
+
 class AlmAcompControlador
 {
 
@@ -13,9 +17,18 @@ class AlmAcompControlador
 	public function registrarAlmACompControlador()
 	{
 		if (isset($_POST['regAlmAcomp'])) {
-			return !$this->AlmAcompModelo->registrarAlmAcompModelo($_POST['nombreAcomp'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmAcomp&view=frmAlmRegAcomp"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmAcomp&view=frmAlmConAcomp"];
+			$response = $this->AlmAcompModelo->registrarAlmAcompModelo($_POST['nombreAcomp']);
+			if (!$response){
+				(object) [
+					'request' => false,
+					'url' => "index.php?folder=frmAlmAcomp&view=frmAlmRegAcomp"
+				];
+			}
+
+			return (object) [
+				'request' => true,
+				'url' => "index.php?folder=frmAlmAcomp&view=frmAlmConAcomp"
+			];
 		}
 	}
 
@@ -42,22 +55,40 @@ class AlmAcompControlador
 	public function actualizarAlmACompControlador()
 	{
 		if (isset($_POST['updAcomp'])) {
-			$datosAlmAComp = [
+			$response = $this->AlmAcompModelo->actualizarAlmAcompModelo([
 				'nombreAcomp' => $_POST['nombreAcomp'],
 				'id' => $_GET['id']
+			]);
+
+			if (!$response){
+				return (object) [
+					'request' => false,
+					'url' => "index.php?folder=frmAlmAcomp&view=frmAlmEditAcomp&status=error&message=Ocurrió un error al actualizar el Acompañamiento"
+				];
+			}
+
+			return (object) [
+				'request' => true,
+				'url' => "index.php?folder=frmAlmAcomp&view=frmAlmConAcomp&status=success&message=Acompañamiento actualizado correctamente"
 			];
-			return !$this->AlmAcompModelo->actualizarAlmAcompModelo($datosAlmAComp)
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmAcomp&view=frmAlmEditAcomp"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmAcomp&view=frmAlmConAcomp"];
 		}
 	}
 
 	public function eliminarAlmACompControlador()
 	{
 		if (isset($_GET['id'])) {
-			return !$this->AlmAcompModelo->eliminarAlmAcompModelo($_GET['id'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmAcomp&view=frmAlmConAcomp"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmAcomp&view=frmAlmConAcomp"];
+			$response = $this->AlmAcompModelo->eliminarAlmAcompModelo($_GET['id']);
+
+			if (!$response){
+				return (object) [
+					'request' => false,
+					'url' => "index.php?folder=frmAlmAcomp&view=frmAlmConAcomp"
+				];
+			}
+			return (object) [
+				'request' => true,
+				'url' => "index.php?folder=frmAlmAcomp&view=frmAlmConAcomp"
+			];
 		}
 	}
 

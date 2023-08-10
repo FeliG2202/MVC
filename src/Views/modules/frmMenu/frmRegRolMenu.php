@@ -1,4 +1,8 @@
 <?php
+
+use PHP\Controllers\RolMenuControlador;
+use PHP\Controllers\TemplateControlador;
+
 $rolMenuControlador = new RolMenuControlador();
 $datosRoles = $rolMenuControlador->rolControlador->consultarRolControlador();
 $datosMenu = $rolMenuControlador->menuControlador->consultarMenuControlador();

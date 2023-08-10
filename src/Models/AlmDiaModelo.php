@@ -1,13 +1,16 @@
-<?php 
-require_once("Conexion.php");
+<?php
 
-class AlmDiaModelo extends Conexion {
+namespace PHP\Models;
 
-	public $conn;
+use PDOException;
+use PHP\Models\Connection;
+
+
+class AlmDiaModelo extends Connection {
+
 	private $tabla;
 
 	function __construct() {
-		$this->conn = new Conexion();
 		$this->tabla = 'nutridias';
 	}
 

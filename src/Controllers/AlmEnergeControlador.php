@@ -1,5 +1,9 @@
 <?php
 
+namespace PHP\Controllers;
+
+use PHP\Models\AlmEnergeModelo;
+
 class AlmEnergeControlador
 {
 
@@ -13,9 +17,17 @@ class AlmEnergeControlador
 	public function registrarAlmEnergeControlador()
 	{
 		if (isset($_POST['regAlmEnerge'])) {
-			return !$this->AlmEnergeModelo->registrarAlmEnergeModelo($_POST['nombreEnerge'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmEnerge&view=frmAlmRegEnerge"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmEnerge&view=frmAlmRegEnerge"];
+			$response = $this->AlmEnergeModelo->registrarAlmEnergeModelo($_POST['nombreEnerge']);
+			if (!$response) {
+				return (object) [
+					'request' => false,
+					'url' => "index.php?folder=frmAlmEnerge&view=frmAlmRegEnerge"
+				];
+			}
+			return (object) [
+				'request' => true,
+				'url' => "index.php?folder=frmAlmEnerge&view=frmAlmRegEnerge"
+			];
 		}
 	}
 

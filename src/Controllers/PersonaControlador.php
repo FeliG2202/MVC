@@ -1,5 +1,9 @@
 <?php 
 
+namespace PHP\Controllers;
+
+use PHP\Models\PersonaModelo;
+
 class PersonaControlador {
 
 	private $PersonaModelo;

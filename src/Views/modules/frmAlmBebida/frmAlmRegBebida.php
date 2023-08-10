@@ -1,4 +1,8 @@
 <?php
+
+use PHP\Controllers\AlmBebidaControlador;
+use PHP\Controllers\TemplateControlador;
+
 $almBebidaControlador = new AlmBebidaControlador();
 $request = $almBebidaControlador->registrarAlmBebidaControlador();
 

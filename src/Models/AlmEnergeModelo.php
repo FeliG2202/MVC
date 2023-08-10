@@ -1,8 +1,13 @@
 <?php
 
-require_once("Conexion.php");
+namespace PHP\Models;
 
-class AlmEnergeModelo extends Conexion
+use PDO;
+use PDOException;
+use PHP\Models\Connection;
+
+
+class AlmEnergeModelo extends Connection
 {
 
 	private $tabla;

@@ -1,7 +1,13 @@
 <?php
-require_once("Conexion.php");
 
-class AlmBebidaModelo extends Conexion
+namespace PHP\Models;
+
+use PDO;
+use PDOException;
+use PHP\Models\Connection;
+
+
+class AlmBebidaModelo extends Connection
 {
 
 	private $tabla;

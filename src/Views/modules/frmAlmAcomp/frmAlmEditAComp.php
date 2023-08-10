@@ -1,5 +1,8 @@
 <?php
 
+use PHP\Controllers\AlmAcompControlador;
+use PHP\Controllers\TemplateControlador;
+
 $almAcompControlador = new AlmAcompControlador();
 $request = $almAcompControlador->actualizarAlmACompControlador();
 $datosAcomp = $almAcompControlador->consultarAlmACompIdControlador();
@@ -15,11 +18,6 @@ if ($request != null) {
 <div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
     <h2 class="text-center">Editar Acompañamiento</h2>
     <hr>
-    <?php TemplateControlador::response(
-        $request,
-        "",
-        "Ocurrio un error, Intentelo de nuevo"
-    ); ?>
     <form class="form" method="post">
         <label for="" class="form-label">Nombres del Acompañamiento</label>
         <input type="text" name="nombreAcomp" value="<?php print $datosAcomp[0]['nutriAcompNombre'] ?>" class="form-control" required>

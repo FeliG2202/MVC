@@ -1,4 +1,7 @@
 <?php
+
+use PHP\Controllers\PersonaControlador;
+
 $personaControlador = new PersonaControlador();
 $request = $datosPersona = $personaControlador->consultarPersonaControlador();
 ?>

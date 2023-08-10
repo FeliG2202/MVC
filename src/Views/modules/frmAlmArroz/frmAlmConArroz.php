@@ -1,4 +1,7 @@
 <?php
+
+use PHP\Controllers\AlmArrozControlador;
+
 $almArrozControlador = new AlmArrozControlador();
 $request = $almArrozControlador->eliminarAlmArrozControlador();
 $datosAlmArroz = $almArrozControlador->consultarAlmArrozControlador();
