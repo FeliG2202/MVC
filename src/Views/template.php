@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8" />
+    <title>JUNICAL MEDICAL S.A.S</title>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -10,10 +11,11 @@
     <!-- STYLES CSS -->
     <link rel="stylesheet" href="<?php echo(host); ?>/src/Views/assets/fontawesome/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="<?php echo(host); ?>/src/Views/assets/css/index.css" rel="stylesheet" />
     <link href="<?php echo(host); ?>/src/Views/assets/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon widt" href="<?php echo(host); ?>/src/Views/assets/img/LogoBot.png"/>
 
-    <title>JUNICAL MEDICAL S.A.S</title>
-    <link rel="icon" type="image/x-icon" href="<?php echo(host); ?>/src/Views/assets/img/LogoBot.png" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body class="sb-nav-fixed">

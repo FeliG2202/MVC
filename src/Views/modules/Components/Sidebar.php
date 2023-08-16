@@ -8,11 +8,7 @@ $menus = $navBar->menuControlador->consultarMenuControlador();
 $addMenu = function ($menu_nombre) {
 	$replace = strtolower(str_replace(" ", "_", $menu_nombre));
 
-	return '<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#' . $replace . '" aria-expanded="false">
-	<div class="sb-nav-link-icon"></div>
-	' . $menu_nombre . '
-	<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-	</a>';
+	return '<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#' . $replace . '" aria-expanded="false"><div class="sb-nav-link-icon"></div>' . $menu_nombre . '<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div></a>';
 };
 
 $addOption = function ($option) {
@@ -49,24 +45,24 @@ $addOption = function ($option) {
 				if (isset($_SESSION['session'])) {
 					if ($menu['menuEstado'] === "online" || $menu['menuEstado'] === "online/offline") {
 						if (in_array($_SESSION['rol'], explode(",", $menu['idRol']))) {
-							echo ($addMenu($menu['menuNombre']));
+							echo($addMenu($menu['menuNombre']));
 						}
 					}
 				} elseif (!isset($_SESSION['session'])) {
 					if ($menu['menuEstado'] === "offline" || $menu['menuEstado'] === "online/offline") {
-						echo ($addMenu($menu['menuNombre']));
+						echo($addMenu($menu['menuNombre']));
 					}
 				}
 
-				echo '<div class="collapse" id="' . strtolower(str_replace(" ", "_", $menu['menuNombre'])) . '" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-				<nav class="sb-sidenav-menu-nested nav">';
+                $str = strtolower(str_replace(" ", "_", $menu['menuNombre']));
+				echo('<div class="collapse" id="' . $str . '" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion"><nav class="sb-sidenav-menu-nested nav">');
 
 				$options = $navBar->opcionMenuControlador->consultarOpcionesMenuIdControlador($menu['idMenu']);
 
 				foreach ($options as $keyOpcion => $option) {
-					echo ($addOption($option));
+					echo($addOption($option));
 				}
-				echo '</nav>
+				echo'</nav>
 				</div>';
 			} ?>
 		</div>

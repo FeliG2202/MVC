@@ -14,7 +14,7 @@ class TemplateControlador {
 	public function cargarPaginaAlTemplate(): string {
 		return (new TemplateModelo())->validarEnlacesModelo(
 			isset($_GET['folder']) ? "{$_GET['folder']}/" : '',
-			isset($_GET['view']) ? "{$_GET['view']}.php" : '404.php'
+			isset($_GET['view']) ? "{$_GET['view']}.php" : 'inicio.php'
 		);
 	}
 
