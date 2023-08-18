@@ -88,4 +88,20 @@ class PedAlmMenuModelo extends Connection {
             DB::column('idPersona', 'prs'),
         )->getAll();
     }
+
+    public function generateReportDatesDB() {
+        return DB::table(
+            DB::as('menu_seleccionado_dia_persona', 'msd')
+        )->select(
+            DB::column('personaNombreCompleto', 'prs'),
+            DB::column('menuSeleccionadoDiaPersona', 'msd'),
+            DB::column('fecha_actual', 'msd'),
+        )->inner()->join(
+            DB::as('personas', 'prs'),
+            DB::column('idPersona', 'msd'),
+            DB::column('idPersona', 'prs'),
+        )->where('fecha_actual')
+        ->between(request->date_start, request->date_end)
+        ->getAll();
+    }
 }

@@ -68,28 +68,30 @@ if ($request != null) {
             </div>
 
             <div class="col">
-                <input type="number" name="cod-1" class="form-control" required maxlength="1">
+                <input type="text" id="code-1" name="cod-1" maxlength="1" oninput="validarNumero(this, 'code-2', 'code-1')" class="form-control" required autocomplete="off">
             </div>
 
             <div class="col">
-                <input type="number" name="cod-2" class="form-control" required maxlength="1">
+                <input type="text" id="code-2" name="cod-2" maxlength="1" oninput="validarNumero(this, 'code-3', 'code-1')" class="form-control" required autocomplete="off">
             </div>
 
             <div class="col">
-                <input type="number" name="cod-3" class="form-control" required maxlength="1">
+                <input type="text" id="code-3" name="cod-3" maxlength="1" oninput="validarNumero(this, 'code-4', 'code-2')" class="form-control" required autocomplete="off">
             </div>
 
             <div class="col">
-                <input type="number" name="cod-4" class="form-control" required maxlength="1">
+                <input type="text" id="code-4" name="cod-4" maxlength="1" oninput="validarNumero(this, 'code-5', 'code-3')" class="form-control" required autocomplete="off">
             </div>
 
             <div class="col">
-                <input type="number" name="cod-5" class="form-control" required maxlength="1">
+                <input type="text" id="code-5" name="cod-5" maxlength="1" oninput="validarNumero(this, 'code-6', 'code-4')" class="form-control" required autocomplete="off">
             </div>
 
             <div class="col">
-                <input type="number" name="cod-6" class="form-control" required>
+                <input type="text" id="code-6" name="cod-6" maxlength="1" oninput="validarNumero(this, 'code-7', 'code-5')" class="form-control" required autocomplete="off">
             </div>
+
+            <input type="submit" id="submitForm" style="display: none;">
         </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">

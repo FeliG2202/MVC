@@ -46,3 +46,35 @@ function handleCheckboxClick(checkbox) {
     selectedCard = card;
   }
 }
+
+/*validador de casillas para el codigo de verificacion*/
+function validarNumero(input, siguienteInputId, inputAnteriorId) {
+            input.value = input.value.replace(/[^0-9]/g, '');
+
+            if (input.value.length === 0) {
+                document.getElementById(inputAnteriorId).focus();
+            } else if (input.value.length > 0) {
+                document.getElementById(siguienteInputId).focus();
+            }
+        }
+
+/*validador de campos de fechas actuales*/
+function validarFechas() {
+    const fechaInicioInput = document.getElementById("date_start");
+    const fechaFinInput = document.getElementById("date_end");
+
+    const fechaInicio = new Date(fechaInicioInput.value);
+    const fechaFin = new Date(fechaFinInput.value);
+    const fechaActual = new Date(dayjs().format("YYYY-MM-DD"));
+
+    if (fechaInicio > fechaActual) {
+        fechaInicioInput.value = "";
+         alert("No puedes seleccionar una fecha de inicio futura.");
+    }
+
+    if (fechaFin > fechaActual) {
+        fechaFinInput.value = "";
+        alert("No puedes seleccionar una fecha de finalización futura.");
+    }
+}
+

@@ -127,9 +127,19 @@ class PedAlmMenuControlador {
         return $this->PedAlmMenuModelo->consultarAlmMenuApartModelo();
     }
 
-    public function generateReport() {
+
+    /*Generador de Reportes*/
+    public function generateReportDates() {
+        if (!isset(request->date_start, request->date_end)) {
+            return response->code(500)->error("Debe agregar la fecha de inicio y fin para generar el reporte");
+        }
+
+        $all_menu = $this->PedAlmMenuModelo->generateReportDatesDB();
+        if (isset($all_menu->status)) {
+            return response->code(204)->finish();
+        }
+
         $cont = 3;
-        $all_menu = $this->consultarAlmMenuApartControlador();
         Spreadsheet::load("../src/Views/assets/excel/reporte-almuerzos.xlsx");
 
         foreach ($all_menu as $key => $menu) {

@@ -35,7 +35,7 @@ $menuPorDias = $PedAlmMenuControlador->consultarMenuDiaControlador();
     <?php
     $hora_actual = date('H:i');
     $hora_inicio = '08:00';
-    $hora_fin = '10:00';
+    $hora_fin = '23:00';
     if ($hora_actual >= $hora_inicio && $hora_actual <= $hora_fin) { ?>
         <div class="row">
             <div class="col mb-3">
