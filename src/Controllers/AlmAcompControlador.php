@@ -32,17 +32,8 @@ class AlmAcompControlador
 		}
 	}
 
-	public function consultarAlmACompControlador()
-	{
-		if (isset($_POST['btnBuscarAcomp'])) {
-			if (isset($_POST['datoBusqueda'])) {
-				$rolBuscado = $_POST['datoBusqueda'];
-			}
-		} else {
-			$rolBuscado = '';
-		}
-
-		return $this->AlmAcompModelo->consultarAlmAcompModelo($rolBuscado);
+	public function consultarAlmACompControlador() {
+		return $this->AlmAcompModelo->consultarAlmAcompModelo();
 	}
 
 	public function consultarAlmACompIdControlador()

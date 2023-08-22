@@ -1,8 +1,9 @@
 <?php
 
-require_once(__DIR__ . "/../vendor/autoload.php");
 header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
 
+require_once(__DIR__ . "/../vendor/autoload.php");
 include_once("../config.php");
 define("request", \LionRequest\Request::capture());
 define("response", \LionRequest\Response::getInstance());

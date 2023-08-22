@@ -7,17 +7,17 @@ use PHP\Models\AlmSopaModelo;
 class AlmSopaControlador
 {
 
-	private $AlmSopaModelo;
+	private $almSopaModelo;
 
 	function __construct()
 	{
-		$this->AlmSopaModelo = new AlmSopaModelo();
+		$this->almSopaModelo = new AlmSopaModelo();
 	}
 
 	public function registrarAlmSopaControlador()
 	{
 		if (isset($_POST['regAlmSopa'])) {
-			return !$this->AlmSopaModelo->registrarAlmSopaModelo($_POST['nombreSopa'])
+			return !$this->almSopaModelo->registrarAlmSopaModelo($_POST['nombreSopa'])
 				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmSopa&view=frmAlmRegSopa"]
 				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmSopa&view=frmAlmRegSopa"];
 		}
@@ -33,13 +33,13 @@ class AlmSopaControlador
 			$rolBuscado = '';
 		}
 
-		return $this->AlmSopaModelo->consultarAlmSopaModelo($rolBuscado);
+		return $this->almSopaModelo->consultarAlmSopaModelo($rolBuscado);
 	}
 
 	public function consultarAlmSopaIdControlador()
 	{
 		if (isset($_GET['id'])) {
-			return $this->AlmSopaModelo->consultarAlmSopaIdModelo($_GET['id']);
+			return $this->almSopaModelo->consultarAlmSopaIdModelo($_GET['id']);
 		}
 	}
 
@@ -50,7 +50,7 @@ class AlmSopaControlador
 				'nombreSopa' => $_POST['nombreSopa'],
 				'id' => $_GET['id']
 			];
-			return !$this->AlmSopaModelo->actualizarAlmSopaModelo($datosAlmSopa)
+			return !$this->almSopaModelo->actualizarAlmSopaModelo($datosAlmSopa)
 				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmSopa&view=frmAlmRegSopa"]
 				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmSopa&view=frmAlmConSopa"];
 		}
@@ -59,14 +59,13 @@ class AlmSopaControlador
 	public function eliminarAlmSopaControlador()
 	{
 		if (isset($_GET['id'])) {
-			return !$this->AlmSopaModelo->eliminarAlmSopaModelo($_GET['id'])
+			return !$this->almSopaModelo->eliminarAlmSopaModelo($_GET['id'])
 				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmSopa&view=frmAlmRegSopa"]
 				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmSopa&view=frmAlmConSopa"];
 		}
 	}
 
-	public function listarAlmSopaMenuControlador()
-	{
-		return $this->AlmSopaModelo->listarAlmSopaMenuModelo();
+	public function listarAlmSopaMenuControlador() {
+		return $this->almSopaModelo->listarAlmSopaMenuModelo();
 	}
 }

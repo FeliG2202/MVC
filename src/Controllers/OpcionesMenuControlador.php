@@ -33,7 +33,8 @@ class OpcionesMenuControlador {
 		}
 	}
 
-	public function consultarOpcionesMenuIdControlador($idMenu){
+	public function consultarOpcionesMenuIdControlador($idMenu) {
 		return $this->opcionMenuModelo->consultarOpcionesMenuIdModelo($idMenu);
 	}
+
 }

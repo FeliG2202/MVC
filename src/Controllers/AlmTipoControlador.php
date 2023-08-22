@@ -23,17 +23,8 @@ class AlmTipoControlador
 		}
 	}
 
-	public function consultarAlmTipoControlador()
-	{
-		if (isset($_POST['btnBuscarTipo'])) {
-			if (isset($_POST['datoBusqueda'])) {
-				$rolBuscado = $_POST['datoBusqueda'];
-			}
-		} else {
-			$rolBuscado = '';
-		}
-
-		return $this->AlmTipoModelo->consultarAlmTipoModelo($rolBuscado);
+	public function consultarAlmTipoControlador(){
+		return $this->AlmTipoModelo->consultarAlmTipoModelo();
 	}
 
 	public function consultarAlmTipoIdControlador()

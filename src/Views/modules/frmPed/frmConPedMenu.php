@@ -65,7 +65,7 @@
                         { data: 'personaNombreCompleto' },
                         { data: 'menuSeleccionadoDiaPersona' },
                         { data: 'fecha_actual' }
-                    ]
+                    ],
                 });
             }
         });

@@ -1,61 +1,14 @@
-<?php
-
-use PHP\Controllers\AlmAcompControlador;
-use PHP\Controllers\TemplateControlador;
-
-if (!isset($_SESSION['session'])) {
-	TemplateControlador::redirect("index.php?view=login");
-}
-
-$almAcompControlador = new AlmAcompControlador();
-$datosAlmAComp = $almAcompControlador->consultarAlmACompControlador();
-$request = $almAcompControlador->eliminarAlmACompControlador();
-
-if ($request != null) {
-	if ($request->request) {
-		TemplateControlador::redirect($request->url);
-	}
-}
-?>
-
-<!--//////////////////////////////////////////////////////-->
-
 <h1 class="mt-4 text-center">Consultar Acompañamiento</h1>
 <div class="card mb-4 p-4">
 	<div class="card-body">
-		<?php if(isset($_GET['status'], $_GET['message'])) {
-			if ($_GET['status'] === "error") {
-				TemplateControlador::error($_GET['message']);
-			} else {
-				TemplateControlador::success($_GET['message']);
-			}
-		} ?>
-		<table id="datatablesSimple">
+		<table class="table table-hover table-sm w-100" id="table-menu">
 			<thead>
 				<tr>
 					<th>Nombre del Acompañamiento</th>
 					<th>Opciones</th>
 				</tr>
 			</thead>
-			<tfoot>
-				<tr>
-					<th>Nombre del Acompañamiento</th>
-					<th>Opciones</th>
-				</tr>
-			</tfoot>
 			<tbody>
-				<?php
-				foreach ($datosAlmAComp as $keyAlmAComp => $valueAlmAComp) {
-					print '<tr>';
-					print '<td>' . $valueAlmAComp['nutriAcompNombre'] . '</td>';
-
-					print '<td>
-                <a href="index.php?folder=frmAlmAcomp&view=frmAlmEditAComp&id=' . $valueAlmAComp['idNutriAcomp'] . '"><i class="fad fa-file-edit fa-lg text-success"></i></a>
-                <a href="index.php?folder=frmAlmAcomp&view=frmAlmDeltAComp&id=' . $valueAlmAComp['idNutriAcomp'] . '"><i class="fad fa-file-times fa-lg text-danger"></i></a>
-                </td>';
-					print "</tr>";
-				}
-				?>
 			</tbody>
 		</table>
 	</div>
@@ -63,3 +16,18 @@ if ($request != null) {
 		<a href="index.php?folder=frmAlmAcomp&view=frmAlmRegAcomp">Registrar Acompañamiento</a>
 	</div>
 </div>
+
+<script type="text/javascript">
+    (function() {
+        axios.get(`${host}/api/frmAlmAcomp/frmAlmConAcomp/con-acomp`).then(res => {
+            if (!res.data.status) {
+                new DataTable('#table-menu', {
+                    data: res.data,
+                    columns: [
+                        { data: 'nutriAcompNombre' }
+                    ],
+                });
+            }
+        });
+    })();
+</script>

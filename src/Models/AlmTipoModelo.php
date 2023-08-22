@@ -5,6 +5,7 @@ namespace PHP\Models;
 use PDO;
 use PDOException;
 use PHP\Models\Connection;
+use LionDatabase\Drivers\MySQL\MySQL as DB;
 
 class AlmTipoModelo extends Connection
 {
@@ -13,7 +14,7 @@ class AlmTipoModelo extends Connection
 
 	function __construct()
 	{
-		$this->tabla = 'nutriTipo';
+		$this->tabla = 'nutritipo';
 	}
 
 
@@ -33,18 +34,8 @@ class AlmTipoModelo extends Connection
 		}
 	}
 
-
-	public function consultarAlmTipoModelo($nutriTipoBuscado)
-	{
-		$nutriTipoBuscado = "%" . $nutriTipoBuscado . "%";
-		$sql = "SELECT * FROM $this->tabla WHERE nutriTipoNombre LIKE ? ORDER BY nutriTipoNombre";
-		try {
-			$stmt = $this->conectar()->prepare($sql);
-			$stmt->bindParam(1, $nutriTipoBuscado, PDO::PARAM_STR);
-			return !$stmt->execute() ? [] : $stmt->fetchAll();
-		} catch (PDOException $e) {
-			print_r($e->getMessage());
-		}
+	public function consultarAlmTipoModelo() {
+		return DB::table('nutritipo')->select()->getAll();
 	}
 
 

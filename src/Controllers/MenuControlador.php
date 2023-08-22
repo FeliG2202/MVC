@@ -7,17 +7,17 @@ use PHP\Models\MenuModelo;
 class MenuControlador
 {
 
-	private $MenuModelo;
+	private $menuModelo;
 
 	function __construct()
 	{
-		$this->MenuModelo = new MenuModelo();
+		$this->menuModelo = new MenuModelo();
 	}
 
 	public function registrarMenuControlador()
 	{
 		if (isset($_POST['btnRegMenu'])) {
-			return !$this->MenuModelo->registrarMenuModelo($_POST['nombreMenu'])
+			return !$this->menuModelo->registrarMenuModelo($_POST['nombreMenu'])
 				? (object) ['request' => false, 'url' => "index.php?folder=frmMenu&view=frmRegMenu"]
 				: (object) ['request' => true, 'url' => "index.php?folder=frmMenu&view=frmConMenu"];
 		}
@@ -25,13 +25,13 @@ class MenuControlador
 
 	public function consultarMenuControlador()
 	{
-		return $this->MenuModelo->consultarMenuModelo();
+		return $this->menuModelo->consultarMenuModelo();
 	}
 
 	public function consultarMenuIdControlador()
 	{
 		if (isset($_GET['id'])) {
-			return $this->MenuModelo->consultarMenuIdModelo($_GET['id']);
+			return $this->menuModelo->consultarMenuIdModelo($_GET['id']);
 		}
 	}
 
@@ -43,7 +43,7 @@ class MenuControlador
 				'menuEstado' => $_POST['menuEstado'],
 				'id' => $_GET['id']
 			];
-			return !$this->MenuModelo->actualizarMenuModelo($datosMenu)
+			return !$this->menuModelo->actualizarMenuModelo($datosMenu)
 				? (object) ['request' => false, 'url' => "index.php?folder=frmMenu&view=frmEditMenu"]
 				: (object) ['request' => true, 'url' => "index.php?folder=frmMenu&view=frmConMenu"];
 		}
@@ -52,7 +52,7 @@ class MenuControlador
 	public function eliminarMenuControlador()
 	{
 		if (isset($_GET['id'])) {
-			return !$this->MenuModelo->eliminarMenuModelo($_GET['id'])
+			return !$this->menuModelo->eliminarMenuModelo($_GET['id'])
 				? (object) ['request' => false, 'url' => "index.php?folder=frmMenu&view=frmConMenu"]
 				: (object) ['request' => true, 'url' => "index.php?folder=frmMenu&view=frmConMenu"];
 		}

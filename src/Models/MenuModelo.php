@@ -5,6 +5,7 @@ namespace PHP\Models;
 use PDO;
 use PDOException;
 use PHP\Models\Connection;
+use LionDatabase\Drivers\MySQL\MySQL as DB;
 
 class MenuModelo extends Connection {
 	
@@ -13,7 +14,6 @@ class MenuModelo extends Connection {
 	function __construct()	{
 		$this->tabla = 'menus';
 	}
-
 
 	public function registrarMenuModelo($menu) {
 		$sql = "INSERT INTO $this->tabla(menuNombre) VALUES (?)";
@@ -32,16 +32,8 @@ class MenuModelo extends Connection {
 		}
 	}
 
-
 	public function consultarMenuModelo() {
-		$sql = "SELECT * FROM $this->tabla";
-
-		try {
-			$stmt = $this->conectar()->prepare($sql);
-			return !$stmt->execute() ? [] : $stmt->fetchAll();
-		} catch (PDOException $e) {
-			print_r($e->getMessage());
-		}		
+		return DB::table("menus")->select()->getAll();
 	}
 
 

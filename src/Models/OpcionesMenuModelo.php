@@ -5,6 +5,7 @@ namespace PHP\Models;
 use PDO;
 use PDOException;
 use PHP\Models\Connection;
+use LionDatabase\Drivers\MySQL\MySQL as DB;
 
 class OpcionesMenuModelo extends Connection {
 	
@@ -31,20 +32,9 @@ class OpcionesMenuModelo extends Connection {
 
 
 	public function consultarOpcionesMenuIdModelo($idMenu) {
-		$sql = "SELECT * FROM opcionesmenu WHERE idMenu=?";
-
-		try {
-			$stmt = $this->conectar()->prepare($sql);
-			$stmt->bindParam(1, $idMenu, PDO::PARAM_INT);
-			if($stmt->execute()){
-				return $stmt->fetchAll();
-			}
-			else{
-				return [];
-			}
-		} catch (PDOException $e) {
-			print_r($e->getMessage());
-		}
-
+		return DB::table("opcionesmenu")
+			->select()
+			->where(DB::equalTo("idMenu"), $idMenu)
+			->getAll();
 	}
 }

@@ -9,7 +9,7 @@ class Connection
 
 	public function conectar()
 	{
-		return new PDO("mysql:dbname=php_mysql_crud;host=localhost", 'root', '', [
+		return new PDO("mysql:dbname=sistema_medico;host=db", 'root', 'lion', [
 			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
 		]);
 	}

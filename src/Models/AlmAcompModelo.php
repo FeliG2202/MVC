@@ -5,6 +5,7 @@ namespace PHP\Models;
 use PDO;
 use PDOException;
 use PHP\Models\Connection;
+use LionDatabase\Drivers\MySQL\MySQL as DB;
 
 
 class AlmAcompModelo extends Connection
@@ -35,17 +36,8 @@ class AlmAcompModelo extends Connection
 	}
 
 
-	public function consultarAlmAcompModelo($nutriAcompBuscado)
-	{
-		$nutriAcompBuscado = "%" . $nutriAcompBuscado . "%";
-		$sql = "SELECT * FROM $this->tabla WHERE nutriAcompNombre LIKE ? ORDER BY nutriAcompNombre";
-		try {
-			$stmt = $this->conectar()->prepare($sql);
-			$stmt->bindParam(1, $nutriAcompBuscado, PDO::PARAM_STR);
-			return !$stmt->execute() ? [] : $stmt->fetchAll();
-		} catch (PDOException $e) {
-			print_r($e->getMessage());
-		}
+	public function consultarAlmAcompModelo() {
+		return DB::table('nutriacomp')->select()->getAll();
 	}
 
 

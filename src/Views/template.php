@@ -26,12 +26,12 @@
 
 <body class="sb-nav-fixed">
     <!-- se llama el menu de navegación -->
-    <?php include("modules/components/NavBar.php"); ?>
+    <?php include("modules/Components/NavBar.php"); ?>
 
     <!-- se llama el contenido de la pagina-->
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <?php include_once("modules/components/Sidebar.php"); ?>
+            <?php include_once("modules/Components/Sidebar.php"); ?>
         </div>
 
         <div id="layoutSidenav_content">
@@ -43,7 +43,9 @@
                 </div>
             </main>
 
-            <?php include_once("modules/components/Footer.php"); ?>
+            <?php
+            include_once("modules/Components/Footer.php");
+            ?>
 
         </div>
     </div>
