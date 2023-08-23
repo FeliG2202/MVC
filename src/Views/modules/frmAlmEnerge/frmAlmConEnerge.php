@@ -19,19 +19,13 @@ if ($request != null) {
 <h1 class="mt-4 text-center">Consultar Energetico</h1>
 <div class="card mb-4 p-4">
 	<div class="card-body">
-		<table id="datatablesSimple">
+		<table class="table table-hover table-sm w-100" id="table-menu">
 			<thead>
 				<tr>
 					<th>Nombre del Energetico</th>
 					<th>Opciones</th>
 				</tr>
 			</thead>
-			<tfoot>
-				<tr>
-					<th>Nombre del Energetico</th>
-					<th>Opciones</th>
-				</tr>
-			</tfoot>
 			<tbody>
 				<?php
 				foreach ($datosAlmEnerge as $keyAlmEnerge => $valueAlmEnerge) {

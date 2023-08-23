@@ -17,7 +17,7 @@ if (isset($request)) { ?>
 <h1 class="mt-4 text-center">Consultar Menu Almuerzo</h1>
 <div class="card mb-4 p-4">
     <div class="card-body">
-        <table id="datatablesSimple">
+        <table class="table table-hover table-sm w-100" id="table-menu">
             <thead>
                 <tr>
                     <th>Tipo Menu</th>
@@ -32,20 +32,6 @@ if (isset($request)) { ?>
                     <th>Opciones</th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <th>Tipo Menu</th>
-                    <th>Dia</th>
-                    <th>Sopa</th>
-                    <th>Arroz</th>
-                    <th>Proteina</th>
-                    <th>Energetico</th>
-                    <th>Acompañante</th>
-                    <th>Ensalada</th>
-                    <th>Bebida</th>
-                    <th>Opciones</th>
-                </tr>
-            </tfoot>
             <tbody>
                 <?php
                 foreach ($datosAlmMenu as $key => $value) {

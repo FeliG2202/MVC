@@ -17,7 +17,7 @@ if (isset($request)) { ?>
 <h1 class="mt-4 text-center">Consultar Menú Principal</h1>
 <div class="card mb-4 p-4">
 	<div class="card-body">
-		<table id="datatablesSimple">
+		<table class="table table-hover table-sm w-100" id="table-menu">
 			<thead>
 				<tr>
 					<th>Nombre del Perfi</th>
@@ -25,13 +25,6 @@ if (isset($request)) { ?>
 					<th>Opciones</th>
 				</tr>
 			</thead>
-			<tfoot>
-				<tr>
-					<th>Nombre del Perfi</th>
-					<th>Estado del Perfil</th>
-					<th>Opciones</th>
-				</tr>
-			</tfoot>
 			<tbody>
 				<?php
 				foreach ($datosMenu as $keyRol => $valueRol) {

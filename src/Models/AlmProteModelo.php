@@ -11,7 +11,7 @@ class AlmProteModelo extends Connection {
 	private $tabla;
 
 	function __construct()	{
-		$this->tabla = 'nutriProte';
+		$this->tabla = 'nutriprote';
 	}
 
 

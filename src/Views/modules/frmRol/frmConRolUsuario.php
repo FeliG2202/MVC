@@ -11,7 +11,7 @@ $datosUsuario = $usuarioRolControlador->usuarioControlador->consultarUsuarioCont
 <h1 class="mt-4 text-center">Consultar Perfiles de Usuarios</h1>
 <div class="card mb-4 p-4">
 	<div class="card-body">
-		<table id="datatablesSimple">
+		<table class="table table-hover table-sm w-100" id="table-menu">
 			<thead>
 				<tr>
 					<th>Nombre del Usuario</th>
@@ -20,11 +20,6 @@ $datosUsuario = $usuarioRolControlador->usuarioControlador->consultarUsuarioCont
 				</tr>
 			</thead>
 			<tfoot>
-				<tr>
-					<th>Nombre del Usuario</th>
-					<th>Estado del Usuario</th>
-					<th>Opciones</th>
-				</tr>
 			</tfoot>
 			<tbody>
 				<?php

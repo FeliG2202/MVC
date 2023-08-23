@@ -14,7 +14,7 @@ class AlmEnergeModelo extends Connection
 
 	function __construct()
 	{
-		$this->tabla = 'nutriEnerge';
+		$this->tabla = 'nutrienerge';
 	}
 
 

@@ -11,7 +11,7 @@ class AlmEnsalModelo extends Connection {
 	private $tabla;
 
 	function __construct()	{
-		$this->tabla = 'nutriEnsal';
+		$this->tabla = 'nutriensal';
 	}
 
 

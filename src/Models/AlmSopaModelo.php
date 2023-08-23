@@ -11,7 +11,7 @@ class AlmSopaModelo extends Connection {
 	private $tabla;
 
 	function __construct()	{
-		$this->tabla = 'nutriSopa';
+		$this->tabla = 'nutrisopa';
 	}
 
 
@@ -97,7 +97,7 @@ class AlmSopaModelo extends Connection {
 	public function listarAlmSopaMenuModelo(){
 		$sql = "SELECT * FROM $this->tabla WHERE 1";
 		try {
-			$stmt = $this->conectar()->prepare($sql);
+			$stmt =  $this->conectar()->prepare($sql);
 			$stmt->execute();
 			return $stmt->fetchAll();
 		} catch (PDOException $e) {

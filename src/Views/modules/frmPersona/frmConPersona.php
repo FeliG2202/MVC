@@ -11,7 +11,7 @@ $request = $datosPersona = $personaControlador->consultarPersonaControlador();
 <h1 class="mt-4 text-center">Consultar Personas</h1>
 <div class="card mb-4 p-4">
 	<div class="card-body">
-		<table id="datatablesSimple">
+		<table class="table table-hover table-sm w-100" id="table-menu">
 			<thead>
 				<tr>
 					<th>Nombre Completo</th>
@@ -21,15 +21,6 @@ $request = $datosPersona = $personaControlador->consultarPersonaControlador();
 					<th>Opciones</th>
 				</tr>
 			</thead>
-			<tfoot>
-				<tr>
-				<th>Nombre Completo</th>
-					<th># Identificacion</th>
-					<th>Correo Electronico</th>
-					<th>Numero Telefonico</th>
-					<th>Opciones</th>
-				</tr>
-			</tfoot>
 			<tbody>
 				<?php
 				foreach ($datosPersona as $keyPersona => $valuePersona) {

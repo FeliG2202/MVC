@@ -13,7 +13,7 @@ class AlmArrozModelo extends Connection
 
 	function __construct()
 	{
-		$this->tabla = 'nutriArroz';
+		$this->tabla = 'nutriarroz';
 	}
 
 
