@@ -1,15 +1,8 @@
 <?php
-
-use PHP\Controllers\AlmBebidaControlador;
 use PHP\Controllers\TemplateControlador;
 
-$almBebidaControlador = new AlmBebidaControlador();
-$request = $almBebidaControlador->registrarAlmBebidaControlador();
-
-if ($request != null) {
-	if ($request->request) {
-		TemplateControlador::redirect($request->url);
-	}
+if (!isset($_SESSION['session'])) {
+    TemplateControlador::redirect("index.php?view=login");
 }
 ?>
 
@@ -18,26 +11,43 @@ if ($request != null) {
         <h2 class="text-center">Registrar Bebida</h2>
         <hr>
 
-        <?php TemplateControlador::response(
-			$request,
-			"Bebida Registrada Correctamente",
-			"Ocurrio un error, Intentelo de nuevo"
-		); ?>
+        <div class="gap-2 d-md-flex justify-content-md-end my-2">
+            <a href="index.php?folder=frmAlmBebida&view=frmAlmConBebida" class="btn btn-outline-secondary">
+                <i class="fas fa-search me-2"></i>Consultar
+            </a>
+        </div>
 
-        <form class="form" method="post">
+        <form class="form" id="form-create-bebida">
             <div class="row mb-3">
                 <label for="" class="form-label">Nombre de la Bebida</label>
-                <input type="text" name="nombreBebida" class="form-control" required>
+                <input type="text" id="nutriBebidaNombre" class="form-control" required>
             </div>
             <br>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="submit" name="regAlmBebida" class="btn btn-success">Registrar</button>
-            </div>
-
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-                <a href="index.php?folder=frmAlmBebida&view=frmAlmConBebida">Consultar Bebida</a>
+                <button type="submit" id="regAlmBebida" class="btn btn-success">Registrar</button>
             </div>
         </form>
     </div>
 </div>
+
+<!-- ================================backend================================== -->
+<script type="text/javascript">
+    document.getElementById("form-create-bebida").addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        axios.post(`${host}/api/frmAlmBebida/bebida`, {
+            nutriBebidaNombre: document.getElementById("nutriBebidaNombre").value,
+            regAlmBebida: document.getElementById("regAlmBebida").value
+        })
+        .then(res => {
+            // console.log(res);
+            if (res.data.status === "success") {
+               window.location.href = `${host}/index.php?folder=frmAlmBebida&view=frmAlmConBebida`;
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    });
+</script>

@@ -14,7 +14,6 @@ class UsuarioModelo extends Connection {
 		$this->tabla = 'usuarios';
 	}
 
-
 	function registrarUsuarioModelo($datosUsuario) {
 		$sql = "INSERT INTO $this->tabla(usuarioLogin, usuarioPassword, usuarioEstado, idPersonas) VALUES (?,?,?,?)";
 		try {

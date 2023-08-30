@@ -58,9 +58,9 @@ class PedAlmMenuControlador {
                 ]);
 
                 Mail::address($data->personaCorreo)
-                    ->subject('Codigo de verificación')
-                    ->body("CODIGO: <strong>{$code}</strong>")
-                    ->altBody("CODIGO: {$code}")
+                    ->subject('Codigo de verificación para solicitud de alimentos')
+                    ->body("CODIGO DE VERIFICACIÓN: <strong>{$code}</strong>")
+                    ->altBody("CODIGO DE VERIFICACIÓN: {$code}")
                     ->send();
             }
 

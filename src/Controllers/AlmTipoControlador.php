@@ -4,69 +4,55 @@ namespace PHP\Controllers;
 
 use PHP\Models\AlmTipoModelo;
 
-class AlmTipoControlador
-{
+class AlmTipoControlador {
 
 	private $AlmTipoModelo;
 
-	function __construct()
-	{
+	function __construct() {
 		$this->AlmTipoModelo = new AlmTipoModelo();
 	}
 
-	public function registrarAlmTipoControlador()
-	{
-		if (isset($_POST['regAlmTipo'])) {
-			return !$this->AlmTipoModelo->registrarAlmTipoModelo($_POST['nombreTipo'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmTipo&view=frmAlmRegTipo"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmTipo&view=frmAlmConTipo"];
+	public function registrarAlmTipoControlador() {
+		$res = $this->AlmTipoModelo->registrarAlmTipoModelo([
+			'nutriTipoNombre' => request->nutriTipoNombre
+		]);
+
+		if ($res->status === "database-error") {
+			return response->code(500)->error('Error al momento de registrar');
 		}
+
+		return response->code(200)->success('registrado correctamente');
 	}
 
-	public function consultarAlmTipoControlador(){
+	public function consultarAlmTipoControlador() {
 		return $this->AlmTipoModelo->consultarAlmTipoModelo();
 	}
 
-	public function consultarAlmTipoIdControlador()
-	{
-		if (isset($_GET['id'])) {
-			return $this->AlmTipoModelo->consultarAlmTipoIdModelo($_GET['id']);
+	public function actualizarAlmTipoControlador(string $idNutriTipo) {
+		$res = $this->AlmTipoModelo->actualizarAlmTipoModelo([
+			'nutriTipoNombre' => request->nutriTipoNombre,
+			'idNutriTipo' => (int) $idNutriTipo
+		]);
+
+		if ($res->status === 'database-error') {
+			return response->code(500)->error('Error al momento de actualizar');
 		}
+
+		return response->code(200)->success('tipo actualizado correctamente');
 	}
 
-	public function actualizarAlmTipoControlador()
-	{
-		if (isset($_POST['updTipo'])) {
-			$response = $this->AlmTipoModelo->actualizarAlmTipoModelo([
-				'nombreTipo' => $_POST['nombreTipo'],
-				'id' => $_GET['id']
-			]);
+	public function eliminarAlmTipoControlador(string $idNutriTipo) {
+		$res = $this->AlmTipoModelo->eliminarAlmTipoModelo([
+			'idNutriTipo' => (int) $idNutriTipo
+		]);
 
-			if (!$response) {
-				return (object) [
-					'request' => false,
-					'url' => "index.php?folder=frmAlmTipo&view=frmAlmConTipo&status=error&message=Ocurrió un error al actualizar el menú",
-				];
-			}
-
-			return (object) [
-				'request' => true,
-				'url' => "index.php?folder=frmAlmTipo&view=frmAlmConTipo&status=success&message=Menú actualizado correctamente",
-			];
+		if ($res->status === 'database-error') {
+			return $res;
+			return response->code(500)->error('Error al momento de Eliminar');
 		}
+
+		return response->code(200)->success('Eliminado correctamente');
 	}
 
-	public function eliminarAlmTipoControlador()
-	{
-		if (isset($_GET['id'])) {
-			return !$this->AlmTipoModelo->eliminarAlmTipoModelo($_GET['id'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmTipo&view=frmAlmConTipo"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmTipo&view=frmAlmConTipo"];
-		}
-	}
 
-	public function listarAlmTipoMenuControlador()
-	{
-		return $this->AlmTipoModelo->listarAlmTipoMenuModelo();
-	}
 }

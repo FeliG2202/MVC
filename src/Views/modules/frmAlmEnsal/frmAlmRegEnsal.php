@@ -1,43 +1,53 @@
 <?php
-
-use PHP\Controllers\AlmEnsalControlador;
 use PHP\Controllers\TemplateControlador;
 
-$almEnsalControlador = new AlmEnsalControlador();
-$request = $almEnsalControlador->registrarAlmEnsalControlador();
-
-if ($request != null) {
-	if ($request->request) {
-		TemplateControlador::redirect($request->url);
-	}
+if (!isset($_SESSION['session'])) {
+    TemplateControlador::redirect("index.php?view=login");
 }
 ?>
 
 <div class="row">
-	<div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
-		<h2 class="text-center">Registrar Ensalada</h2>
-		<hr>
+    <div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
+        <h2 class="text-center">Registrar Ensalada</h2>
+        <hr>
 
-		<?php TemplateControlador::response(
-			$request,
-			"Ensalda Registrada Correctamente",
-			"Ocurrio un error, Intentelo de nuevo"
-		); ?>
+        <div class="gap-2 d-md-flex justify-content-md-end my-2">
+            <a href="index.php?folder=frmAlmEnsal&view=frmAlmConEnsal" class="btn btn-outline-secondary">
+                <i class="fas fa-search me-2"></i>Consultar
+            </a>
+        </div>
 
-		<form class="form" method="post">
-			<div class="row mb-3">
-				<label for="" class="form-label">Nombre de la ensalada</label>
-				<input type="text" name="nombreEnsal" class="form-control" required>
-			</div>
-			<br>
+        <form class="form" id="form-create-ensal">
+            <div class="row mb-3">
+                <label for="" class="form-label">Nombre de la ensalada</label>
+                <input type="text" id="nutriEnsalNombre" class="form-control" required>
+            </div>
+            <br>
 
-			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				<button type="submit" name="regAlmEnsal" class="btn btn-success">Registrar</button>
-			</div>
-
-			<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-				<a href="index.php?folder=frmAlmEnsal&view=frmAlmConEnsal">Consultar Ensalada</a>
-			</div>
-		</form>
-	</div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" id="regAlmEnsal" class="btn btn-success">Registrar</button>
+            </div>
+        </form>
+    </div>
 </div>
+
+<!-- ================================backend================================== -->
+<script type="text/javascript">
+    document.getElementById("form-create-ensal").addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        axios.post(`${host}/api/frmAlmEnsal/ensal`, {
+            nutriEnsalNombre: document.getElementById("nutriEnsalNombre").value,
+            regAlmEnsal: document.getElementById("regAlmEnsal").value
+        })
+        .then(res => {
+            // console.log(res);
+            if (res.data.status === "success") {
+                window.location.href = `${host}/index.php?folder=frmAlmEnsal&view=frmAlmConEnsal`;
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    });
+</script>

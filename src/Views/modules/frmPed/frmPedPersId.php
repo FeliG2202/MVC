@@ -14,7 +14,7 @@ if ($request != null) {
 ?>
 
 <div class="col-lg-5 mx-auto mt-5 mb-5 p-4 rounded shadow-sm">
-    <h2 class="text-center">Menu del almuerzo</h2>
+    <h2 class="text-center">Solicitud de Alimentos</h2>
     <hr>
     <?php TemplateControlador::response(
         $request,

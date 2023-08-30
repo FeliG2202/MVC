@@ -13,82 +13,43 @@ class AlmArrozControlador {
 	}
 
 	public function registrarAlmArrozControlador() {
-		if (isset($_POST['regAlmArroz'])) {
-			$response = $this->almArrozModelo->registrarAlmArrozModelo($_POST['nombreArroz']);
+		$res = $this->almArrozModelo->registrarAlmArrozModelo([
+			'nutriArrozNombre' => request->nutriArrozNombre
+		]);
 
-			if (!$response) {
-				(object) [
-					'request' => false,
-					'url' => "index.php?folder=frmAlmArroz&view=frmAlmRegArroz"
-				];
-			}
+		if ($res->status === "database-error") {
+			return response->code(500)->error('Error al momento de registrar');
 		}
 
-		return (object) [
-			'request' => true,
-			'url' => "index.php?folder=frmAlmArroz&view=frmAlmConArroz"
-		];
+		return response->code(200)->success('registrado correctamente');
 	}
 
-	public function consultarAlmArrozControlador()
-	{
-		if (isset($_POST['btnBuscarArroz'])) {
-			if (isset($_POST['datoBusqueda'])) {
-				$rolBuscado = $_POST['datoBusqueda'];
-			}
-		} else {
-			$rolBuscado = '';
+	public function consultarAlmArrozControlador() {
+		return $this->almArrozModelo->consultarAlmArrozModelo();
+	}
+
+	public function actualizarAlmArrozControlador(string $idNutriArroz) {
+		$res = $this->almArrozModelo->actualizarAlmArrozModelo([
+			'nutriArrozNombre' => request->nutriArrozNombre,
+			'idNutriArroz' => (int) $idNutriArroz
+		]);
+
+		if ($res->status === 'database-error') {
+			return response->code(500)->error('Error al momento de actualizar');
 		}
 
-		return $this->almArrozModelo->consultarAlmArrozModelo($rolBuscado);
+		return response->code(200)->success('tipo actualizado correctamente');
 	}
 
-	public function consultarAlmArrozIdControlador()
-	{
-		if (isset($_GET['id'])) {
-			return $this->almArrozModelo->consultarAlmArrozIdModelo($_GET['id']);
+	public function eliminarAlmArrozControlador(string $idNutriArroz) {
+		$res = $this->almArrozModelo->eliminarAlmArrozModelo([
+			'idNutriArroz' => (int) $idNutriArroz
+		]);
+
+		if ($res->status === 'database-error'){
+			return response->code(500)->error('Error al momento de Eliminar');
 		}
-	}
 
-	public function actualizarAlmArrozControlador()
-	{
-		if (isset($_POST['updArroz'])) {
-			$response = $this->almArrozModelo->actualizarAlmArrozModelo([
-				'nombreArroz' => $_POST['nombreArroz'],
-				'id' => $_GET['id']
-			]);
-
-			if (!$response) {
-				return (object) [
-					'request' => false,
-					'url' => "index.php?folder=frmAlmArroz&view=frmAlmEditArroz"
-				];
-			}
-			return (object) [
-				'request' => true,
-				'url' => "index.php?folder=frmAlmArroz&view=frmAlmConArroz"
-			];
-		}
-	}
-
-	public function eliminarAlmArrozControlador()
-	{
-		if (isset($_GET['id'])) {
-			$response = $this->almArrozModelo->eliminarAlmArrozModelo($_GET['id']);
-			if (!$response) {
-				return (object) [
-					'request' => false,
-					'url' => "index.php?folder=frmAlmArroz&view=frmAlmConArroz"
-				];
-			}
-			return (object) [
-				'request' => true,
-				'url' => "index.php?folder=frmAlmArroz&view=frmAlmConArroz"
-			];
-		}
-	}
-	public function listarAlmArrozMenuControlador()
-	{
-		return $this->almArrozModelo->listarAlmArrozMenuModelo();
+		return response->code(200)->success('Eliminado correctamente');
 	}
 }

@@ -22,7 +22,7 @@ if ($request != null) {
 <div class="col-lg-8 mx-auto mt-5 mb-5 p-4 rounded shadow">
     <div class="row">
         <div class="col mb-3">
-            <h1 class="text-center">Datos Personales</h1>
+            <h2 class="text-center">Datos Personales</h2>
         </div>
     </div>
 

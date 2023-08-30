@@ -1,19 +1,8 @@
 <?php
-
-use PHP\Controllers\AlmTipoControlador;
 use PHP\Controllers\TemplateControlador;
 
 if (!isset($_SESSION['session'])) {
-	TemplateControlador::redirect("index.php?view=login");
-} 
-
-$almTipoControlador = new AlmTipoControlador();
-$request = $almTipoControlador->registrarAlmTipoControlador();
-
-if ($request != null) {
-	if ($request->request) {
-		TemplateControlador::redirect($request->url);
-	}
+    TemplateControlador::redirect("index.php?view=login");
 }
 ?>
 
@@ -22,26 +11,43 @@ if ($request != null) {
         <h2 class="text-center">Registrar Tipo de Menu</h2>
         <hr>
 
-        <?php TemplateControlador::response(
-			$request,
-			"Tipo Menu Registrado Correctamente",
-			"Ocurrio un error, Intentelo de nuevo"
-		); ?>
+        <div class="gap-2 d-md-flex justify-content-md-end my-2">
+            <a href="index.php?folder=frmAlmTipo&view=frmAlmConTipo" class="btn btn-outline-secondary">
+                <i class="fas fa-search me-2"></i>Consultar
+            </a>
+        </div>
 
-        <form class="form" method="post">
+        <form class="form" id="form-create-tipo">
             <div class="row mb-3">
                 <label for="" class="form-label">Nombre del Tipo de menú</label>
-                <input type="text" name="nombreTipo" class="form-control" required>
+                <input type="text" id="nutriTipoNombre" class="form-control" required>
             </div>
             <br>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="submit" name="regAlmTipo" class="btn btn-success">Registrar</button>
-            </div>
-
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-                <a href="index.php?folder=frmAlmTipo&view=frmAlmConTipo">Consultar Tipo de Menú</a>
+                <button type="submit" id="regAlmTipo" class="btn btn-success">Registrar</button>
             </div>
         </form>
     </div>
 </div>
+
+<!-- ================================backend================================== -->
+<script type="text/javascript">
+    document.getElementById("form-create-tipo").addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        axios.post(`${host}/api/frmAlmTipo/tipo`, {
+            nutriTipoNombre: document.getElementById("nutriTipoNombre").value,
+            regAlmTipo: document.getElementById("regAlmTipo").value
+        })
+        .then(res => {
+            // console.log(res);
+            if (res.data.status === "success") {
+                window.location.href = `${host}/index.php?folder=frmAlmTipo&view=frmAlmConTipo`;
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    });
+</script>

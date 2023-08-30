@@ -4,87 +4,52 @@ namespace PHP\Controllers;
 
 use PHP\Models\AlmAcompModelo;
 
-class AlmAcompControlador
-{
+class AlmAcompControlador {
 
 	private $AlmAcompModelo;
 
-	function __construct()
-	{
+	function __construct() {
 		$this->AlmAcompModelo = new AlmAcompModelo();
 	}
 
-	public function registrarAlmACompControlador()
-	{
-		if (isset($_POST['regAlmAcomp'])) {
-			$response = $this->AlmAcompModelo->registrarAlmAcompModelo($_POST['nombreAcomp']);
-			if (!$response){
-				(object) [
-					'request' => false,
-					'url' => "index.php?folder=frmAlmAcomp&view=frmAlmRegAcomp"
-				];
-			}
+	public function registrarAlmACompControlador() {
+		$res = $this->AlmAcompModelo->registrarAlmAcompModelo([
+			'nutriAcompNombre' => request->nutriAcompNombre
+		]);
 
-			return (object) [
-				'request' => true,
-				'url' => "index.php?folder=frmAlmAcomp&view=frmAlmConAcomp"
-			];
+		if ($res->status === "database-error") {
+			return response->code(500)->error('Error al momento de registrar');
 		}
+
+		return response->code(200)->success('registrado correctamente');
 	}
 
 	public function consultarAlmACompControlador() {
 		return $this->AlmAcompModelo->consultarAlmAcompModelo();
 	}
 
-	public function consultarAlmACompIdControlador()
-	{
-		if (isset($_GET['id'])) {
-			return $this->AlmAcompModelo->consultarAlmACompIdModelo($_GET['id']);
+	public function actualizarAlmACompControlador(string $idNutriAcomp) {
+		$res = $this->AlmAcompModelo->actualizarAlmAcompModelo([
+			'nutriAcompNombre' => request->nutriAcompNombre,
+			'idNutriAcomp' => (int) $idNutriAcomp
+		]);
+
+		if ($res->status === 'database-error') {
+			return response->code(500)->error('Error al momento de actualizar');
 		}
+
+		return response->code(200)->success('tipo actualizado correctamente');
 	}
 
-	public function actualizarAlmACompControlador()
-	{
-		if (isset($_POST['updAcomp'])) {
-			$response = $this->AlmAcompModelo->actualizarAlmAcompModelo([
-				'nombreAcomp' => $_POST['nombreAcomp'],
-				'id' => $_GET['id']
-			]);
+	public function eliminarAlmACompControlador(string $idNutriAcomp) {
+		$res = $this->AlmAcompModelo->eliminarAlmAcompModelo([
+			'idNutriAcomp' => (int) $idNutriAcomp
+		]);
 
-			if (!$response){
-				return (object) [
-					'request' => false,
-					'url' => "index.php?folder=frmAlmAcomp&view=frmAlmEditAcomp&status=error&message=Ocurrió un error al actualizar el Acompañamiento"
-				];
-			}
-
-			return (object) [
-				'request' => true,
-				'url' => "index.php?folder=frmAlmAcomp&view=frmAlmConAcomp&status=success&message=Acompañamiento actualizado correctamente"
-			];
+		if ($res->status === 'database-error'){
+			return response->code(500)->error('Error al momento de Eliminar');
 		}
-	}
 
-	public function eliminarAlmACompControlador()
-	{
-		if (isset($_GET['id'])) {
-			$response = $this->AlmAcompModelo->eliminarAlmAcompModelo($_GET['id']);
-
-			if (!$response){
-				return (object) [
-					'request' => false,
-					'url' => "index.php?folder=frmAlmAcomp&view=frmAlmConAcomp"
-				];
-			}
-			return (object) [
-				'request' => true,
-				'url' => "index.php?folder=frmAlmAcomp&view=frmAlmConAcomp"
-			];
-		}
-	}
-
-	public function listarAlmAcompMenuControlador()
-	{
-		return $this->AlmAcompModelo->listarAlmAcompMenuModelo();
+		return response->code(200)->success('Eliminado correctamente');
 	}
 }

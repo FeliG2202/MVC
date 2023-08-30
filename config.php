@@ -26,7 +26,7 @@ MailService::run([
             'host' => 'smtp.gmail.com',
             'encryption' => 'ssl',
             'port' => 465,
-            'name' => 'Sistema',
+            'name' => 'Sistema_Alimentos',
             'account' => 'felipegavilan2202@gmail.com',
             'password' => 'isrmkbqpvfhkaeoi'
         ],

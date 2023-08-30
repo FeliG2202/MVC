@@ -10,41 +10,30 @@ class AlmMenuControlador {
 
 	public function __construct() {
 		$this->AlmMenuModelo = new AlmMenuModelo();
-	}	
+	}
 
-	public function registrarAlmMenuControlador() {
-		if (isset($_POST['btnSaveAlmRegMenu'])) {
-			$datosAlmMenu = array('idNutriTipo' => $_POST['idNutriTipo'],
-				'idNutriDias' => $_POST['idNutriDias'],
-				'idNutriSopa' => $_POST['idNutriSopa'],
-				'idNutriArroz' => $_POST['idNutriArroz'],
-				'idNutriProte' => $_POST['idNutriProte'],
-				'idNutriEnerge' => $_POST['idNutriEnerge'],
-				'idNutriAcomp' => $_POST['idNutriAcomp'],
-				'idNutriEnsal' => $_POST['idNutriEnsal'],
-				'idNutriBebida' => $_POST['idNutriBebida']);
-			return !$this->AlmMenuModelo->registrarAlmMenuModelo($datosAlmMenu) 
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmMenu&view=frmAlmRegMenu"] 
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmMenu&view=frmAlmConMenu"];
+	public function registrarAlmTipoControlador() {
+		$res = $this->AlmMenuModelo->registrarAlmMenuModelo([
+			'idNutriTipo' => request->idNutriTipo,
+			'idNutriDias' => request->idNutriDias,
+			'idNutriSopa' => request->idNutriSopa,
+			'idNutriArroz' => request->idNutriArroz,
+			'idNutriProte' => request->idNutriProte,
+			'idNutriEnerge' => request->idNutriEnerge,
+			'idNutriAcomp' => request->idNutriAcomp,
+			'idNutriEnsal' => request->idNutriEnsal,
+			'idNutriBebida' => request->idNutriBebida
+		]);
+
+		if ($res->status === "database-error") {
+			return response->code(500)->error('Error al momento de registrar');
 		}
+
+		return response->code(200)->success('registrado correctamente');
 	}
 
 	public function consultarAlmMenuControlador(){
-		if (isset($_POST['btnBuscarMenu'])) {
-			if (isset($_POST['datoBusqueda'])) {
-				$datoBusqueda = $_POST['datoBusqueda'];
-			}
-		} else{
-			$datoBusqueda = '';
-		}
-		return $this->AlmMenuModelo->consultarAlmMenuModelo($datoBusqueda);
+		return $this->AlmMenuModelo->consultarAlmMenuModelo();
 	}
-
-	public function consultarAlmMenuIdControlador(){
-		if (isset($_GET['id'])) {
-			return $this->AlmMenuModelo->consultarAlmMenuIdModelo($_GET['id']);
-		}
-	}
-
 	
 }

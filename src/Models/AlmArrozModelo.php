@@ -2,111 +2,35 @@
 
 namespace PHP\Models;
 
-use PDO;
-use PDOException;
-use PHP\Models\Connection;
+use LionDatabase\Drivers\MySQL\MySQL as DB;
 
-class AlmArrozModelo extends Connection
-{
+class AlmArrozModelo {
 
-	private $tabla;
 
-	function __construct()
-	{
-		$this->tabla = 'nutriarroz';
+	public function registrarAlmArrozModelo($data) {
+		return DB::table('nutriarroz')->insert([
+			'nutriArrozNombre' => $data['nutriArrozNombre'],
+		])->execute();
 	}
 
 
-	public function registrarAlmArrozModelo($nutriArroz)
-	{
-		$sql = "INSERT INTO $this->tabla(nutriArrozNombre) VALUES (?)";
-		try {
-			$stmt = $this->conectar()->prepare($sql);
-			$stmt->bindParam(1, $nutriArroz, PDO::PARAM_STR);
-			if ($stmt->execute()) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (PDOException $e) {
-			print_r($e->getMessage());
-		}
+	public function consultarAlmArrozModelo() {
+		return DB::table('nutriarroz')->select()->getAll();
 	}
 
-
-	public function consultarAlmArrozModelo($nutriArrozBuscado)
-	{
-		$nutriArrozBuscado = "%" . $nutriArrozBuscado . "%";
-		$sql = "SELECT * FROM $this->tabla WHERE nutriArrozNombre LIKE ? ORDER BY nutriArrozNombre";
-		try {
-			$stmt = $this->conectar()->prepare($sql);
-			$stmt->bindParam(1, $nutriArrozBuscado, PDO::PARAM_STR);
-			return !$stmt->execute() ? [] : $stmt->fetchAll();
-		} catch (PDOException $e) {
-			print_r($e->getMessage());
-		}
+	public function actualizarAlmArrozModelo($data) {
+		return DB::table('nutriarroz')->update([
+			'nutriArrozNombre' => $data['nutriArrozNombre']
+		])->where(
+			DB::equalTo('idNutriArroz'), $data['idNutriArroz'])
+		->execute();
 	}
 
-
-	public function consultarAlmArrozIdModelo($id)
-	{
-		$sql = "SELECT * FROM $this->tabla WHERE idNutriArroz=?";
-		try {
-			$stmt = $this->conectar()->prepare($sql);
-			$stmt->bindParam(1, $id, PDO::PARAM_INT);
-			if ($stmt->execute()) {
-				return $stmt->fetchAll();
-			} else {
-				return [];
-			}
-		} catch (PDOException $e) {
-			print_r($e->getMessage());
-		}
+	public function eliminarAlmArrozModelo($data) {
+		return DB::table('nutriarroz')
+		->delete()
+		->where(DB::equalTo('idNutriArroz'), $data['idNutriArroz'])
+		->execute();
 	}
 
-
-	public function actualizarAlmArrozModelo($datosAlmArroz)
-	{
-		$sql = "UPDATE $this->tabla SET nutriArrozNombre=? WHERE idnutriArroz=?";
-		try {
-			$stmt = $this->conectar()->prepare($sql);
-			$stmt->bindParam(1, $datosAlmArroz['nombreArroz'], PDO::PARAM_STR);
-			$stmt->bindParam(2, $datosAlmArroz['id'], PDO::PARAM_INT);
-			if ($stmt->execute()) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (PDOException $e) {
-			print_r($e->getMessage());
-		}
-	}
-
-	public function eliminarAlmArrozModelo($id)
-	{
-		$sql = "DELETE FROM $this->tabla WHERE idnutriArroz = ?";
-		try {
-			$stmt = $this->conectar()->prepare($sql);
-			$stmt->bindParam(1, $id, PDO::PARAM_INT);
-			if ($stmt->execute()) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (PDOException $e) {
-			print_r($e->getMessage());
-		}
-	}
-
-	public function listarAlmArrozMenuModelo()
-	{
-		$sql = "SELECT * FROM $this->tabla WHERE 1";
-		try {
-			$stmt = $this->conectar()->prepare($sql);
-			$stmt->execute();
-			return $stmt->fetchAll();
-		} catch (PDOException $e) {
-			print_r($e->getMessage());
-		}
-	}
 }

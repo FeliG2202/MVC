@@ -4,69 +4,54 @@ namespace PHP\Controllers;
 
 use PHP\Models\AlmEnsalModelo;
 
-class AlmEnsalControlador
-{
+class AlmEnsalControlador {
 
 	private $AlmEnsalModelo;
 
-	function __construct()
-	{
+	function __construct() {
 		$this->AlmEnsalModelo = new AlmEnsalModelo();
 	}
 
-	public function registrarAlmEnsalControlador()
-	{
-		if (isset($_POST['regAlmEnsal'])) {
-			return !$this->AlmEnsalModelo->registrarAlmEnsalModelo($_POST['nombreEnsal'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmEnsal&view=frmAlmRegEnsal"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmEnsal&view=frmAlmRegEnsal"];
-		}
-	}
+	public function registrarAlmEnsalControlador() {
+		$res = $this->AlmEnsalModelo->registrarAlmEnsalModelo([
+			'nutriEnsalNombre' => request->nutriEnsalNombre
+		]);
 
-	public function consultarAlmEnsalControlador()
-	{
-		if (isset($_POST['btnBuscarEnsal'])) {
-			if (isset($_POST['datoBusqueda'])) {
-				$rolBuscado = $_POST['datoBusqueda'];
-			}
-		} else {
-			$rolBuscado = '';
+		if ($res->status === "database-error") {
+			return response->code(500)->error('Error al momento de registrar');
 		}
 
-		return $this->AlmEnsalModelo->consultarAlmEnsalModelo($rolBuscado);
+		return response->code(200)->success('registrado correctamente');
 	}
 
-	public function consultarAlmEnsalIdControlador()
-	{
-		if (isset($_GET['id'])) {
-			return $this->AlmEnsalModelo->consultarAlmEnsalIdModelo($_GET['id']);
+	public function consultarAlmEnsalControlador() {
+		return $this->AlmEnsalModelo->consultarAlmEnsalModelo();
+	}
+
+	public function actualizarAlmEnsalControlador(string $idNutriEnsal) {
+		$res = $this->AlmEnsalModelo->actualizarAlmEnsalModelo([
+			'nutriEnsalNombre' => request->nutriEnsalNombre,
+			'idNutriEnsal' => (int) $idNutriEnsal
+		]);
+
+		if ($res->status === 'database-error') {
+			return response->code(500)->error('Error al momento de actualizar');
 		}
+
+		return response->code(200)->success('tipo actualizado correctamente');
 	}
 
-	public function actualizarAlmEnsalControlador()
-	{
-		if (isset($_POST['updEnsal'])) {
-			$datosAlmEnsal = [
-				'nombreEnsal' => $_POST['nombreEnsal'],
-				'id' => $_GET['id']
-			];
-			return !$this->AlmEnsalModelo->actualizarAlmEnsalModelo($datosAlmEnsal)
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmEnsal&view=frmAlmEditEnsal"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmEnsal&view=frmAlmConEnsal"];
+	public function eliminarAlmEnsalControlador(string $idNutriEnsal) {
+		$res = $this->AlmEnsalModelo->eliminarAlmEnsalModelo([
+			'idNutriEnsal' => (int) $idNutriEnsal
+		]);
+
+		if ($res->status === 'database-error') {
+			return $res;
+			return response->code(500)->error('Error al momento de Eliminar');
 		}
+
+		return response->code(200)->success('Eliminado correctamente');
 	}
 
-	public function eliminarAlmEnsalControlador()
-	{
-		if (isset($_GET['id'])) {
-			return !$this->AlmEnsalModelo->eliminarAlmEnsalModelo($_GET['id'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmEnsal&view=frmAlmConEnsal"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmEnsal&view=frmAlmConEnsal"];
-		}
-	}
-
-	public function listarAlmEnsalMenuControlador()
-	{
-		return $this->AlmEnsalModelo->listarAlmEnsalMenuModelo();
-	}
 }

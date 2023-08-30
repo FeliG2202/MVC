@@ -4,68 +4,54 @@ namespace PHP\Controllers;
 
 use PHP\Models\AlmSopaModelo;
 
-class AlmSopaControlador
-{
+class AlmSopaControlador {
 
-	private $almSopaModelo;
+	private $AlmSopaModelo;
 
-	function __construct()
-	{
-		$this->almSopaModelo = new AlmSopaModelo();
+	function __construct() {
+		$this->AlmSopaModelo = new AlmSopaModelo();
 	}
 
-	public function registrarAlmSopaControlador()
-	{
-		if (isset($_POST['regAlmSopa'])) {
-			return !$this->almSopaModelo->registrarAlmSopaModelo($_POST['nombreSopa'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmSopa&view=frmAlmRegSopa"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmSopa&view=frmAlmRegSopa"];
-		}
-	}
+	public function registrarAlmSopaControlador() {
+		$res = $this->AlmSopaModelo->registrarAlmSopaModelo([
+			'nutriSopaNombre' => request->nutriSopaNombre
+		]);
 
-	public function consultarAlmSopaControlador()
-	{
-		if (isset($_POST['btnBuscarSopa'])) {
-			if (isset($_POST['datoBusqueda'])) {
-				$rolBuscado = $_POST['datoBusqueda'];
-			}
-		} else {
-			$rolBuscado = '';
+		if ($res->status === "database-error") {
+			return response->code(500)->error('Error al momento de registrar');
 		}
 
-		return $this->almSopaModelo->consultarAlmSopaModelo($rolBuscado);
+		return response->code(200)->success('registrado correctamente');
 	}
 
-	public function consultarAlmSopaIdControlador()
-	{
-		if (isset($_GET['id'])) {
-			return $this->almSopaModelo->consultarAlmSopaIdModelo($_GET['id']);
+	public function consultarAlmSopaControlador() {
+		return $this->AlmSopaModelo->consultarAlmSopaModelo();
+	}
+
+	public function actualizarAlmSopaControlador(string $idNutriSopa) {
+		$res = $this->AlmSopaModelo->actualizarAlmSopaModelo([
+			'nutriSopaNombre' => request->nutriSopaNombre,
+			'idNutriSopa' => (int) $idNutriSopa
+		]);
+
+		if ($res->status === 'database-error') {
+			return response->code(500)->error('Error al momento de actualizar');
 		}
+
+		return response->code(200)->success('tipo actualizado correctamente');
 	}
 
-	public function actualizarAlmSopaControlador()
-	{
-		if (isset($_POST['updSopa'])) {
-			$datosAlmSopa = [
-				'nombreSopa' => $_POST['nombreSopa'],
-				'id' => $_GET['id']
-			];
-			return !$this->almSopaModelo->actualizarAlmSopaModelo($datosAlmSopa)
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmSopa&view=frmAlmRegSopa"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmSopa&view=frmAlmConSopa"];
+	public function eliminarAlmSopaControlador(string $idNutriSopa) {
+		$res = $this->AlmSopaModelo->eliminarAlmSopaModelo([
+			'idNutriSopa' => (int) $idNutriSopa
+		]);
+
+		if ($res->status === 'database-error') {
+			return $res;
+			return response->code(500)->error('Error al momento de Eliminar');
 		}
+
+		return response->code(200)->success('Eliminado correctamente');
 	}
 
-	public function eliminarAlmSopaControlador()
-	{
-		if (isset($_GET['id'])) {
-			return !$this->almSopaModelo->eliminarAlmSopaModelo($_GET['id'])
-				? (object) ['request' => false, 'url' => "index.php?folder=frmAlmSopa&view=frmAlmRegSopa"]
-				: (object) ['request' => true, 'url' => "index.php?folder=frmAlmSopa&view=frmAlmConSopa"];
-		}
-	}
-
-	public function listarAlmSopaMenuControlador() {
-		return $this->almSopaModelo->listarAlmSopaMenuModelo();
-	}
 }

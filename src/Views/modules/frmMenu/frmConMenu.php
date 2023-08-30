@@ -14,7 +14,7 @@ if (isset($request)) { ?>
 
 <!--//////////////////////////////////////////////////////-->
 
-<h1 class="mt-4 text-center">Consultar Menú Principal</h1>
+<h2 class="mt-4 text-center">Consultar Menú Principal</h2>
 <div class="card mb-4 p-4">
 	<div class="card-body">
 		<table class="table table-hover table-sm w-100" id="table-menu">

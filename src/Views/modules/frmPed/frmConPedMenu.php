@@ -1,4 +1,4 @@
-<h1 class="mt-4 text-center">Relacion de Solicitudes</h1>
+<h2 class="mt-4 text-center">Relación de Solicitudes</h2>
 
 <div class="card">
     <div class="card-body">
@@ -10,16 +10,18 @@
 
         <hr>
 
-        <table class="table table-hover table-sm w-100" id="table-menu">
-            <thead>
-                <tr>
-                    <th>Nombre completo</th>
-                    <th>Pedido</th>
-                    <th>Fecha</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-hover table-sm w-100" id="table-menu" >
+                <thead>
+                    <tr>
+                        <th>Nombre completo</th>
+                        <th>Pedido</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 
 </div>
@@ -47,7 +49,9 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Generar</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-download me-2"></i>Generar
+                    </button>
                 </div>
             </form>
         </div>
@@ -61,11 +65,16 @@
             if (!res.data.status) {
                 new DataTable('#table-menu', {
                     data: res.data,
+                    destroy: true,
+                    responsive: true,
+                    language: {
+                        url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/es-ES.json",
+                    },
                     columns: [
                         { data: 'personaNombreCompleto' },
                         { data: 'menuSeleccionadoDiaPersona' },
                         { data: 'fecha_actual' }
-                    ],
+                        ],
                 });
             }
         });
@@ -98,4 +107,5 @@
             alert("Ocurrió un error al generar el reporte");
         });
     });
+
 </script>

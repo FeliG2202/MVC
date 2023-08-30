@@ -33,13 +33,16 @@ $menuPorDias = $PedAlmMenuControlador->consultarMenuDiaControlador();
 <div class="col-lg-8 mx-auto mt-5 mb-5 p-4 rounded shadow-sm">
 
     <?php
+    $fecha_actual = date("l, d F Y - H:i a");
     $hora_actual = date('H:i');
     $hora_inicio = '08:00';
     $hora_fin = '23:00';
     if ($hora_actual >= $hora_inicio && $hora_actual <= $hora_fin) { ?>
         <div class="row">
             <div class="col mb-3">
-                <h1 class="text-center">Menú del Día</h1>
+                <h2 class="text-center">Menú del Día</h2>
+                <?php
+                echo ("<h6 class='text-center'>{$fecha_actual}</h6>"); ?>
             </div>
         </div>
         <?php TemplateControlador::response(
@@ -59,8 +62,6 @@ $menuPorDias = $PedAlmMenuControlador->consultarMenuDiaControlador();
                 print '<div class="card-body">';
                 print '<h5 class="card-title">' . $value['nutriTipoNombre'] . '</h5>';
                 echo ("<hr>");
-                echo ("<h6>{$menuPorDias['date']['from']} / {$menuPorDias['date']['to']}</h6>");
-                print '<p class="card-text">' . $value['nutriDiasNombre'] . '</p>';
                 /* Selecionar componentes del almuerzo */
                 print '<div class="checkbox-group">';
                 print '<div class="form-check checkbox-container">';
