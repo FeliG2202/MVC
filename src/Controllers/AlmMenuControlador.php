@@ -35,5 +35,18 @@ class AlmMenuControlador {
 	public function consultarAlmMenuControlador(){
 		return $this->AlmMenuModelo->consultarAlmMenuModelo();
 	}
+
+	public function eliminarAlmMenuControlador(string $idNutriMenu) {
+		$res = $this->AlmMenuModelo->eliminarAlmMenuModelo([
+			'idNutriMenu' => (int) $idNutriMenu
+		]);
+
+		if ($res->status === 'database-error') {
+			return $res;
+			return response->code(500)->error('Error al momento de Eliminar');
+		}
+
+		return response->code(200)->success('Eliminado correctamente');
+	}
 	
 }

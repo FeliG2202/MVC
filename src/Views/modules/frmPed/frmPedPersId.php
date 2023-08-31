@@ -24,7 +24,7 @@ if ($request != null) {
 
     <?php
     $hora_actual = date('H:i');
-    $hora_inicio = '08:00';
+    $hora_inicio = '00:00';
     $hora_fin = '23:00';
 
     if ($hora_actual >= $hora_inicio && $hora_actual <= $hora_fin) { ?>

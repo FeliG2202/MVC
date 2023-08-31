@@ -46,28 +46,29 @@ if (!isset($_SESSION['session'])) {
 
 
 
-<div class="modal fade" id="modal-menu-edit" tabindex="-1" aria-labelledby="modal-menu-editLabel" aria-hidden="true">
+<div class="modal fade" id="modal-menu" tabindex="-1" aria-labelledby="modal-menuLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+       <!--  <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title text-white" id="modal-menu-editLabel">Edición</h5>
+                <h5 class="modal-title text-white" id="modal-menuLabel">Edición</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
-                <input type="hidden" class="form-control mb-3" id="idNutriTipo_e">
+                <input type="hidden" class="form-control mb-3" id="idNutriMenu_e">
                 <input type="text" class="form-control" id="nutriTipoNombre_e">
+                <input type="text" class="form-control" id="nutriTipoDias_e">
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="btn-delete-tipo-menu">
+                <button type="button" class="btn btn-danger" id="btn-delete-menu">
                     <i class="fas fa-file-times me-2"></i>Eliminar
                 </button>
-                <button type="button" class="btn btn-warning" id="btn-update-tipo-menu">
+                <button type="button" class="btn btn-warning" id="btn-update-menu">
                     <i class="fas fa-file-edit me-2"></i>Actualizar
                 </button>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 
@@ -75,7 +76,7 @@ if (!isset($_SESSION['session'])) {
 
 
 <script type="text/javascript">
-    const myModal = new bootstrap.Modal('#modal-menu-edit', {
+    const myModal = new bootstrap.Modal('#modal-menu', {
         keyboard: false
     });
 
@@ -105,8 +106,9 @@ if (!isset($_SESSION['session'])) {
                     createdRow: (html, row, index) => {
                         html.setAttribute("role", "button");
                         html.addEventListener("click", () => {
-                            document.getElementById("idNutriTipo_e").value = row.idNutriTipo;
-                            document.getElementById("nutriTipoNombre_e").value = row.nutriTipoNombre;
+                            getInput("idNutriMenu_e").value = row.idNutriMenu;
+                            getInput("nutriTipoNombre_e").value = row.nutriTipoNombre;
+                            getInput("nutriTipoDias_e").value = row.nutriDiasNombre;
                             myModal.show();
                         });
                     },
@@ -124,46 +126,46 @@ if (!isset($_SESSION['session'])) {
     }
 
     // DETERMINO LAS VARIABLE DE ELIMINAR Y ACTUALIZAR
-    const btn_delete = document.getElementById("btn-delete-tipo-menu");
-    const btn_update = document.getElementById("btn-update-tipo-menu");
+    const btn_delete = document.getElementById("btn-delete-menu");
+    const btn_update = document.getElementById("btn-update-menu");
 
-    // ENVIO A LA API LA FUNCION DE ELIMINAR
-    if (btn_delete) {
-        btn_delete.addEventListener("click", () => {
-            if (confirm("Está seguro de eleminar este menu?")) {
-                const idNutriTipo_e = document.getElementById("idNutriTipo_e").value;
+    // // ENVIO A LA API LA FUNCION DE ELIMINAR
+    // if (btn_delete) {
+    //     btn_delete.addEventListener("click", () => {
+    //         if (confirm("Está seguro de eleminar este menu?")) {
+    //             const idNutriMenu_e = document.getElementById("idNutriMenu_e").value;
 
-                axios.delete(`${host}/api/frmAlmTipo/tipo/${idNutriTipo_e}`).then(res => {
-                    console.log(res)
-                    readTipos();
-                    myModal.hide();
-                }).catch(err => {
+    //             axios.delete(`${host}/api/frmAlmMenu/menu/${idNutriMenu_e}`).then(res => {
+    //                 console.log(res)
+    //                 readTipos();
+    //                 myModal.hide();
+    //             }).catch(err => {
 
-                });
-            }
-        });
-    }
+    //             });
+    //         }
+    //     });
+    // }
 
-    // ENVIO  A LA API LA FUNCION DE ACTUALIZAR
-    if (btn_update) {
-        btn_update.addEventListener("click", () => {
-            if (confirm("Está seguro de actualizar este menu?")) {
-                const idNutriTipo_e = document.getElementById("idNutriTipo_e").value;
-                const form = {
-                    nutriTipoNombre: document.getElementById("nutriTipoNombre_e").value
-                };
+    // // ENVIO  A LA API LA FUNCION DE ACTUALIZAR
+    // if (btn_update) {
+    //     btn_update.addEventListener("click", () => {
+    //         if (confirm("Está seguro de actualizar este menu?")) {
+    //             const idNutriMenu_e = getInput("idNutriMenu_e").value;
+    //             const form = {
+    //                 nutriTipoNombre: getInput("nutriTipoNombre_e").value
+    //             };
 
-                axios.put(`${host}/api/frmAlmTipo/tipo/${idNutriTipo_e}`, form)
-                .then(res => {
-                    console.log(res.data)
-                    readTipos();
-                    myModal.hide();
-                }).catch(err => {
+    //             axios.put(`${host}/api/frmAlmTipo/tipo/${idNutriMenu_e}`, form)
+    //             .then(res => {
+    //                 console.log(res.data)
+    //                 readTipos();
+    //                 myModal.hide();
+    //             }).catch(err => {
 
-                });
-            }
-        });
-    }
+    //             });
+    //         }
+    //     });
+    // }
 
     (function() {
         readTipos();

@@ -93,4 +93,6 @@ Route::prefix('frmAlmEnsal', function() {
 Route::prefix('frmAlmMenu', function(){
     Route::post('menu', [AlmMenuControlador::class, 'registrarAlmTipoControlador']);
     Route::get('menu', [AlmMenuControlador::class, 'consultarAlmMenuControlador']);
+    Route::delete('menu/{idNutriMenu}', [AlmMenuControlador::class, 'eliminarAlmEnsalControlador']);
+    Route::put('menu/{idNutriMenu}', [AlmMenuControlador::class, 'actualizarAlmEnsalControlador']);
 });

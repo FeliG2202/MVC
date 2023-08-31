@@ -24,4 +24,11 @@ class AlmMenuModelo {
 		return DB::table('view_nutrimenu')->select()->getAll();
 	}
 
+	public function eliminarAlmMenuModelo($data) {
+		return DB::table('nutriensal')
+			->delete()
+			->where(DB::equalTo('idNutriMenu'), $data['idNutriMenu'])
+			->execute();
+	}
+
 }
