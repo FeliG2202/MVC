@@ -46,7 +46,3 @@ if ($request != null) {
     <?php }
     ?>
 </div>
-
-<script type="text/javascript">
-    console.log(host);
-</script>

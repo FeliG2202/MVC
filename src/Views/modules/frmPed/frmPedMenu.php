@@ -43,6 +43,7 @@ $menuPorDias = $PedAlmMenuControlador->consultarMenuDiaControlador();
                 <h2 class="text-center">Menú del Día</h2>
                 <?php
                 echo ("<h6 class='text-center'>{$fecha_actual}</h6>"); ?>
+                <hr>
             </div>
         </div>
         <?php TemplateControlador::response(

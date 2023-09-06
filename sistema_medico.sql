@@ -84,34 +84,21 @@ CREATE TABLE `nutriacomp` (
 --
 
 INSERT INTO `nutriacomp` (`idNutriAcomp`, `nutriAcompNombre`) VALUES
-(1, 'Ensalada rusa'),
-(2, 'Patacones'),
-(3, 'Lentejas guisadas'),
-(4, 'Maduro cocinado'),
-(5, 'Papa Francesa'),
-(6, 'Espagettis'),
-(7, 'Yuca al vapor'),
-(8, 'Yuca frita'),
-(9, 'Monedas de Platano'),
-(10, 'Papa Chorreada'),
-(11, 'Puré de papa'),
-(12, 'Croquetas de yuca'),
-(13, 'Papa, yuca en salsa criolla'),
-(14, 'Croquetas de arracacha'),
-(15, 'papas a la plancha'),
-(16, 'Maduro al horno'),
-(17, 'Papas Doradas'),
-(18, 'Aborrajado'),
-(19, 'Criolla frita'),
-(20, 'hhhffff4512'),
-(21, 'Menú #1'),
-(22, 'Prueba Acomp'),
-(23, 'Papa Francesa'),
-(24, 'Monedas de Platano'),
-(25, 'petaconas con carne'),
-(26, 'Monedas de Platano4587'),
-(27, 'Monedas de Platano'),
-(28, '47455');
+(1, 'Patacones'),
+(2, 'Monedas de Platano'),
+(3, 'Papa Francesa'),
+(4, 'Papa, yuca en salsa criolla'),
+(5, 'Croquetas de arracacha'),
+(6, 'Aborrajado'),
+(7, 'Croquetas de yuca'),
+(8, 'Papas Doradas'),
+(9, 'Papa Criolla Frita'),
+(10, 'Maduro al Horno'),
+(11, 'Papa Chorreada'),
+(12, 'Yuca al Vapor'),
+(13, 'Maduro Cocinado'),
+(14, 'Pure de Papa'),
+(15, 'Yuca Frita');
 
 -- --------------------------------------------------------
 
@@ -130,10 +117,11 @@ CREATE TABLE `nutriarroz` (
 
 INSERT INTO `nutriarroz` (`idNutriArroz`, `nutriArrozNombre`) VALUES
 (1, 'Arroz blanco'),
-(2, 'Arroz con pollo '),
-(3, '14523333'),
-(4, 'Arroz Prueba'),
-(5, 'Arroz con pavo');
+(2, 'Arroz con Fideo'),
+(3, 'Arroz Moreno'),
+(4, 'Arroz con Pollo'),
+(5, 'Arroz con Perejil'),
+(6, 'Arroz de zanahoria');
 
 -- --------------------------------------------------------
 
@@ -152,12 +140,15 @@ CREATE TABLE `nutribebida` (
 
 INSERT INTO `nutribebida` (`idNutriBebida`, `nutriBebidaNombre`) VALUES
 (1, 'Jugo de Fresa'),
-(2, 'Jugo de Feijo'),
-(3, 'Jugo de Feijoa'),
-(4, 'JUGO DE MORA'),
-(5, 'Bebida Pruebad'),
-(6, 'jugo de mora'),
-(7, 'Bebida Prueba 3');
+(2, 'Jugo de Feijoa'),
+(3, 'Jugo de Feijo'),
+(4, 'Jugo de Guayaba'),
+(5, 'Jugo de Mango'),
+(6, 'Jugo de Tomate de Arbol'),
+(7, 'Jugo de Fresa'),
+(8, 'Jugo de Mango'),
+(9, 'Jugo de Mora'),
+(10, 'Jugo de Papaya');
 
 -- --------------------------------------------------------
 

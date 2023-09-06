@@ -12,6 +12,7 @@ use PHP\Controllers\AlmEnsalControlador;
 use PHP\Controllers\AlmSopaControlador;
 use PHP\Controllers\AlmProteControlador;
 use PHP\Controllers\AlmMenuControlador;
+use PHP\Controllers\PedAlmMenuPaciControlador;
 
 Route::prefix('reporte', function() {
     Route::get("almuerzos", [PedAlmMenuControlador::class, 'generateReport']);
@@ -93,6 +94,14 @@ Route::prefix('frmAlmEnsal', function() {
 Route::prefix('frmAlmMenu', function(){
     Route::post('menu', [AlmMenuControlador::class, 'registrarAlmTipoControlador']);
     Route::get('menu', [AlmMenuControlador::class, 'consultarAlmMenuControlador']);
-    Route::delete('menu/{idNutriMenu}', [AlmMenuControlador::class, 'eliminarAlmEnsalControlador']);
-    Route::put('menu/{idNutriMenu}', [AlmMenuControlador::class, 'actualizarAlmEnsalControlador']);
+    // Route::delete('menu/{idNutriMenu}', [AlmMenuControlador::class, 'eliminarAlmEnsalControlador']);
+    // Route::put('menu/{idNutriMenu}', [AlmMenuControlador::class, 'actualizarAlmEnsalControlador']);
 });
+
+Route::prefix('frmPedPaci', function(){
+    Route::post('paci', [PedAlmMenuPaciControlador::class, 'procesarFormulario']);
+    Route::get('paci/{idPaciente}',[PedAlmMenuPaciControlador::class, 'consultarAlmMenuIdControlador']);
+    Route::get('paci', [PedAlmMenuPaciControlador::class, 'consultarMenuDiaControlador']);
+    Route::post('paciMenu', [PedAlmMenuPaciControlador::class, 'registrarMenuDiaControlador']);
+});
+

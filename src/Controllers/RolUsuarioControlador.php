@@ -46,8 +46,7 @@ class RolUsuarioControlador
 		}
 	}
 
-	public function consultarRolesUsuariosIdUsuarioControlador()
-	{
+	public function consultarRolesUsuariosIdUsuarioControlador() {
 		if (isset($_SESSION['idUsuario'])) {
 			$rolUsuarioModelo = new RolUsuarioModelo();
 			$datos = $rolUsuarioModelo->consultarUsuarioIdRolesModelo($_SESSION['idUsuario']);
@@ -55,8 +54,7 @@ class RolUsuarioControlador
 		}
 	}
 
-	public function cargarInicioRolControlador()
-	{
+	public function cargarInicioRolControlador() {
 
 		if (isset($_POST['idRol']) && $_POST['idRol'] > 0) {
 			$_SESSION['idRol'] = $_POST['idRol'];
@@ -64,29 +62,24 @@ class RolUsuarioControlador
 		}
 	}
 
-	public function consultarRolesUsuarioIdUsuarioControlador($idUsuario)
-	{
+	public function consultarRolesUsuarioIdUsuarioControlador($idUsuario) {
 		return $this->rolUsuarioModelo->consultarRolesUsuarioIdUsuarioModelo($idUsuario);
 	}
 
-	public function consultarRolUsuarioIdRolControlador($idRol, $idUsuario)
-	{
+	public function consultarRolUsuarioIdRolControlador($idRol, $idUsuario) {
 		return $this->rolUsuarioModelo->consultarRolUsuarioIdRolModelo($idRol, $idUsuario);
 	}
 
 
-	public function actualizarEstadoRolUsuarioIdControlador($idUsuarioRol, $estado)
-	{
+	public function actualizarEstadoRolUsuarioIdControlador($idUsuarioRol, $estado) {
 		return $this->rolUsuarioModelo->actualizarEstadoRolUsuarioIdModelo($idUsuarioRol, $estado);
 	}
 
-	public function cambiarEstadoRolUsuarioControlador($idUsuario, $estado)
-	{
+	public function cambiarEstadoRolUsuarioControlador($idUsuario, $estado) {
 		return $this->rolUsuarioModelo->cambiarEstadoRolUsuarioModelo($idUsuario, $estado);
 	}
 
-	public function actualizarRolUsuarioControlador()
-	{
+	public function actualizarRolUsuarioControlador() {
 		if (isset($_POST['updRolUsuario'])) {
 			if (isset($_POST['idRolUsuario'])) {
 				// $request = $this->cambiarEstadoRolUsuarioControlador($_GET['id'], 'false');
