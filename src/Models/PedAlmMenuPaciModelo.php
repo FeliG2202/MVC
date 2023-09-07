@@ -39,10 +39,10 @@ class PedAlmMenuPaciModelo {
     }
 
     public function registrarMenuDiaModelo($data) {
-        return DB::table('menu_seleccionado_dia_persona')->insert([
+        return DB::table('menu_seleccionado_dia_paci')->insert([
             'idPaciente' => $data['idPaciente'],
             'idNutriMenu' => $data['idMenu'],
-            'menuSeleccionadoDiaPersona' => $data['list'],
+            'menuSeleccionadoDiaPaciente' => $data['list'],
             'fecha_actual' => $data['date']
         ])->execute();
     }

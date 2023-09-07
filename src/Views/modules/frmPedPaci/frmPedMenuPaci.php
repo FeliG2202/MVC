@@ -2,27 +2,19 @@
 
 use PHP\Controllers\PedAlmMenuControlador;
 
-
-
-
 $PedAlmMenuControlador = new PedAlmMenuControlador();
-
-
-
-
 $menuPorDias = $PedAlmMenuControlador->consultarMenuDiaControlador();
 ?>
 
 <div class="col-lg-8 mx-auto mt-5 mb-5 p-4 rounded shadow-sm">
-
     <?php
     $fecha_actual = date("l, d F Y - H:i a");
     $hora_actual = date('H:i');
     $hora_inicio = '07:00';
     $hora_fin = '23:00';
-    if ($hora_actual >= $hora_inicio && $hora_actual <= $hora_fin) {
-        ?>
+    ?>
 
+    <?php if ($hora_actual >= $hora_inicio && $hora_actual <= $hora_fin) { ?>
         <div class="row">
             <div class="col mb-3">
                 <h2 class="text-center">Menú del Día</h2>
@@ -42,44 +34,41 @@ $menuPorDias = $PedAlmMenuControlador->consultarMenuDiaControlador();
 
 <script type="text/javascript">
     axios.get(`${host}/api/frmPedPaci/paci`)
-    .then(res => {
-        const data = res.data.data;
-
-        data.forEach(item => {
+    .then(({ data }) => {
+        data.data.forEach(item => {
             addCardFood({
                 id: 'container-card-food',
                 title: item.nutriTipoNombre,
                 row: {
-                  nutriSopaNombre: item.nutriSopaNombre,
-                  nutriArrozNombre: item.nutriArrozNombre,
-                  nutriProteNombre: item.nutriProteNombre,
-                  nutriEnergeNombre: item.nutriEnergeNombre,
-                  nutriAcompNombre: item.nutriAcompNombre,
-                  nutriEnsalNombre: item.nutriEnsalNombre,
-                  nutriBebidaNombre: item.nutriBebidaNombre,
+                    nutriSopaNombre: item.nutriSopaNombre,
+                    nutriArrozNombre: item.nutriArrozNombre,
+                    nutriProteNombre: item.nutriProteNombre,
+                    nutriEnergeNombre: item.nutriEnergeNombre,
+                    nutriAcompNombre: item.nutriAcompNombre,
+                    nutriEnsalNombre: item.nutriEnsalNombre,
+                    nutriBebidaNombre: item.nutriBebidaNombre,
+                },
+                callback_function: () => {
+                    const items = [];
+                    fields.forEach(field => field.checked && items.push(field.value));
 
-              },
-          });
+                    if (items.length === 0) {
+                        alert('Debe seleccionar un tipo de comida');
+                        return false;
+                    }
+
+                    const formD = getFormData({
+                        selected_list: items.join(',')
+                    });
+
+                    axios.post(`${host}/api/frmPedPaci/paciMenu`, formD, headerMultipartFormData())
+                    .then(({ data }) => {
+                        console.log(data);
+                    }).catch(({ response }) => {
+                        console.log(response);
+                    });
+                }
+            });
         });
-
     })
-
-  // getInput("form-create-tipo").addEventListener("submit", (event) => {
-  //       event.preventDefault();
-
-  //       axios.post(`${host}/api/frmPedPaci/paciMenu`, {
-  //           nutriTipoNombre: getInput("nutriTipoNombre").value,
-  //           regAlmTipo: getInput("regAlmTipo").value
-  //       })
-  //       .then(res => {
-  //           // console.log(res);
-  //           if (res.data.status === "success") {
-  //               window.location.href = `${host}/index.php?folder=frmPedPaci&view=frmPedPaciId`;
-  //           }
-  //       })
-  //       .catch(err => {
-  //           console.log(err);
-  //       });
-  //   });
-
 </script>

@@ -23,12 +23,12 @@ MailService::run([
         'main' => [
             'services' => ['symfony'],
             'debug' => 0,
-            'host' => 'smtp.gmail.com',
+            'host' => 'smtp.office365.com',
             'encryption' => 'ssl',
-            'port' => 465,
+            'port' => 587,
             'name' => 'Sistema_Alimentos',
-            'account' => 'felipegavilan2202@gmail.com',
-            'password' => 'isrmkbqpvfhkaeoi'
+            'account' => 'onedesk@junicalmedical.com.co',
+            'password' => 'Dan72533'
         ],
     ],
 ]);

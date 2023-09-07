@@ -1,3 +1,22 @@
+function random(min, max) {
+	return Math.floor((Math.random() * (max - min + 1)) + min);
+}
+
+function headerMultipartFormData(custom = {}) {
+	return {
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		...custom
+	};
+}
+
+function getFormData(data) {
+	const form = new FormData();
+	Object.entries(data).forEach(([key, value]) => form.append(key, value));
+	return form;
+}
+
 function newElement(type) {
 	return document.createElement(type);
 }
@@ -24,7 +43,7 @@ function uploadSelect(rows) {
 		const select = getInput(id);
 
 		axios.get(host + url).then(({ data }) => {
-			// console.log(data);
+			console.log(data);
 
 			if (!data.status) {
 				data.forEach(row => {
@@ -40,7 +59,7 @@ function uploadSelect(rows) {
 	});
 }
 
-function addCardFood({ id, row, title}) {
+function addCardFood({ id, row, title, callback_function }) {
 	const fields = [];
 
 	const createCol = () => {
@@ -52,26 +71,18 @@ function addCardFood({ id, row, title}) {
 	const createForm = () => {
 		const form = newElement('FORM');
 		form.method = 'POST';
+
 		form.addEventListener('submit', (event) => {
 			event.preventDefault();
-
-			const items = [];
-
-			fields.forEach(field => {
-				if (field.checked) {
-					items.push(field.value);
-				}
-			});
-
-			const formD = new FormData();
-			formD.append('selected_list', items.join(','));
-			console.log(items.join(','))
+			callback_function();
 		});
 
 		return form;
 	};
 
 	const createCard = () => {
+		const num_random = random(100, 999);
+
 		const divCard = newElement('DIV');
 		divCard.classList.add('card');
 
@@ -95,7 +106,9 @@ function addCardFood({ id, row, title}) {
 		button.type = 'submit';
 		button.textContent = 'Seleccionar';
 
-		Object.entries(row).forEach(obj => {
+		Object.entries(row).forEach((obj, index) => {
+			const input_id = num_random + '-input-id-' + obj[1].split(' ').join('-').toLowerCase().trim();
+
 			const divFormCheck = newElement('DIV');
 			divFormCheck.classList.add('form-check', 'checkbox-container');
 
@@ -103,11 +116,13 @@ function addCardFood({ id, row, title}) {
 			inputCheck.type = 'checkbox';
 			inputCheck.name = 'selected_list[]';
 			inputCheck.classList.add('form-check-input');
+			inputCheck.id = input_id;
 			inputCheck.value = obj[1];
-			handleCheckboxClick(inputCheck);
+			inputCheck.addEventListener('click', () => handleCheckboxClick(inputCheck));
 
 			const label = newElement('LABEL');
 			label.textContent = row[obj[0]];
+			label.setAttribute('for', input_id);
 			label.classList.add('form-check-label');
 
 			divFormCheck.appendChild(inputCheck);

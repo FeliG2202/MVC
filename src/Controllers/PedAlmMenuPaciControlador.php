@@ -54,8 +54,8 @@ class PedAlmMenuPaciControlador {
     public function registrarMenuDiaControlador() {
 
         $res = $this->pedAlmMenuPaciModelo->registrarMenuDiaModelo([
-            'idPeaciente' => request->o,
-            'idMenu' => request->o,
+            'idPaciente' => request->idPaciente,
+            'idNutriMenu' => request->idNutriMenu,
             'list' => trim(request->selected_list),
             'date' => date('Y-m-d')
         ]);

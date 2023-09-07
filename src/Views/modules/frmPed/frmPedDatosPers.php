@@ -4,10 +4,10 @@ use PHP\Controllers\PedAlmMenuControlador;
 use PHP\Controllers\TemplateControlador;
 
 $pedAlmMenuControlador = new PedAlmMenuControlador();
-$datosPersona = null;
+$datosPersona = $pedAlmMenuControlador->consultarAlmMenuIdControlador();
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    $datosPersona = $pedAlmMenuControlador->consultarAlmMenuIdControlador();
+    $datosPersona;
 }
 
 $request = $pedAlmMenuControlador->validateCode();
@@ -26,7 +26,6 @@ if ($request != null) {
         </div>
     </div>
 
-    <form method="POST">
         <div class="form row mb-3">
             <div class="form-group col-md-6">
                 <label class="mb-2">Número de Identifición</label>
@@ -53,6 +52,7 @@ if ($request != null) {
 
         <hr>
 
+    <form method="POST">
         <div class="alert alert-warning">
             <strong>Nota: </strong>El código de verificación se ha enviado
             a la cuenta de correo asociada al usuario
