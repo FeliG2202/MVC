@@ -6,11 +6,6 @@
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
                 <i class="fal fa-file-spreadsheet"></i>
             </button>
-
-            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalUpdoload" data-bs-whatever="@mdo">
-                <i class="fas fa-file-upload"></i>
-            </button>
-
         </div>
 
         <hr>
@@ -19,6 +14,7 @@
             <table class="table table-hover table-sm w-100" id="table-menu" >
                 <thead>
                     <tr>
+                        <th>Identificacion</th>
                         <th>Nombre completo</th>
                         <th>Cama</th>
                         <th>Pedido</th>
@@ -32,35 +28,8 @@
 
 </div>
 
-<!-- Formulario Para subir Archivo a la base de datos -->
-<div class="modal fade" id="exampleModalUpdoload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-warning">
-                <h5 class="modal-title text-black" id="exampleModalLabel">Subir Archivo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <form method="POST" id="form-report-dates">
-                <div class="modal-body">
-                    <div class="mb-3">
-                      <label for="formFile" class="form-label">Seleccione un archivo xlsx</label>
-                      <input class="form-control" type="file" id="formFile" accept=".xlsx">
-                  </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-success">
-                    <i class="fas fa-upload me-2"></i></i>Aceptar
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-</div>
-
 <!-- Formulario de Generador de Reporte -->
-<div class="modalUpload fade" id="exampleModalUpload" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-success">
@@ -94,7 +63,7 @@
 <!-- //////////////////////////////////////////////////////// -->
 <script type="text/javascript">
     (function() {
-        axios.get(`${host}/api/frmPed/frmConPedMenu/leer-menu`).then(res => {
+        axios.get(`${host}/api/frmPedPaci/leerMenuPaci`).then(res => {
             if (!res.data.status) {
                 new DataTable('#table-menu', {
                     data: res.data,
@@ -104,8 +73,10 @@
                         url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/es-ES.json",
                     },
                     columns: [
-                        { data: 'personaNombreCompleto' },
-                        { data: 'menuSeleccionadoDiaPersona' },
+                        { data: 'pacienteDocumento' },
+                        { data: 'pacienteNombre' },
+                        { data: 'pacienteCama' },
+                        { data: 'menuSeleccionadoDiaPaciente' },
                         { data: 'fecha_actual' }
                         ],
                 });
@@ -121,23 +92,23 @@
         form.append("date_end",  document.getElementById("date_end").value);
 
         axios.post(
-            `${host}/api/reporte/almuerzos`,
+            `${host}/api/frmPedPaci/almuerzosPaci`,
             form,
             headerMultipartFormData({ responseType: "blob" })
-            ).then(res => {
-                if (res.status === 204) {
-                    alert("No hay datos en el sistema");
-                } else {
-                    const link = document.createElement("a");
-                    link.href = window.URL.createObjectURL(new Blob([res.data]));
-                    link.setAttribute("download",`reporte-${dayjs().format("YYYY-MM-DD")}.xlsx`);
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                }
-            }).catch(err => {
-                alert("Ocurrió un error al generar el reporte");
-            });
+        ).then(res => {
+            if (res.status === 204) {
+                alert("No hay datos en el sistema");
+            } else {
+                const link = document.createElement("a");
+                link.href = window.URL.createObjectURL(new Blob([res.data]));
+                link.setAttribute("download",`reporte-paciente-${dayjs().format("YYYY-MM-DD")}.xlsx`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }).catch(err => {
+            alert("Ocurrió un error al generar el reporte");
         });
+    });
 
-    </script>
+</script>

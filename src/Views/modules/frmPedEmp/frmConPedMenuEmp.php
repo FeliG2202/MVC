@@ -1,4 +1,4 @@
-<h2 class="mt-4 text-center">Relación de Solicitudes</h2>
+<h2 class="mt-4 text-center">Relación de Solicitudes Empleados</h2>
 
 <div class="card">
     <div class="card-body">

@@ -41,37 +41,42 @@ class PedAlmMenuPaciModelo {
     public function registrarMenuDiaModelo($data) {
         return DB::table('menu_seleccionado_dia_paci')->insert([
             'idPaciente' => $data['idPaciente'],
-            'idNutriMenu' => $data['idMenu'],
+            'idNutriMenu' => $data['idNutriMenu'],
             'menuSeleccionadoDiaPaciente' => $data['list'],
             'fecha_actual' => $data['date']
         ])->execute();
     }
 
-    public function consultarAlmMenuApartModelo() {
+// consultar almuerzo paciente apartada
+    public function consultarAlmMenuApartPaciModelo() {
         return DB::table(
-            DB::as('menu_seleccionado_dia_persona', 'msd')
+            DB::as('menu_seleccionado_dia_paci', 'msdp')
         )->select(
-            DB::column('personaNombreCompleto', 'prs'),
-            DB::column('menuSeleccionadoDiaPersona', 'msd'),
-            DB::column('fecha_actual', 'msd'),
+            DB::column('pacienteDocumento', 'pcs'),
+            DB::column('pacienteNombre', 'pcs'),
+            DB::column('pacienteCama', 'pcs'),
+            DB::column('menuSeleccionadoDiaPaciente', 'msdp'),
+            DB::column('fecha_actual', 'msdp'),
         )->inner()->join(
-            DB::as('personas', 'prs'),
-            DB::column('idPersona', 'msd'),
-            DB::column('idPersona', 'prs'),
+            DB::as('pacientes', 'pcs'),
+            DB::column('idPaciente', 'msdp'),
+            DB::column('idPaciente', 'pcs'),
         )->getAll();
     }
 
-    public function generateReportDatesDB() {
+    public function generateReportDatesPaciDB() {
         return DB::table(
-            DB::as('menu_seleccionado_dia_persona', 'msd')
+            DB::as('menu_seleccionado_dia_paci', 'msdp')
         )->select(
-            DB::column('personaNombreCompleto', 'prs'),
-            DB::column('menuSeleccionadoDiaPersona', 'msd'),
-            DB::column('fecha_actual', 'msd'),
+            DB::column('pacienteDocumento', 'pcs'),
+            DB::column('pacienteNombre', 'pcs'),
+            DB::column('pacienteCama', 'pcs'),
+            DB::column('menuSeleccionadoDiaPaciente', 'msdp'),
+            DB::column('fecha_actual', 'msdp'),
         )->inner()->join(
-            DB::as('personas', 'prs'),
-            DB::column('idPersona', 'msd'),
-            DB::column('idPersona', 'prs'),
+            DB::as('pacientes', 'pcs'),
+            DB::column('idPaciente', 'msdp'),
+            DB::column('idPaciente', 'pcs'),
         )->where('fecha_actual')
         ->between(request->date_start, request->date_end)
         ->getAll();

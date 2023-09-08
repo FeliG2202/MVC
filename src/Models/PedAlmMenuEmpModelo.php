@@ -2,12 +2,9 @@
 
 namespace PHP\Models;
 
-use PDO;
-use PDOException;
-use PHP\Models\Connection;
 use LionDatabase\Drivers\MySQL\MySQL as DB;
 
-class PedAlmMenuModelo extends Connection {
+class PedAlmMenuEmpModelo extends Connection {
 
     public $tabla = 'personas';
     public $tablaMDP = 'menu_seleccionado_dia_persona';

@@ -1,3 +1,11 @@
+function getUrl(folder,view, params=''){
+	return `${host}/index.php?folder=${folder}&view=${view}${params}`;
+};
+
+function redirect(folder,view, params=''){
+	window.location.href = `${host}/index.php?folder=${folder}&view=${view}${params}`;
+};
+
 function random(min, max) {
 	return Math.floor((Math.random() * (max - min + 1)) + min);
 }
@@ -74,7 +82,7 @@ function addCardFood({ id, row, title, callback_function }) {
 
 		form.addEventListener('submit', (event) => {
 			event.preventDefault();
-			callback_function();
+			callback_function(fields);
 		});
 
 		return form;

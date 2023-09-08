@@ -14,17 +14,13 @@ use PHP\Controllers\AlmProteControlador;
 use PHP\Controllers\AlmMenuControlador;
 use PHP\Controllers\PedAlmMenuPaciControlador;
 
-Route::prefix('reporte', function() {
-    Route::get("almuerzos", [PedAlmMenuControlador::class, 'generateReport']);
-    Route::post("almuerzos", [PedAlmMenuControlador::class, 'generateReportDates']);
-});
-
 Route::prefix('frmPed', function() {
     Route::prefix('frmConPedMenu', function() {
         Route::get('leer-menu', [PedAlmMenuControlador::class, 'consultarAlmMenuApartControlador']);
     });
 });
 
+// consulta los dias de la semana
 Route::get('dias', [AlmDiaControlador::class, 'listarAlmDiaMenuControlador']);
 
 // YA QUEDO FUNCIONANDO
@@ -98,10 +94,24 @@ Route::prefix('frmAlmMenu', function(){
     // Route::put('menu/{idNutriMenu}', [AlmMenuControlador::class, 'actualizarAlmEnsalControlador']);
 });
 
+// Crud de Solicitud de Alimentos Pacientes
 Route::prefix('frmPedPaci', function(){
     Route::post('paci', [PedAlmMenuPaciControlador::class, 'procesarFormulario']);
     Route::get('paci/{idPaciente}',[PedAlmMenuPaciControlador::class, 'consultarAlmMenuIdControlador']);
     Route::get('paci', [PedAlmMenuPaciControlador::class, 'consultarMenuDiaControlador']);
     Route::post('paciMenu', [PedAlmMenuPaciControlador::class, 'registrarMenuDiaControlador']);
+    Route::get('leerMenuPaci', [PedAlmMenuPaciControlador::class, 'consultarAlmMenuApartPaciControlador']);
+    // generar reportes En excel
+    Route::post("almuerzosPaci", [PedAlmMenuPaciControlador::class, 'generateReportPaciDates']);
+});
+
+Route::prefix('frmPedEmp', function() {
+    Route::post('empl', [PedAlmMenuPaciControlador::class, 'procesarFormulario']);
+    Route::get('empl/{idEmpleado}',[PedAlmMenuPaciControlador::class, 'consultarAlmMenuIdControlador']);
+    Route::get('empl', [PedAlmMenuPaciControlador::class, 'consultarMenuDiaControlador']);
+    Route::post('emplMenu', [PedAlmMenuPaciControlador::class, 'registrarMenuDiaControlador']);
+    Route::get('leerMenuEmpl', [PedAlmMenuPaciControlador::class, 'consultarAlmMenuApartPaciControlador']);
+    // generar reportes En excel
+    Route::post("almuerzosEmpl", [PedAlmMenuPaciControlador::class, 'generateReportPaciDates']);
 });
 

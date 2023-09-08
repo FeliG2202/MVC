@@ -35,6 +35,8 @@ $menuPorDias = $PedAlmMenuControlador->consultarMenuDiaControlador();
 <script type="text/javascript">
     axios.get(`${host}/api/frmPedPaci/paci`)
     .then(({ data }) => {
+        const urlParams = new URLSearchParams(window.location.href);
+
         data.data.forEach(item => {
             addCardFood({
                 id: 'container-card-food',
@@ -48,7 +50,7 @@ $menuPorDias = $PedAlmMenuControlador->consultarMenuDiaControlador();
                     nutriEnsalNombre: item.nutriEnsalNombre,
                     nutriBebidaNombre: item.nutriBebidaNombre,
                 },
-                callback_function: () => {
+                callback_function: (fields) => {
                     const items = [];
                     fields.forEach(field => field.checked && items.push(field.value));
 
@@ -58,12 +60,17 @@ $menuPorDias = $PedAlmMenuControlador->consultarMenuDiaControlador();
                     }
 
                     const formD = getFormData({
+                        idPaciente: urlParams.get('idPaciente'),
+                        idNutriMenu: item.idNutriMenu,
                         selected_list: items.join(',')
                     });
 
                     axios.post(`${host}/api/frmPedPaci/paciMenu`, formD, headerMultipartFormData())
                     .then(({ data }) => {
-                        console.log(data);
+                        if (data.status === "success") {
+                            redirect('frmPedPaci', 'frmPedPaciId');
+                        }
+                        // console.log(data);
                     }).catch(({ response }) => {
                         console.log(response);
                     });

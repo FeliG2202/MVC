@@ -26,7 +26,7 @@ MailService::run([
             'host' => 'smtp.office365.com',
             'encryption' => 'ssl',
             'port' => 587,
-            'name' => 'Sistema_Alimentos',
+            'name' => 'Alfonso Bot',
             'account' => 'onedesk@junicalmedical.com.co',
             'password' => 'Dan72533'
         ],

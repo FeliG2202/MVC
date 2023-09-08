@@ -28,15 +28,18 @@ if ($request != null) {
 
   <form method="POST">
     <div class="form-group mb-3">
-      <label>Nombre de Usuario</label>
-      <input type="text" name="login" placeholder="Ingrese su Usuario" class="form-control" required autocomplete="off">
+      <label class="form-label">Nombre de Usuario</label>
+      <input type="text" name="login" placeholder="Ingrese Usuario" class="form-control" required autocomplete="off">
     </div>
 
     <div class="form-group mb-3">
-      <label>Contraseña</label>
-      <input type="password" name="password" placeholder="Ingrese su Contraseña" class="form-control" required>
+      <label class="form-label">Contraseña</label>
+      <input type="password" name="password" placeholder="Ingrese Contraseña" class="form-control" required>
     </div>
 
-    <button type="submit" name="regLogin" class="btn btn-success">Ingresar</button>
+    <div class="p-2 d-grid gap-2 d-md-flex justify-content-md-end">
+      <button type="submit" name="regLogin" class="btn btn-success">Ingresar</button>
+    </div>
+
   </form>
 </div>
