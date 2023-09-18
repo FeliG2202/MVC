@@ -1,11 +1,3 @@
-<?php
-use PHP\Controllers\TemplateControlador;
-
-if (!isset($_SESSION['session'])) {
-    TemplateControlador::redirect("index.php?view=login");
-}
-?>
-
 <div class="row">
     <div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
         <h2 class="text-center">Registrar Ensalada</h2>
@@ -20,7 +12,7 @@ if (!isset($_SESSION['session'])) {
         <form class="form" id="form-create-ensal">
             <div class="row mb-3">
                 <label for="" class="form-label">Nombre de la ensalada</label>
-                <input type="text" id="nutriEnsalNombre" class="form-control" required>
+                <input type="text" id="product5_name" class="form-control" required>
             </div>
             <br>
 
@@ -36,14 +28,14 @@ if (!isset($_SESSION['session'])) {
     document.getElementById("form-create-ensal").addEventListener("submit", (event) => {
         event.preventDefault();
 
-        axios.post(`${host}/api/frmAlmEnsal/ensal`, {
-            nutriEnsalNombre: document.getElementById("nutriEnsalNombre").value,
+        axios.post(`${host}/api/product/5/create`, {
+            product5_name: document.getElementById("product5_name").value,
             regAlmEnsal: document.getElementById("regAlmEnsal").value
         })
         .then(res => {
             // console.log(res);
             if (res.data.status === "success") {
-                window.location.href = `${host}/index.php?folder=frmAlmEnsal&view=frmAlmConEnsal`;
+                window.location.href = `${url}/index.php?folder=frmAlmEnsal&view=frmAlmConEnsal`;
             }
         })
         .catch(err => {

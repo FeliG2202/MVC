@@ -1,7 +1,7 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-turquesa">
   <div class="p-2">
-    <a class="navbar-brand" href="index.php?view=<?php echo(isset($_SESSION['session']) ? 'inicio2' : 'inicio'); ?>">
-      <img src="<?php echo(host); ?>/src/Views/assets/img/logo.png" alt="Bootstrap" width="170" height="58">
+    <a class="navbar-brand" href="index.php?view=inicio2">
+      <img src="<?php echo(host); ?>/src/Views/assets/img/logo.png" width="170" height="58">
     </a>
   </div>
 
@@ -15,12 +15,8 @@
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
-        <?php if (isset($_SESSION['session'])) { ?>
           <li><a class="dropdown-item" href="index.php?view=salir">Salir</a></li>
-        <?php } else { ?>
           <li><a class="dropdown-item" href="index.php?view=login">iniciar sesión</a></li>
-        <?php } ?>
       </ul>
     </li>
   </ul>

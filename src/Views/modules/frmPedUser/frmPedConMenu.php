@@ -1,4 +1,4 @@
-<h2 class="mt-4 text-center">Relación de Solicitudes Paciente</h2>
+<h2 class="mt-4 text-center">Relación de Solicitudes Empleados</h2>
 
 <div class="card">
     <div class="card-body">
@@ -14,9 +14,8 @@
             <table class="table table-hover table-sm w-100" id="table-menu" >
                 <thead>
                     <tr>
-                        <th>Identificacion</th>
                         <th>Nombre completo</th>
-                        <th>Cama</th>
+                        <th>Identificacion</th>
                         <th>Pedido</th>
                         <th>Fecha</th>
                     </tr>
@@ -63,7 +62,7 @@
 <!-- //////////////////////////////////////////////////////// -->
 <script type="text/javascript">
     (function() {
-        axios.get(`${host}/api/frmPedPaci/leerMenuPaci`).then(res => {
+        axios.get(`${host}/api/frmPedEmp/leerMenuEmpl`).then(res => {
             if (!res.data.status) {
                 new DataTable('#table-menu', {
                     data: res.data,
@@ -73,11 +72,10 @@
                         url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/es-ES.json",
                     },
                     columns: [
-                        { data: 'pacienteDocumento' },
-                        { data: 'pacienteNombre' },
-                        { data: 'pacienteCama' },
-                        { data: 'menuSeleccionadoDiaPaciente' },
-                        { data: 'fecha_actual' }
+                        { data: 'empleadoDocumento' },
+                        { data: 'empleadoNombre' },
+                        { data: 'menuSeleccionadoDiaEmp' },
+                        { data: 'fechaActual' }
                         ],
                 });
             }
@@ -92,7 +90,7 @@
         form.append("date_end",  document.getElementById("date_end").value);
 
         axios.post(
-            `${host}/api/frmPedPaci/almuerzosPaci`,
+            `${host}/api/frmPedEmp/almuerzosEmpl`,
             form,
             headerMultipartFormData({ responseType: "blob" })
         ).then(res => {
@@ -101,7 +99,7 @@
             } else {
                 const link = document.createElement("a");
                 link.href = window.URL.createObjectURL(new Blob([res.data]));
-                link.setAttribute("download",`reporte-paciente-${dayjs().format("YYYY-MM-DD")}.xlsx`);
+                link.setAttribute("download",`reporte-${dayjs().format("YYYY-MM-DD")}.xlsx`);
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);

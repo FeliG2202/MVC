@@ -1,11 +1,3 @@
-<?php
-use PHP\Controllers\TemplateControlador;
-
-if (!isset($_SESSION['session'])) {
-	TemplateControlador::redirect("index.php?view=login");
-}
-?>
-
 <div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
 	<h2 class="text-center">Registrar Acompañamiento</h2>
 	<hr>
@@ -19,7 +11,7 @@ if (!isset($_SESSION['session'])) {
 	<form class="form" id="form-create-acomp">
 		<div class="row mb-3">
 			<label for="" class="form-label">Nombre del Acompañamiento</label>
-			<input type="text" id="nutriAcompNombre" class="form-control" required>
+			<input type="text" id="product1_name" class="form-control" required>
 		</div>
 		<br>
 
@@ -35,14 +27,14 @@ if (!isset($_SESSION['session'])) {
 	document.getElementById("form-create-acomp").addEventListener("submit", (event) => {
 		event.preventDefault();
 
-		axios.post(`${host}/api/frmAlmAcomp/acomp`, {
-			nutriAcompNombre: getInput("nutriAcompNombre").value,
+		axios.post(`${host}/api/product/1/create`, {
+			product1_name: getInput("product1_name").value,
 			regAlmAcomp: getInput("regAlmAcomp").value
 		})
 		.then(res => {
             // console.log(res);
 			if (res.data.status === "success") {
-				window.location.href = `${host}/index.php?folder=frmAlmAcomp&view=frmAlmConAcomp`;
+				window.location.href = `${url}/index.php?folder=frmAlmAcomp&view=frmAlmConAcomp`;
 			}
 		})
 		.catch(err => {

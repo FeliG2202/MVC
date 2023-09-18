@@ -1,10 +1,3 @@
-<?php
-use PHP\Controllers\TemplateControlador;
-
-if (!isset($_SESSION['session'])) {
-	TemplateControlador::redirect("index.php?view=login");
-}
-?>
 <div class="col-12 col-sm-12 col-md-11 col-lg-10 mx-auto">
 	<h2 class="mt-4 text-center">Tipos de Bebidas</h2>
 
@@ -44,8 +37,8 @@ if (!isset($_SESSION['session'])) {
 			</div>
 
 			<div class="modal-body">
-				<input type="hidden" class="form-control mb-3" id="idNutriBebida_e">
-				<input type="text" class="form-control" id="nutriBebidaNombre_e">
+				<input type="hidden" class="form-control mb-3" id="idproduct3">
+				<input type="text" class="form-control" id="product3_name">
 			</div>
 
 			<div class="modal-footer">
@@ -71,7 +64,7 @@ if (!isset($_SESSION['session'])) {
 	// HACE LA CONSULTA A LA BASE DE DATOS Y TRAE LOS DATOS DE LA API
 	// Y HACE LA FUNCION "CLICK" PARA EL MODAL
 	function readTipos() {
-		axios.get(`${host}/api/frmAlmBebida/bebida`).then(res => {
+		axios.get(`${host}/api/product/3/read`).then(res => {
 			if (!res.data.status) {
 				new DataTable('#table-menu', {
 					data: res.data,
@@ -81,13 +74,13 @@ if (!isset($_SESSION['session'])) {
 						url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/es-ES.json",
 					},
 					columns: [
-						{ data: 'nutriBebidaNombre' },
+						{ data: 'product3_name' },
 						],
 					createdRow: (html, row, index) => {
 						html.setAttribute("role", "button");
 						html.addEventListener("click", () => {
-							document.getElementById("idNutriBebida_e").value = row.idNutriBebida;
-							document.getElementById("nutriBebidaNombre_e").value = row.nutriBebidaNombre;
+							document.getElementById("idproduct3").value = row.idproduct3;
+							document.getElementById("product3_name").value = row.product3_name;
 							myModal.show();
 						});
 					},
@@ -112,9 +105,9 @@ if (!isset($_SESSION['session'])) {
 	if (btn_delete) {
 		btn_delete.addEventListener("click", () => {
 			if (confirm("Está seguro de eleminar este menu?")) {
-				const idNutriBebida_e = document.getElementById("idNutriBebida_e").value;
+				const idproduct3 = document.getElementById("idproduct3").value;
 
-				axios.delete(`${host}/api/frmAlmBebida/bebida/${idNutriBebida_e}`).then(res => {
+				axios.delete(`${host}/api/product/3/delete/${idproduct3}`).then(res => {
 					console.log(res)
 					readTipos();
 					myModal.hide();
@@ -129,12 +122,12 @@ if (!isset($_SESSION['session'])) {
 	if (btn_update) {
 		btn_update.addEventListener("click", () => {
 			if (confirm("Está seguro de actualizar este menu?")) {
-				const idNutriBebida_e = document.getElementById("idNutriBebida_e").value;
+				const idproduct3 = document.getElementById("idproduct3").value;
 				const form = {
-					nutriBebidaNombre: document.getElementById("nutriBebidaNombre_e").value
+					product3_name: document.getElementById("product3_name").value
 				};
 
-				axios.put(`${host}/api/frmAlmBebida/bebida/${idNutriBebida_e}`, form)
+				axios.put(`${host}/api/product/3/update/${idproduct3}`, form)
 				.then(res => {
 					console.log(res.data)
 					readTipos();

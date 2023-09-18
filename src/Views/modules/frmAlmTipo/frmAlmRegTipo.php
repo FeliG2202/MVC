@@ -1,11 +1,3 @@
-<?php
-use PHP\Controllers\TemplateControlador;
-
-if (!isset($_SESSION['session'])) {
-    TemplateControlador::redirect("index.php?view=login");
-}
-?>
-
 <div class="row">
     <div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
         <h2 class="text-center">Registrar Tipo de Menu</h2>
@@ -20,7 +12,7 @@ if (!isset($_SESSION['session'])) {
         <form class="form" id="form-create-tipo">
             <div class="row mb-3">
                 <label for="" class="form-label">Nombre del Tipo de menú</label>
-                <input type="text" id="nutriTipoNombre" class="form-control" required>
+                <input type="text" id="tipos_menu_name" class="form-control" required>
             </div>
             <br>
 
@@ -36,14 +28,14 @@ if (!isset($_SESSION['session'])) {
     document.getElementById("form-create-tipo").addEventListener("submit", (event) => {
         event.preventDefault();
 
-        axios.post(`${host}/api/frmAlmTipo/tipo`, {
-            nutriTipoNombre: document.getElementById("nutriTipoNombre").value,
+        axios.post(`${host}/api/tipo/create`, {
+            tipos_menu_name: document.getElementById("tipos_menu_name").value,
             regAlmTipo: document.getElementById("regAlmTipo").value
         })
         .then(res => {
             // console.log(res);
             if (res.data.status === "success") {
-                window.location.href = `${host}/index.php?folder=frmAlmTipo&view=frmAlmConTipo`;
+                window.location.href = `${url}/index.php?folder=frmAlmTipo&view=frmAlmConTipo`;
             }
         })
         .catch(err => {

@@ -1,10 +1,3 @@
-<?php
-use PHP\Controllers\TemplateControlador;
-
-if (!isset($_SESSION['session'])) {
-	TemplateControlador::redirect("index.php?view=login");
-}
-?>
 <div class="col-12 col-sm-12 col-md-11 col-lg-10 mx-auto">
 	<h2 class="mt-4 text-center">Tipos de Ensaladas</h2>
 
@@ -43,8 +36,8 @@ if (!isset($_SESSION['session'])) {
 			</div>
 
 			<div class="modal-body">
-				<input type="hidden" class="form-control mb-3" id="idNutriEnsal_e">
-				<input type="text" class="form-control" id="nutriEnsalNombre_e">
+				<input type="hidden" class="form-control mb-3" id="idproduct5">
+				<input type="text" class="form-control" id="product5_name">
 			</div>
 
 			<div class="modal-footer">
@@ -70,7 +63,7 @@ if (!isset($_SESSION['session'])) {
 	// HACE LA CONSULTA A LA BASE DE DATOS Y TRAE LOS DATOS DE LA API
 	// Y HACE LA FUNCION "CLICK" PARA EL MODAL
 	function readTipos() {
-		axios.get(`${host}/api/frmAlmEnsal/ensal`).then(res => {
+		axios.get(`${host}/api/product/5/read`).then(res => {
 			if (!res.data.status) {
 				new DataTable('#table-menu', {
 					data: res.data,
@@ -80,13 +73,13 @@ if (!isset($_SESSION['session'])) {
 						url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/es-ES.json",
 					},
 					columns: [
-						{ data: 'nutriEnsalNombre' },
+						{ data: 'product5_name' },
 						],
 					createdRow: (html, row, index) => {
 						html.setAttribute("role", "button");
 						html.addEventListener("click", () => {
-							document.getElementById("idNutriEnsal_e").value = row.idNutriEnsal;
-							document.getElementById("nutriEnsalNombre_e").value = row.nutriEnsalNombre;
+							document.getElementById("idproduct5").value = row.idproduct5;
+							document.getElementById("product5_name").value = row.product5_name;
 							myModal.show();
 						});
 					},
@@ -111,9 +104,9 @@ if (!isset($_SESSION['session'])) {
 	if (btn_delete) {
 		btn_delete.addEventListener("click", () => {
 			if (confirm("Está seguro de eleminar este menu?")) {
-				const idNutriEnsal_e = document.getElementById("idNutriEnsal_e").value;
+				const idproduct5 = document.getElementById("idproduct5").value;
 
-				axios.delete(`${host}/api/frmAlmEnsal/ensal/${idNutriEnsal_e}`).then(res => {
+				axios.delete(`${host}/api/product/5/delete/${idproduct5}`).then(res => {
 					console.log(res)
 					readTipos();
 					myModal.hide();
@@ -128,12 +121,12 @@ if (!isset($_SESSION['session'])) {
 	if (btn_update) {
 		btn_update.addEventListener("click", () => {
 			if (confirm("Está seguro de actualizar este menu?")) {
-				const idNutriEnsal_e = document.getElementById("idNutriEnsal_e").value;
+				const idproduct5 = document.getElementById("idproduct5").value;
 				const form = {
-					nutriEnsalNombre: document.getElementById("nutriEnsalNombre_e").value
+					product5_name: document.getElementById("product5_name").value
 				};
 
-				axios.put(`${host}/api/frmAlmEnsal/ensal/${idNutriEnsal_e}`, form)
+				axios.put(`${host}/api/product/5/update/${idproduct5}`, form)
 				.then(res => {
 					console.log(res.data)
 					readTipos();

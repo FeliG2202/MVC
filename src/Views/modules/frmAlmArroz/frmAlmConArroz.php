@@ -1,11 +1,3 @@
-<?php
-use PHP\Controllers\TemplateControlador;
-
-if (!isset($_SESSION['session'])) {
-	TemplateControlador::redirect("index.php?view=login");
-}
-?>
-
 <div class="col-12 col-sm-12 col-md-11 col-lg-10 mx-auto">
 	<h2 class="mt-4 text-center">Tipos de Arroz</h2>
 
@@ -45,8 +37,8 @@ if (!isset($_SESSION['session'])) {
 			</div>
 
 			<div class="modal-body">
-				<input type="hidden" class="form-control mb-3" id="idNutriArroz_e">
-				<input type="text" class="form-control" id="nutriArrozNombre_e">
+				<input type="hidden" class="form-control mb-3" id="idproduct2">
+				<input type="text" class="form-control" id="product2_name">
 			</div>
 
 			<div class="modal-footer">
@@ -72,7 +64,7 @@ if (!isset($_SESSION['session'])) {
 	// HACE LA CONSULTA A LA BASE DE DATOS Y TRAE LOS DATOS DE LA API
 	// Y HACE LA FUNCION "CLICK" PARA EL MODAL
 	function readTipos() {
-		axios.get(`${host}/api/frmAlmArroz/arroz`).then(res => {
+		axios.get(`${host}/api/product/2/read`).then(res => {
 			if (!res.data.status) {
 				new DataTable('#table-menu', {
 					data: res.data,
@@ -82,13 +74,13 @@ if (!isset($_SESSION['session'])) {
 						url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/es-ES.json",
 					},
 					columns: [
-						{ data: 'nutriArrozNombre' },
+						{ data: 'product2_name' },
 						],
 					createdRow: (html, row, index) => {
 						html.setAttribute("role", "button");
 						html.addEventListener("click", () => {
-							document.getElementById("idNutriArroz_e").value = row.idNutriArroz;
-							document.getElementById("nutriArrozNombre_e").value = row.nutriArrozNombre;
+							document.getElementById("idproduct2").value = row.idproduct2;
+							document.getElementById("product2_name").value = row.product2_name;
 							myModal.show();
 						});
 					},
@@ -113,9 +105,9 @@ if (!isset($_SESSION['session'])) {
 	if (btn_delete) {
 		btn_delete.addEventListener("click", () => {
 			if (confirm("Está seguro de eleminar este menu?")) {
-				const idNutriArroz_e = document.getElementById("idNutriArroz_e").value;
+				const idproduct2 = document.getElementById("idproduct2").value;
 
-				axios.delete(`${host}/api/frmAlmArroz/arroz/${idNutriArroz_e}`).then(res => {
+				axios.delete(`${host}/api/product/2/delete/${idproduct2}`).then(res => {
 					console.log(res)
 					readTipos();
 					myModal.hide();
@@ -130,12 +122,12 @@ if (!isset($_SESSION['session'])) {
 	if (btn_update) {
 		btn_update.addEventListener("click", () => {
 			if (confirm("Está seguro de actualizar este menu?")) {
-				const idNutriArroz_e = document.getElementById("idNutriArroz_e").value;
+				const idproduct2 = document.getElementById("idproduct2").value;
 				const form = {
-					nutriArrozNombre: document.getElementById("nutriArrozNombre_e").value
+					product2_name: document.getElementById("product2_name").value
 				};
 
-				axios.put(`${host}/api/frmAlmArroz/arroz/${idNutriArroz_e}`, form)
+				axios.put(`${host}/api/product/2/update/${idproduct2}`, form)
 				.then(res => {
 					console.log(res.data)
 					readTipos();
