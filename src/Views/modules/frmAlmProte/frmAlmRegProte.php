@@ -1,11 +1,3 @@
-<?php
-use PHP\Controllers\TemplateControlador;
-
-if (!isset($_SESSION['session'])) {
-    TemplateControlador::redirect("index.php?view=login");
-}
-?>
-
 <div class="row">
     <div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
         <h2 class="text-center">Registrar Proteína</h2>
@@ -20,7 +12,7 @@ if (!isset($_SESSION['session'])) {
         <form class="form" id="form-create-prote">
             <div class="row mb-3">
                 <label for="" class="form-label">Nombre del Tipo de menú</label>
-                <input type="text" id="nutriProteNombre" class="form-control" required>
+                <input type="text" id="product6_name" class="form-control" required>
             </div>
             <br>
 
@@ -36,14 +28,14 @@ if (!isset($_SESSION['session'])) {
     document.getElementById("form-create-prote").addEventListener("submit", (event) => {
         event.preventDefault();
 
-        axios.post(`${host}/api/frmAlmProte/prote`, {
-            nutriProteNombre: document.getElementById("nutriProteNombre").value,
+        axios.post(`${host}/api/product/6/create`, {
+            product6_name: document.getElementById("product6_name").value,
             regAlmProte: document.getElementById("regAlmProte").value
         })
         .then(res => {
             // console.log(res);
             if (res.data.status === "success") {
-                window.location.href = `${host}/index.php?folder=frmAlmProte&view=frmAlmConProte`;
+                window.location.href = `${url}/index.php?folder=frmAlmProte&view=frmAlmConProte`;
             }
         })
         .catch(err => {

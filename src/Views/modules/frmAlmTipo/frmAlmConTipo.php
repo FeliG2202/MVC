@@ -1,10 +1,3 @@
-<?php
-use PHP\Controllers\TemplateControlador;
-
-if (!isset($_SESSION['session'])) {
-	TemplateControlador::redirect("index.php?view=login");
-}
-?>
 <div class="col-12 col-sm-12 col-md-11 col-lg-10 mx-auto">
 	<h2 class="mt-4 text-center">Tipos de Menú</h2>
 
@@ -45,8 +38,8 @@ if (!isset($_SESSION['session'])) {
 			</div>
 
 			<div class="modal-body">
-				<input type="hidden" class="form-control mb-3" id="idNutriTipo_e">
-				<input type="text" class="form-control" id="nutriTipoNombre_e">
+				<input type="hidden" class="form-control mb-3" id="idtipos_menu">
+				<input type="text" class="form-control" id="tipos_menu_name">
 			</div>
 
 			<div class="modal-footer">
@@ -72,7 +65,7 @@ if (!isset($_SESSION['session'])) {
 	// HACE LA CONSULTA A LA BASE DE DATOS Y TRAE LOS DATOS DE LA API
 	// Y HACE LA FUNCION "CLICK" PARA EL MODAL
 	function readTipos() {
-		axios.get(`${host}/api/frmAlmTipo/tipo`).then(res => {
+		axios.get(`${host}/api/tipo/read`).then(res => {
 			if (!res.data.status) {
 				new DataTable('#table-menu', {
 					data: res.data,
@@ -82,13 +75,13 @@ if (!isset($_SESSION['session'])) {
 						url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/es-ES.json",
 					},
 					columns: [
-						{ data: 'nutriTipoNombre' },
+						{ data: 'tipos_menu_name' },
 						],
 					createdRow: (html, row, index) => {
 						html.setAttribute("role", "button");
 						html.addEventListener("click", () => {
-							document.getElementById("idNutriTipo_e").value = row.idNutriTipo;
-							document.getElementById("nutriTipoNombre_e").value = row.nutriTipoNombre;
+							document.getElementById("idtipos_menu").value = row.idtipos_menu;
+							document.getElementById("tipos_menu_name").value = row.tipos_menu_name;
 							myModal.show();
 						});
 					},
@@ -113,9 +106,9 @@ if (!isset($_SESSION['session'])) {
 	if (btn_delete) {
 		btn_delete.addEventListener("click", () => {
 			if (confirm("Está seguro de eleminar este menu?")) {
-				const idNutriTipo_e = document.getElementById("idNutriTipo_e").value;
+				const idtipos_menu = document.getElementById("idtipos_menu").value;
 
-				axios.delete(`${host}/api/frmAlmTipo/tipo/${idNutriTipo_e}`).then(res => {
+				axios.delete(`${host}/api/tipo/delete/${idtipos_menu}`).then(res => {
 					console.log(res)
 					readTipos();
 					myModal.hide();
@@ -130,12 +123,12 @@ if (!isset($_SESSION['session'])) {
 	if (btn_update) {
 		btn_update.addEventListener("click", () => {
 			if (confirm("Está seguro de actualizar este menu?")) {
-				const idNutriTipo_e = document.getElementById("idNutriTipo_e").value;
+				const idtipos_menu = document.getElementById("idtipos_menu").value;
 				const form = {
-					nutriTipoNombre: document.getElementById("nutriTipoNombre_e").value
+					tipos_menu_name: document.getElementById("tipos_menu_name").value
 				};
 
-				axios.put(`${host}/api/frmAlmTipo/tipo/${idNutriTipo_e}`, form)
+				axios.put(`${host}/api/tipo/update/${idtipos_menu}`, form)
 				.then(res => {
 					console.log(res.data)
 					readTipos();

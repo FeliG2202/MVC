@@ -1,13 +1,5 @@
-<?php
-use PHP\Controllers\TemplateControlador;
-
-if (!isset($_SESSION['session'])) {
-    TemplateControlador::redirect("index.php?view=login");
-}
-?>
-
 <div class="row">
-    <div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
+    <div class="col-12 col-sm-10 col-md-7 col-lg-7  mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
         <h2 class="text-center">Registrar Bebida</h2>
         <hr>
 
@@ -20,7 +12,7 @@ if (!isset($_SESSION['session'])) {
         <form class="form" id="form-create-bebida">
             <div class="row mb-3">
                 <label for="" class="form-label">Nombre de la Bebida</label>
-                <input type="text" id="nutriBebidaNombre" class="form-control" required>
+                <input type="text" id="product3_name" class="form-control" required>
             </div>
             <br>
 
@@ -36,14 +28,14 @@ if (!isset($_SESSION['session'])) {
     document.getElementById("form-create-bebida").addEventListener("submit", (event) => {
         event.preventDefault();
 
-        axios.post(`${host}/api/frmAlmBebida/bebida`, {
-            nutriBebidaNombre: document.getElementById("nutriBebidaNombre").value,
+        axios.post(`${host}/api/product/3/create`, {
+            product3_name: document.getElementById("product3_name").value,
             regAlmBebida: document.getElementById("regAlmBebida").value
         })
         .then(res => {
             // console.log(res);
             if (res.data.status === "success") {
-               window.location.href = `${host}/index.php?folder=frmAlmBebida&view=frmAlmConBebida`;
+               window.location.href = `${url}/index.php?folder=frmAlmBebida&view=frmAlmConBebida`;
             }
         })
         .catch(err => {

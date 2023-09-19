@@ -1,10 +1,3 @@
-<?php
-use PHP\Controllers\TemplateControlador;
-
-if (!isset($_SESSION['session'])) {
-	TemplateControlador::redirect("index.php?view=login");
-}
-?>
 <div class="col-12 col-sm-12 col-md-11 col-lg-10 mx-auto">
 	<h2 class="mt-4 text-center">Tipos de Acompañamientos</h2>
 
@@ -45,8 +38,8 @@ if (!isset($_SESSION['session'])) {
 			</div>
 
 			<div class="modal-body">
-				<input type="hidden" class="form-control mb-3" id="idNutriAcomp_e">
-				<input type="text" class="form-control" id="nutriAcompNombre_e">
+				<input type="hidden" class="form-control mb-3" id="idproduct1">
+				<input type="text" class="form-control" id="product1_name">
 			</div>
 
 			<div class="modal-footer">
@@ -72,7 +65,7 @@ if (!isset($_SESSION['session'])) {
 	// HACE LA CONSULTA A LA BASE DE DATOS Y TRAE LOS DATOS DE LA API
 	// Y HACE LA FUNCION "CLICK" PARA EL MODAL
 	function readAcomps() {
-		axios.get(`${host}/api/frmAlmAcomp/acomp`).then(res => {
+		axios.get(`${host}/api/product/1/read`).then(res => {
 			if (!res.data.status) {
 				new DataTable('#table-menu', {
 					data: res.data,
@@ -82,13 +75,13 @@ if (!isset($_SESSION['session'])) {
 						url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/es-ES.json",
 					},
 					columns: [
-						{ data: 'nutriAcompNombre' },
+						{ data: 'product1_name' },
 						],
 					createdRow: (html, row, index) => {
 						html.setAttribute("role", "button");
 						html.addEventListener("click", () => {
-							document.getElementById("idNutriAcomp_e").value = row.idNutriAcomp;
-							document.getElementById("nutriAcompNombre_e").value = row.nutriAcompNombre;
+							document.getElementById("idproduct1").value = row.idproduct1;
+							document.getElementById("product1_name").value = row.product1_name;
 							myModal.show();
 						});
 					},
@@ -113,9 +106,9 @@ if (!isset($_SESSION['session'])) {
 	if (btn_delete) {
 		btn_delete.addEventListener("click", () => {
 			if (confirm("Está seguro de eleminar este menu?")) {
-				const idNutriAcomp_e = document.getElementById("idNutriAcomp_e").value;
+				const idproduct1 = document.getElementById("idproduct1").value;
 
-				axios.delete(`${host}/api/frmAlmAcomp/acomp/${idNutriAcomp_e}`).then(res => {
+				axios.delete(`${host}/api/product/1/delete/${idproduct1}`).then(res => {
 					console.log(res)
 					readAcomps();
 					myModal.hide();
@@ -130,12 +123,12 @@ if (!isset($_SESSION['session'])) {
 	if (btn_update) {
 		btn_update.addEventListener("click", () => {
 			if (confirm("Está seguro de actualizar este menu?")) {
-				const idNutriAcomp_e = document.getElementById("idNutriAcomp_e").value;
+				const idproduct1 = document.getElementById("idproduct1").value;
 				const form = {
-					nutriAcompNombre: document.getElementById("nutriAcompNombre_e").value
+					product1_name: document.getElementById("product1_name").value
 				};
 
-				axios.put(`${host}/api/frmAlmAcomp/acomp/${idNutriAcomp_e}`, form)
+				axios.put(`${host}/api/product/1/update/${idproduct1}`, form)
 				.then(res => {
 					console.log(res.data)
 					readAcomps();

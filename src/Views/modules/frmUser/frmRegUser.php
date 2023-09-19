@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
-        <h2 class="text-center">Registrar Sopa</h2>
+        <h2 class="text-center">Registrar Usuarios</h2>
         <hr>
 
         <div class="gap-2 d-md-flex justify-content-md-end my-2">
-            <a href="index.php?folder=frmAlmSopa&view=frmAlmConSopa" class="btn btn-outline-secondary">
+            <a href="index.php?folder=frmUser&view=frmConUser" class="btn btn-outline-secondary">
                 <i class="fas fa-search me-2"></i>Consultar
             </a>
         </div>
@@ -35,7 +35,7 @@
         .then(res => {
             // console.log(res);
             if (res.data.status === "success") {
-                window.location.href = `${url}/index.php?folder=frmAlmSopa&view=frmAlmConSopa`;
+                window.location.href = `${url}/index.php?folder=frmUser&view=frmConUser`;
             }
         })
         .catch(err => {
