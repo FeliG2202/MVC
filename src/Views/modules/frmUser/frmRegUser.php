@@ -1,47 +1,45 @@
-<?php
+<div class="row">
+    <div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
+        <h2 class="text-center">Registrar Usuarios</h2>
+        <hr>
 
-use PHP\Controllers\PersonaControlador;
-use PHP\Controllers\TemplateControlador;
+        <div class="gap-2 d-md-flex justify-content-md-end my-2">
+            <a href="index.php?folder=frmUser&view=frmConUser" class="btn btn-outline-secondary">
+                <i class="fas fa-search me-2"></i>Consultar
+            </a>
+        </div>
 
-$personaControlador = new PersonaControlador();
-$request = $personaControlador->registrarPersonaControlador();
+        <form class="form" id="form-create-sopa">
+            <div class="row mb-3">
+                <label for="" class="form-label">Nombre de la Sopa</label>
+                <input type="text" id="product7_name" class="form-control" required>
+            </div>
+            <br>
 
-if ($request != null) {
-	if ($request->request) {
-		TemplateControlador::redirect($request->url);
-	}
-}
-?>
-
-<div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
-	<h2 class="text-center">Registrar personas</h2>
-	<hr>
-	<?php TemplateControlador::response(
-		$request,
-		"",
-		"Ocurrio un error, Intentelo de nuevo"
-	); ?>
-
-	<form class="form" method="post">
-		<label for="" class="form-label">Nombre Completo</label>
-		<input type="text" name="nombreCompleto" class="form-control" required>
-
-		<label for="" class="form-label">Numero de Identificacion</label>
-		<input type="number" name="identificacion" class="form-control" required>
-
-		<label for="" class="form-label">Correo Electronico</label>
-		<input type="email" name="email" class="form-control" required>
-
-		<label for="" class="form-label">Numero Telefonico</label>
-		<input type="number" name="cell" class="form-control" required>
-		<br>
-
-
-		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-			<button type="submit" name="regPersona" class="btn btn-success">Registrar</button>
-		</div>
-		<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-			<a href="index.php?folder=frmPersona&view=FrmConPersona">Consultar persona</a>
-		</div>
-	</form>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" id="regAlmSopa" class="btn btn-success">Registrar</button>
+            </div>
+        </form>
+    </div>
 </div>
+
+<!-- ================================backend================================== -->
+<script type="text/javascript">
+    document.getElementById("form-create-sopa").addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        axios.post(`${host}/api/product/7/create`, {
+            product7_name: document.getElementById("product7_name").value,
+            regAlmSopa: document.getElementById("regAlmSopa").value
+        })
+        .then(res => {
+            // console.log(res);
+            if (res.data.status === "success") {
+                window.location.href = `${url}/index.php?folder=frmUser&view=frmConUser`;
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    });
+</script>
