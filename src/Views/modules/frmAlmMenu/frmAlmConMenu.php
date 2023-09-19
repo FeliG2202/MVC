@@ -1,10 +1,3 @@
-<?php
-use PHP\Controllers\TemplateControlador;
-
-if (!isset($_SESSION['session'])) {
-    TemplateControlador::redirect("index.php?view=login");
-}
-?>
 <div class="col-12 col-sm-12 col-md-12 col-lg-12 mx-auto">
     <h2 class="mt-4 text-center">Menu de Almuerzos</h2>
 
@@ -28,6 +21,7 @@ if (!isset($_SESSION['session'])) {
                         <tr>
                             <th>Tipo Menu</th>
                             <th>Dia</th>
+                            <th>Semana</th>
                             <th>Sopa</th>
                             <th>Arroz</th>
                             <th>Proteina</th>
@@ -83,7 +77,7 @@ if (!isset($_SESSION['session'])) {
     // HACE LA CONSULTA A LA BASE DE DATOS Y TRAE LOS DATOS DE LA API
     // Y HACE LA FUNCION "CLICK" PARA EL MODAL
     function readTipos() {
-        axios.get(`${host}/api/frmAlmMenu/menu`).then(res => {
+        axios.get(`${host}/api/nutrimenu/read`).then(res => {
             if (!res.data.status) {
                 new DataTable('#table-menu', {
                     data: res.data,
@@ -93,15 +87,16 @@ if (!isset($_SESSION['session'])) {
                         url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/es-ES.json",
                     },
                     columns: [
-                        { data: 'nutriTipoNombre' },
-                        { data: 'nutriDiasNombre' },
-                        { data: 'nutriSopaNombre' },
-                        { data: 'nutriArrozNombre' },
-                        { data: 'nutriProteNombre' },
-                        { data: 'nutriEnergeNombre' },
-                        { data: 'nutriAcompNombre' },
-                        { data: 'nutriEnsalNombre' },
-                        { data: 'nutriBebidaNombre' },
+                        { data: 'tipos_menu_name' },
+                        { data: 'dias_name' },
+                        { data: 'semana_name' },
+                        { data: 'product7_name' },
+                        { data: 'product2_name' },
+                        { data: 'product6_name' },
+                        { data: 'product4_name' },
+                        { data: 'product1_name' },
+                        { data: 'product5_name' },
+                        { data: 'product3_name' },
                         ],
                     createdRow: (html, row, index) => {
                         html.setAttribute("role", "button");

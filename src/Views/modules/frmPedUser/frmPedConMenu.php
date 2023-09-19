@@ -1,4 +1,4 @@
-<h2 class="mt-4 text-center">Relación de Solicitudes Empleados</h2>
+<h2 class="mt-4 text-center">Relación de Solicitudes Paciente</h2>
 
 <div class="card">
     <div class="card-body">
@@ -14,9 +14,15 @@
             <table class="table table-hover table-sm w-100" id="table-menu" >
                 <thead>
                     <tr>
+                    <th>Identificacion</th>
                         <th>Nombre completo</th>
-                        <th>Identificacion</th>
-                        <th>Pedido</th>
+                        <th>Sopa</th>
+                        <th>Arroz</th>
+                        <th>Proteina</th>
+                        <th>Energetico</th>
+                        <th>Acompañamiento</th>
+                        <th>Ensalada</th>
+                        <th>Jugo</th>
                         <th>Fecha</th>
                     </tr>
                 </thead>
@@ -62,7 +68,7 @@
 <!-- //////////////////////////////////////////////////////// -->
 <script type="text/javascript">
     (function() {
-        axios.get(`${host}/api/frmPedEmp/leerMenuEmpl`).then(res => {
+        axios.get(`${host}/api/menuseleccionado/read`).then(res => {
             if (!res.data.status) {
                 new DataTable('#table-menu', {
                     data: res.data,
@@ -72,10 +78,16 @@
                         url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/es-ES.json",
                     },
                     columns: [
-                        { data: 'empleadoDocumento' },
-                        { data: 'empleadoNombre' },
-                        { data: 'menuSeleccionadoDiaEmp' },
-                        { data: 'fechaActual' }
+                        { data: 'users_document' },
+                        { data: 'users_fullname' },
+                        { data: 'product7_name' },
+                        { data: 'product2_name' },
+                        { data: 'product6_name' },
+                        { data: 'product4_name' },
+                        { data: 'product1_name' },
+                        { data: 'product5_name' },
+                        { data: 'product3_name' },
+                        { data: 'menu_seleccionado_fecha' }
                         ],
                 });
             }
@@ -88,13 +100,13 @@
         const form = new FormData();
         form.append("date_start", document.getElementById("date_start").value);
         form.append("date_end",  document.getElementById("date_end").value);
-
+    
         axios.post(
-            `${host}/api/frmPedEmp/almuerzosEmpl`,
+            `${host}/api/menuseleccionado/report`,
             form,
             headerMultipartFormData({ responseType: "blob" })
         ).then(res => {
-            if (res.status === 204) {
+            if (res.status === 200) {
                 alert("No hay datos en el sistema");
             } else {
                 const link = document.createElement("a");

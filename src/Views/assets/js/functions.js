@@ -2,14 +2,17 @@ function getUrl(folder,view, params=''){
 	return `${host}/index.php?folder=${folder}&view=${view}${params}`;
 };
 
+/////////////////////////////////////////////////////////////
 function redirect(folder,view, params=''){
 	window.location.href = `${host}/index.php?folder=${folder}&view=${view}${params}`;
 };
 
+/////////////////////////////////////////////////////////////
 function random(min, max) {
 	return Math.floor((Math.random() * (max - min + 1)) + min);
 }
 
+/////////////////////////////////////////////////////////////
 function headerMultipartFormData(custom = {}) {
 	return {
 		headers: {
@@ -19,24 +22,29 @@ function headerMultipartFormData(custom = {}) {
 	};
 }
 
+/////////////////////////////////////////////////////////////
 function getFormData(data) {
 	const form = new FormData();
 	Object.entries(data).forEach(([key, value]) => form.append(key, value));
 	return form;
 }
 
+/////////////////////////////////////////////////////////////
 function newElement(type) {
 	return document.createElement(type);
 }
 
+/////////////////////////////////////////////////////////////
 function getInput(id) {
 	return document.getElementById(id);
 }
 
+/////////////////////////////////////////////////////////////
 function addEvent(ids, type, method) {
 	ids.forEach(id => getInput(id).addEventListener(type, method));
 }
 
+/////////////////////////////////////////////////////////////
 function objectSelect(url, id, value, textContent) {
 	return {
 		id: id,
@@ -46,6 +54,7 @@ function objectSelect(url, id, value, textContent) {
 	};
 };
 
+/////////////////////////////////////////////////////////////
 function uploadSelect(rows) {
 	rows.forEach(({ url, id, value, textContent }) => {
 		const select = getInput(id);
@@ -67,6 +76,7 @@ function uploadSelect(rows) {
 	});
 }
 
+/////////////////////////////////////////////////////////////
 function addCardFood({ id, row, title, callback_function }) {
 	const fields = [];
 

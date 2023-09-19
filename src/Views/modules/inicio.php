@@ -10,12 +10,12 @@
     if ($hora_actual >= $hora_inicio && $hora_actual <= $hora_fin) { ?>
         <form class="form" id="form-consul-menu">
            <div class="row mb-3">
-                <label for="empleadoDocumento" class="form-label">Digite número de identificación</label>
-                <input type="number" id="empleadoDocumento" class="form-control" required>
+                <label for="users_document" class="form-label">Digite número de identificación</label>
+                <input type="number" id="users_document" class="form-control" required>
             </div>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="submit" id="btnPedDatosEmp" class="btn btn-success">Siguiente</button>
+                <button type="submit" id="btnPedDatos" class="btn btn-success">Siguiente</button>
             </div>
         </form>
     <?php } else { ?>
@@ -32,16 +32,16 @@
     getInput("form-consul-menu").addEventListener("submit", (event) => {
         event.preventDefault();
 
-        axios.post(`${host}/api/frmPedEmp/empl`, {
-            empleadoDocumento: getInput("empleadoDocumento").value,
-            regAlmTipo: getInput("btnPedDatosEmp").value
+        axios.post(`${host}/api/frmPedEmpleado/verify`, {
+            users_document: getInput("users_document").value,
+            regAlmTipo: getInput("btnPedDatos").value
         })
         .then(({ data }) => {
             console.log(data);
             if (data.status) {
-                console.log(data.idEmpleado);
+                console.log(data.idusers);
             } else {
-                window.location.href = `${url}/index.php?folder=frmPedEmp&view=frmPedDatosEmp&idEmpleado=${data.idEmpleado}`;
+                 window.location.href = `${url}/index.php?folder=frmPedUser&view=frmPedDatos&idusers=${data.idusers}`;
             }
         })
         .catch(err => {

@@ -1,115 +1,21 @@
-<?php
-
-use PHP\Controllers\PedAlmMenuControlador;
-use PHP\Controllers\TemplateControlador;
-
-// if (!isset($_SESSION['session'])) {
-//     TemplateControlador::redirect("index.php?view=login");
-// }
-
-// if ($_SESSION['id'] != $_GET['idPersona']) {
-//     TemplateControlador::redirect("index.php?folder=frmPed&view=frmPedPersId");
-// }
-
-$PedAlmMenuControlador = new PedAlmMenuControlador();
-
-$request = $PedAlmMenuControlador->validatePage();
-if ($request != null) {
-    if ($request->request) {
-        TemplateControlador::redirect($request->url);
-    }
-}
-
-$request = $PedAlmMenuControlador->registrarMenuDiaControlador();
-if ($request != null) {
-    if ($request->request) {
-        TemplateControlador::redirect($request->url);
-    }
-}
-
-$menuPorDias = $PedAlmMenuControlador->consultarMenuDiaControlador();
-?>
-
 <div class="col-lg-8 mx-auto mt-5 mb-5 p-4 rounded shadow-sm">
-
     <?php
     $fecha_actual = date("l, d F Y - H:i a");
     $hora_actual = date('H:i');
-    $hora_inicio = '08:00';
+    $hora_inicio = '07:00';
     $hora_fin = '23:00';
-    if ($hora_actual >= $hora_inicio && $hora_actual <= $hora_fin) { ?>
+    ?>
+
+    <?php if ($hora_actual >= $hora_inicio && $hora_actual <= $hora_fin) { ?>
         <div class="row">
             <div class="col mb-3">
                 <h2 class="text-center">Menú del Día</h2>
-                <?php
-                echo ("<h6 class='text-center'>{$fecha_actual}</h6>"); ?>
+                <h6 class='text-center'><?php echo $fecha_actual?></h6>
                 <hr>
             </div>
         </div>
-        <?php TemplateControlador::response(
-            $request,
-            "",
-            "Ocurrio un error, Intentelo de nuevo"
-        ); ?>
-        <div class="row mt-4">
-            <!-- Tarjeta 1 -->
-            <?php
-            foreach ($menuPorDias['data'] as $key => $value) {
-                print '<div class="col-md-6 p-2">';
-                echo ('<form method="POST">');
-                echo ("<input type='hidden' name='selected-idm' value='{$value['idNutriMenu']}'>");
-                echo ("<input type='hidden' name='selected-idp' value='{$_GET['idPersona']}'>");
-                print '<div class="card" id="tarjeta1">';
-                print '<div class="card-body">';
-                print '<h5 class="card-title">' . $value['nutriTipoNombre'] . '</h5>';
-                echo ("<hr>");
-                /* Selecionar componentes del almuerzo */
-                print '<div class="checkbox-group">';
-                print '<div class="form-check checkbox-container">';
-                print  '<input name="selected-list[]" class="form-check-input" type="checkbox" value="' . $value['nutriSopaNombre'] . '" id="flexCheckDefault" onclick="handleCheckboxClick(this)">';
-                print   '<label class="form-check-label" for="flexCheckDefault">' . $value['nutriSopaNombre'] . '</label>';
-                print '</div>';
 
-                print '<div class="form-check checkbox-container">';
-                print '<input name="selected-list[]" class="form-check-input" type="checkbox" value="' . $value['nutriArrozNombre'] . '" id="flexCheckDefault" onclick="handleCheckboxClick(this)">';
-                print '<label class="form-check-label" for="flexCheckDefault">' . $value['nutriArrozNombre'] . '</label>';
-                print '</div>';
-
-                print '<div class="form-check checkbox-container">';
-                print  '<input name="selected-list[]" class="form-check-input" type="checkbox" value="' . $value['nutriProteNombre'] . '" id="flexCheckDefault" onclick="handleCheckboxClick(this)">';
-                print   '<label class="form-check-label" for="flexCheckDefault">' . $value['nutriProteNombre'] . '</label>';
-                print '</div>';
-
-                print '<div class="form-check checkbox-container">';
-                print  '<input name="selected-list[]" class="form-check-input" type="checkbox" value="' . $value['nutriEnergeNombre'] . '" id="flexCheckDefault" onclick="handleCheckboxClick(this)">';
-                print   '<label class="form-check-label" for="flexCheckDefault">' . $value['nutriEnergeNombre'] . '</label>';
-                print '</div>';
-
-                print '<div class="form-check checkbox-container">';
-                print  '<input name="selected-list[]" class="form-check-input" type="checkbox" value="' . $value['nutriAcompNombre'] . '" id="flexCheckDefault" onclick="handleCheckboxClick(this)">';
-                print   '<label class="form-check-label" for="flexCheckDefault">' . $value['nutriAcompNombre'] . '</label>';
-                print '</div>';
-
-                print '<div class="form-check checkbox-container">';
-                print  '<input name="selected-list[]" class="form-check-input" type="checkbox" value="' . $value['nutriEnsalNombre'] . '" id="flexCheckDefault" onclick="handleCheckboxClick(this)">';
-                print   '<label class="form-check-label" for="flexCheckDefault">' . $value['nutriEnsalNombre'] . '</label>';
-                print '</div>';
-
-                print '<div class="form-check checkbox-container">';
-                print  '<input name="selected-list[]" class="form-check-input" type="checkbox" value="' . $value['nutriBebidaNombre'] . '" id="flexCheckDefault" onclick="handleCheckboxClick(this)">';
-                print   '<label class="form-check-label" for="flexCheckDefault">' . $value['nutriBebidaNombre'] . '</label>';
-                print '</div>';
-                print '</div>';
-                print '</div>';
-
-                echo ('<div class="mt-4 p-2"><button type="submit" name="btnPedDatosPers" class="btn btn-success w-100">Seleccionar</button></div>');
-                print  '</div>';
-                echo ("</form>");
-                print '</div>';
-            }
-            ?>
-        </div>
-
+        <div class="row mt-4" id="container-card-food"></div>
     <?php } else { ?>
         <div class="alert alert-warning">
             <strong>Nota: </strong>El horario para solicitar el menú comienza desde las
@@ -117,3 +23,51 @@ $menuPorDias = $PedAlmMenuControlador->consultarMenuDiaControlador();
         </div>
     <?php } ?>
 </div>
+
+<script type="text/javascript">
+    axios.get(`${host}/api/menuseleccionado/read`)
+    .then(({ data }) => {
+        const urlParams = new URLSearchParams(window.location.href);
+
+        data.data.forEach(item => {
+            addCardFood({
+                id: 'container-card-food',
+                title: item.idtipos_menu,
+                row: {
+                    idproduct1: item.idproduct1,
+                    idproduct2: item.idproduct2,
+                    idproduct3: item.idproduct3,
+                    idproduct4: item.idproduct4,
+                    idproduct5: item.idproduct5,
+                    idproduct6: item.idproduct6,
+                    idproduct7: item.idproduct7,
+                },
+                callback_function: (fields) => {
+                    const items = [];
+                    fields.forEach(field => field.checked && items.push(field.value));
+
+                    if (items.length === 0) {
+                        alert('Debe seleccionar un tipo de comida');
+                        return false;
+                    }
+
+                    const formD = getFormData({
+                        idusers: urlParams.get('idusers'),
+                        idmenu_seleccionado: item.idmenu_seleccionado,
+                        selected_list: items.join(',')
+                    });
+
+                    axios.post(`${host}/api/frmPedPaci/paciMenu`, formD, headerMultipartFormData())
+                    .then(({ data }) => {
+                        if (data.status === "success") {
+                            redirect('frmPedPaci', 'frmPedPaciId');
+                        }
+                        // console.log(data);
+                    }).catch(({ response }) => {
+                        console.log(response);
+                    });
+                }
+            });
+        });
+    })
+</script>
