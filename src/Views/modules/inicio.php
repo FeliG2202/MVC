@@ -1,51 +1,31 @@
-<div class="col-lg-5 mx-auto mt-5 mb-5 p-4 rounded shadow-sm">
-    <h2 class="text-center">Solicitud de Alimentos</h2>
+<div class="col-lg-10 col-sm-7 col-md-10 mx-auto mt-2 mb-2 p-2 rounded shadow-sm responsive">
+    <h2 class="text-center">Dietas</h2>
     <hr>
-
-    <?php
-    $hora_actual = date('H:i');
-    $hora_inicio = '00:00';
-    $hora_fin = '24:00';
-
-    if ($hora_actual >= $hora_inicio && $hora_actual <= $hora_fin) { ?>
-        <form class="form" id="form-consul-menu">
-           <div class="row mb-3">
-                <label for="users_document" class="form-label">Digite número de identificación</label>
-                <input type="number" id="users_document" class="form-control" required>
+    <div class="container mt-5 text-center"> <!-- Agregamos la clase 'text-center' al contenedor para centrar las tarjetas horizontalmente -->
+        <div class="row">
+            <!-- Tarjeta 1 -->
+            <div class="col-md-5 mx-auto p-2"> <!-- Agregamos 'mx-auto' para centrar la columna horizontalmente -->
+                <a href="/frmPed/frmPedPersId" class="custom-card-wrapper">
+                    <div class="card custom-card" style="width: 18rem;">
+                        <img src="/src/Views/assets/img/empleados.png" class="card-img-top" alt="Imagen de la Tarjeta 1">
+                        <div class="card-body">
+                            <h4 class="card-title">Empleado</h4>
+                        </div>
+                    </div>
+                </a>
             </div>
 
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="submit" id="btnPedDatos" class="btn btn-success">Siguiente</button>
+            <!-- Tarjeta 2 -->
+            <div class="col-md-5 mx-auto p-2"> <!-- Agregamos 'mx-auto' para centrar la columna horizontalmente -->
+                <a href="/frmPedPaci/frmPedPaciId" class="custom-card-wrapper">
+                    <div class="card custom-card" style="width: 18rem;">
+                        <img src="/src/Views/assets/img/pacientes.png" class="card-img-top" alt="Imagen de la Tarjeta 2">
+                        <div class="card-body">
+                            <h4 class="card-title">Paciente</h4>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </form>
-    <?php } else { ?>
-        <div class="alert alert-warning">
-            <strong>Nota: </strong>El horario para solicitar el menú comienza desde las
-            <strong>8:00 AM</strong> hasta las <strong>10:00 AM</strong>
         </div>
-    <?php }
-    ?>
+    </div>
 </div>
-
-<!-- ================================backend================================== -->
-<script type="text/javascript">
-    getInput("form-consul-menu").addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        axios.post(`${host}/api/frmPedEmpleado/verify`, {
-            users_document: getInput("users_document").value,
-            regAlmTipo: getInput("btnPedDatos").value
-        })
-        .then(({ data }) => {
-            console.log(data);
-            if (data.status) {
-                console.log(data.idusers);
-            } else {
-                 window.location.href = `${url}/index.php?folder=frmPedUser&view=frmPedDatos&idusers=${data.idusers}`;
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    });
-</script>

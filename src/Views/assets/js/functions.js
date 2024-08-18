@@ -1,50 +1,15 @@
-function getUrl(folder,view, params=''){
-	return `${host}/index.php?folder=${folder}&view=${view}${params}`;
-};
-
-/////////////////////////////////////////////////////////////
-function redirect(folder,view, params=''){
-	window.location.href = `${host}/index.php?folder=${folder}&view=${view}${params}`;
-};
-
-/////////////////////////////////////////////////////////////
-function random(min, max) {
-	return Math.floor((Math.random() * (max - min + 1)) + min);
-}
-
-/////////////////////////////////////////////////////////////
-function headerMultipartFormData(custom = {}) {
-	return {
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		...custom
-	};
-}
-
-/////////////////////////////////////////////////////////////
-function getFormData(data) {
-	const form = new FormData();
-	Object.entries(data).forEach(([key, value]) => form.append(key, value));
-	return form;
-}
-
-/////////////////////////////////////////////////////////////
 function newElement(type) {
 	return document.createElement(type);
 }
 
-/////////////////////////////////////////////////////////////
 function getInput(id) {
 	return document.getElementById(id);
 }
 
-/////////////////////////////////////////////////////////////
 function addEvent(ids, type, method) {
 	ids.forEach(id => getInput(id).addEventListener(type, method));
 }
 
-/////////////////////////////////////////////////////////////
 function objectSelect(url, id, value, textContent) {
 	return {
 		id: id,
@@ -54,13 +19,12 @@ function objectSelect(url, id, value, textContent) {
 	};
 };
 
-/////////////////////////////////////////////////////////////
 function uploadSelect(rows) {
 	rows.forEach(({ url, id, value, textContent }) => {
 		const select = getInput(id);
 
 		axios.get(host + url).then(({ data }) => {
-			console.log(data);
+			// console.log(data);
 
 			if (!data.status) {
 				data.forEach(row => {
@@ -76,8 +40,7 @@ function uploadSelect(rows) {
 	});
 }
 
-/////////////////////////////////////////////////////////////
-function addCardFood({ id, row, title, callback_function }) {
+function addCardFood({ id, row, title}) {
 	const fields = [];
 
 	const createCol = () => {
@@ -89,18 +52,26 @@ function addCardFood({ id, row, title, callback_function }) {
 	const createForm = () => {
 		const form = newElement('FORM');
 		form.method = 'POST';
-
 		form.addEventListener('submit', (event) => {
 			event.preventDefault();
-			callback_function(fields);
+
+			const items = [];
+
+			fields.forEach(field => {
+				if (field.checked) {
+					items.push(field.value);
+				}
+			});
+
+			const formD = new FormData();
+			formD.append('selected_list', items);
+			console.log(items)
 		});
 
 		return form;
 	};
 
 	const createCard = () => {
-		const num_random = random(100, 999);
-
 		const divCard = newElement('DIV');
 		divCard.classList.add('card');
 
@@ -124,9 +95,7 @@ function addCardFood({ id, row, title, callback_function }) {
 		button.type = 'submit';
 		button.textContent = 'Seleccionar';
 
-		Object.entries(row).forEach((obj, index) => {
-			const input_id = num_random + '-input-id-' + obj[1].split(' ').join('-').toLowerCase().trim();
-
+		Object.entries(row).forEach(obj => {
 			const divFormCheck = newElement('DIV');
 			divFormCheck.classList.add('form-check', 'checkbox-container');
 
@@ -134,13 +103,11 @@ function addCardFood({ id, row, title, callback_function }) {
 			inputCheck.type = 'checkbox';
 			inputCheck.name = 'selected_list[]';
 			inputCheck.classList.add('form-check-input');
-			inputCheck.id = input_id;
 			inputCheck.value = obj[1];
-			inputCheck.addEventListener('click', () => handleCheckboxClick(inputCheck));
+			handleCheckboxClick(inputCheck);
 
 			const label = newElement('LABEL');
 			label.textContent = row[obj[0]];
-			label.setAttribute('for', input_id);
 			label.classList.add('form-check-label');
 
 			divFormCheck.appendChild(inputCheck);

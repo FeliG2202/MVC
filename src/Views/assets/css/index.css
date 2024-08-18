@@ -1,7 +1,3 @@
-* {
-  padding 0;
-  margin: 0;
-}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -27,7 +23,7 @@ input[type=number] {
 
 .page_404 img{ width: 100%; }
 .four_zero_four_bg{
-    background-image: url(https://servicioalcliente.junicalmedical.com.co/Error404.gif);
+    background-image: url(/src/Views/assets/img/Error404.gif);
     height: 400px;
     background-position: center;
 }
@@ -51,3 +47,19 @@ input[type=number] {
 .contant_box_404{
     margin-top: -50px;
 }
+
+.custom-card-wrapper {
+            /* Agrega un efecto de elevación leve al pasar el mouse */
+            display: block;
+            text-decoration: none; /* Elimina la decoración de texto del enlace */
+            color: inherit; /* Hereda el color del texto del elemento padre */
+        }
+
+        /* Agrega un efecto de elevación leve al pasar el mouse */
+        .custom-card:hover {
+            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+
+

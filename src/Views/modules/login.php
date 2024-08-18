@@ -1,51 +1,61 @@
-<!-- FORMULARIO PARA INGRESAR EL LOGIN -->
-<div class="col-lg-5 mx-auto mt-5 mb-5 p-4 bg-gris rounded shadow-sm">
-  <div class="w-100 text-center mb-3">
-    <img src="<?php echo(host); ?>/src/Views/assets/img/logo1.png" class="img-fluid w-60 h-25">
+<?php
+
+use PHP\Controllers\TemplateControlador;
+use PHP\Controllers\UsuarioControlador;
+
+$request = (new UsuarioControlador())->validateSession();
+
+if ($request != null) {
+  if ($request->request) {
+    TemplateControlador::redirect($request->url);
+  }
+}
+?>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 mb-2">
+      <div class="card shadow-lg border-0 rounded-lg mt-4">
+        <div class="card-header w-100 text-center mb-3"><img src="<?php echo(host); ?>/src/Views/assets/img/logo1.png" class="img-fluid w-60 h-25"></div>
+        <div class="card-body">
+          <?php if ($request != null) {
+            if (!$request->request) {
+              echo(TemplateControlador::error($request->message));
+            }
+          } ?>
+          <form method="POST">
+            <div class="form-floating mb-3">
+              <input class="form-control" name="login" id="inputEmail" type="text" required autocomplete="off">
+              <label for="inputEmail">Usuario</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" name="password" id="inputPassword" type="password" />
+              <label for="inputPassword">Contraseña</label>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="showPasswordSwitch">
+              <label class="form-check-label" for="showPasswordSwitch">Mostrar Contraseña</label>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+              <button type="submit" name="regLogin" class="btn btn-success">Ingresar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-  <hr>
-
-  <form method="POST">
-    <div class="form-group mb-3">
-      <label class="form-label">Nombre de Usuario</label>
-      <input type="text" name="users_email" placeholder="Ingrese Usuario" class="form-control" required autocomplete="off">
-    </div>
-
-    <div class="form-group mb-3">
-      <label class="form-label">Contraseña</label>
-      <input type="password" name="users_password" placeholder="Ingrese Contraseña" class="form-control" required>
-    </div>
-
-    <div class="p-2 d-grid gap-2 d-md-flex justify-content-md-end">
-      <button type="submit" name="regLogin" class="btn btn-success">Ingresar</button>
-    </div>
-
-  </form>
 </div>
 
-<!-- ================================backend================================== -->
-<script type="text/javascript">
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const passwordInput = document.getElementById("inputPassword");
+    const showPasswordSwitch = document.getElementById("showPasswordSwitch");
 
-// Estado simulado para pruebas
-const users_email = "sleon@dev.com";
-const users_password = "1212";
-
-const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const form = new FormData();
-    form.append("users_email", users_email);
-    form.append("users_password", SHA256(users_password).toString());
-
-    axios.post(`${host}/api/auth/login`, form, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-        },
-    }).then((res) => {
-        alert(`status: ${res.data.status} | message: ${res.data.message}`);
-    }).catch((err) => {
-        alert(`status: ${err.response.data.status} | message: ${err.response.data.message}`);
+    showPasswordSwitch.addEventListener("change", function () {
+      if (showPasswordSwitch.checked) {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
     });
-};
-
+  });
 </script>
