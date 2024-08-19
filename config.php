@@ -4,15 +4,15 @@ use LionDatabase\Driver;
 use LionMailer\MailService;
 
 Driver::run([
-    'default' => 'sistema_medico',
+    'default' => 'database',
     'connections' => [
-        'sistema_medico' => [
+        'database' => [
             'type' => 'mysql',
             'host' => 'db',
             'port' => 3306,
-            'dbname' => 'sistema_medico',
+            'dbname' => 'database',
             'user' => 'root',
-            'password' => 'lion'
+            'password' => '2202'
         ],
     ]
 ]);

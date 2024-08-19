@@ -1,31 +1,35 @@
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-turquesa">
-  <!-- Navbar Brand-->
-  <?php if (isset($_SESSION['session'])) { ?>
-    <a class="navbar-brand" href="/inicio2">
-      <img src="<?php echo(host); ?>/src/Views/assets/img/logo.png" alt="Bootstrap" width="170" height="50">
-    </a>
-  <?php } else { ?>
-    <a class="navbar-brand" href="/inicio">
-      <img src="<?php echo(host); ?>/src/Views/assets/img/logo.png" alt="Bootstrap" width="170" height="50">
-    </a>
-  <?php } ?>
-  <!-- Sidebar Toggle-->
-  <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-  <!-- Navbar Search-->
-  <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-  </div>
-  <!-- Navbar-->
-  <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+ <!-- ======= Header ======= -->
+ <header id="header" class="header fixed-top d-flex align-items-center">
 
-        <?php if (isset($_SESSION['session'])) { ?>
-          <li><a class="dropdown-item" href="/salir">Salir<i class="fad fa-sign-out-alt ms-2"></i></a></li>
-        <?php } else { ?>
-          <li><a class="dropdown-item" href="/login"><i class="fad fa-sign-in-alt me-2"></i>iniciar sesión</a></li>
-        <?php } ?>
-      </ul>
-    </li>
-  </ul>
-</nav>
+     <div class="d-flex align-items-center justify-content-between">
+         <a href="/inicio" class="logo d-flex align-items-center">
+             <img src="assets/img/logo.png" alt="">
+             <span class="d-none d-lg-block">NiceAdmin</span>
+         </a>
+         <i class="bi bi-list toggle-sidebar-btn"></i>
+     </div><!-- End Logo -->
+
+     <nav class="header-nav ms-auto">
+         <ul class="d-flex align-items-center">
+
+             <li class="nav-item dropdown pe-3">
+
+                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                     <i class="fas fa-user fa-fw"></i>
+                 </a><!-- End Profile Iamge Icon -->
+
+                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                     <?php if (isset($_SESSION['session'])) { ?>
+                     <li><a class="dropdown-item d-flex align-items-center" href="/salir">Salir<i
+                                 class="fad fa-sign-out-alt ms-2"></i></a></li>
+                     <?php } else { ?>
+                     <li><a class="dropdown-item d-flex align-items-center" href="/login"><i
+                                 class="fad fa-sign-in-alt me-2"></i>Iniciar sesión</a></li>
+                     <?php } ?>
+                 </ul><!-- End Profile Dropdown Items -->
+             </li><!-- End Profile Nav -->
+
+         </ul>
+     </nav><!-- End Icons Navigation -->
+
+ </header><!-- End Header -->

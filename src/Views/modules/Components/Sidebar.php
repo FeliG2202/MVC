@@ -8,8 +8,8 @@ $menus = $navBar->menuControlador->consultarMenuControlador();
 
 $addMenu = function ($menu_nombre) {
 	$replace = strtolower(str_replace(" ", "_", $menu_nombre));
-
-	return '<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#' . $replace . '" aria-expanded="false"><div class="sb-nav-link-icon"></div>' . $menu_nombre . '<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div></a>';
+	return '<a class="nav-link collapsed" data-bs-target="#' . $replace . '" data-bs-toggle="collapse" href="#"><span>' . $menu_nombre . '</span><i
+				class="bi bi-chevron-down ms-auto"></i></a>';
 };
 
 $addOption = function ($option) {
@@ -19,9 +19,9 @@ $addOption = function ($option) {
 		$name = $option->opcionMenuNombre;
 
 		if ($folder === null) {
-			return "<a class='nav-link' href='/{$view}'>{$name}</a>";
+			return "<a href='/{$view}'><span>{$name}</span></a>";
 		} else {
-			return "<a class='nav-link' href='/{$folder}/{$view}'>{$name}</a>";
+			return "<a href='/{$folder}/{$view}'><i class='bi bi-circle'></i><span>{$name}</span></a>";
 		}
 	};
 
@@ -39,10 +39,17 @@ $addOption = function ($option) {
 };
 ?>
 
-<nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
-	<div class="sb-sidenav-menu">
-		<div class="nav">
-			<?php foreach ($menus as $keyMenu => $menu) {
+<aside id="sidebar" class="sidebar">
+
+<ul class="sidebar-nav" id="sidebar-nav">
+
+	<li class="nav-item">
+		<a class="nav-link " href="/inicio">
+			<span>Inicio</span>
+		</a>
+	</li><!-- End Dashboard Nav -->
+
+	<?php foreach ($menus as $keyMenu => $menu) {
 				if (isset($_SESSION['session'])) {
 					if ($menu->menuEstado === "online" || $menu->menuEstado === "online/offline") {
 						if (in_array($_SESSION['rol'], explode(",", $menu->idRol))) {
@@ -56,18 +63,21 @@ $addOption = function ($option) {
 				}
 
                 $str = strtolower(str_replace(" ", "_", $menu->menuNombre));
-				echo('<div class="collapse" id="' . $str . '" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion"><nav class="sb-sidenav-menu-nested nav">');
+				
+				echo('<ul id="' . $str . '" class="nav-content collapse " data-bs-parent="#sidebar-nav"><li>');
+				
 
 				$options = $navBar->opcionMenuControlador->consultarOpcionesMenuIdControlador($menu->idMenu);
 				foreach ($options as $keyOpcion => $option) {
 					echo($addOption($option));
 				}
-				echo'</nav></div>';
+				echo'</li></ul>';
 			} ?>
-		</div>
-	</div>
-	<div class="sb-sidenav-footer">
-		<div class="small">Logged in as:</div>
-		Start Bootstrap
-	</div>
-</nav>
+
+</ul>
+
+</aside><!-- End Sidebar-->
+
+
+
+
