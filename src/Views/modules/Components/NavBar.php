@@ -15,7 +15,7 @@
              <li class="nav-item dropdown pe-3">
 
                  <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                     <i class="fas fa-user fa-fw"></i>
+                 <i class="bi bi-person-circle toggle-sidebar-btn"></i>
                  </a><!-- End Profile Iamge Icon -->
 
                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">

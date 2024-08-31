@@ -13,20 +13,37 @@
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+    <script src="<?php echo(host); ?>/src/Views/assets/js/main.js"></script>
     <!-- Vendor CSS Files -->
-    <link href="<?php echo(host); ?>/src/Views/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo(host); ?>/src/Views/assets/css/simple-datatables.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="<?php echo(host); ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo(host); ?>/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="<?php echo(host); ?>/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="<?php echo(host); ?>/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="<?php echo(host); ?>/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="<?php echo(host); ?>/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="<?php echo(host); ?>/vendor/simple-datatables/style.css" rel="stylesheet">
     <link href="<?php echo(host); ?>/src/Views/assets/css/index.css" rel="stylesheet" />
     <link href="<?php echo(host); ?>/src/Views/assets/css/style.css" rel="stylesheet" />
-    <link href="<?php echo(host); ?>/src/Views/assets/fontawesome/css/all.min.css" rel="stylesheet" >
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Vendor JS Files -->
-    <script src="<?php echo(host); ?>/src/Views/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo(host); ?>/src/Views/assets/js/simple-datatables.js"></script>
-    <script src="<?php echo(host); ?>/src/Views/assets/js/scripts.js"></script>
+
+    <script src="<?php echo(host); ?>/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="<?php echo(host); ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo(host); ?>/vendor/chart.js/chart.umd.js"></script>
+    <script src="<?php echo(host); ?>/vendor/echarts/echarts.min.js"></script>
+    <script src="<?php echo(host); ?>/vendor/quill/quill.js"></script>
+    <script src="<?php echo(host); ?>/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="<?php echo(host); ?>/vendor/tinymce/tinymce.min.js"></script>
+    <script src="<?php echo(host); ?>/vendor/php-email-form/validate.js"></script>
     <script src="<?php echo(host); ?>/src/Views/assets/js/alert.js"></script>
-    
+
 
     <!-- =======================================================
   * Template Name: NiceAdmin
